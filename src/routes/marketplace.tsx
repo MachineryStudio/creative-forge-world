@@ -59,7 +59,7 @@ function Marketplace() {
   async function load() {
     try {
       const supabase = await getSupabase();
-      const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
+      const { data } = await supabase.rpc("list_products");
       if (data) setProducts(data as Product[]);
     } catch (err) {
       console.warn(getSupabaseLoadMessage(err));
