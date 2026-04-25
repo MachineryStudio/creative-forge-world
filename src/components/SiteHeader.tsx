@@ -17,11 +17,11 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
           <div className="grid h-9 w-9 place-items-center rounded-md bg-gradient-to-br from-primary to-accent neon-glow">
-            <span className="font-display text-sm font-bold text-primary-foreground">WS</span>
+            <span className="font-display text-[10px] font-bold text-primary-foreground">BR2</span>
           </div>
           <div className="hidden sm:block">
             <div className="font-display text-base leading-none neon-text">{t("brand")}</div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">CREATURE · PIPELINE · CODE</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">2D · 3D ART · PIPELINE · CODE</div>
           </div>
         </Link>
 
