@@ -108,6 +108,8 @@ function AdminPage() {
     e.preventDefault();
     setBusy(true); setAuthMsg(null);
     try {
+      const supabase = await getSupabase();
+
       if (authMode === "signup") {
         const { error } = await supabase.auth.signUp({
           email, password,
@@ -124,15 +126,19 @@ function AdminPage() {
       }
     } catch (err) {
       sfx.death();
-      setAuthMsg(err instanceof Error ? err.message : "Auth failed");
+      setAuthMsg(getSupabaseLoadMessage(err));
     } finally {
       setBusy(false);
     }
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
-    nav({ to: "/" });
+    try {
+      const supabase = await getSupabase();
+      await supabase.auth.signOut();
+    } finally {
+      nav({ to: "/" });
+    }
   }
 
   // ---- track handlers ----
@@ -161,30 +167,47 @@ function AdminPage() {
       return;
     }
     const nextPos = (tracks[tracks.length - 1]?.position ?? 0) + 1;
-    const { error } = await supabase.from("radio_tracks").insert({
-      title: title.trim(),
-      youtube_id,
-      mood,
-      position: nextPos,
-    });
-    if (error) { setSaveMsg(error.message); sfx.death(); return; }
-    sfx.coin();
-    setTitle(""); setYtInput(""); setMood("clouds");
-    setSaveMsg("Track added.");
-    loadTracks();
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("radio_tracks").insert({
+        title: title.trim(),
+        youtube_id,
+        mood,
+        position: nextPos,
+      });
+      if (error) throw error;
+      sfx.coin();
+      setTitle(""); setYtInput(""); setMood("clouds");
+      setSaveMsg("Track added.");
+      loadTracks();
+    } catch (err) {
+      setSaveMsg(getSupabaseLoadMessage(err));
+      sfx.death();
+    }
   }
 
   async function removeTrack(id: string) {
-    const { error } = await supabase.from("radio_tracks").delete().eq("id", id);
-    if (error) { setSaveMsg(error.message); sfx.death(); return; }
-    sfx.blip();
-    loadTracks();
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("radio_tracks").delete().eq("id", id);
+      if (error) throw error;
+      sfx.blip();
+      loadTracks();
+    } catch (err) {
+      setSaveMsg(getSupabaseLoadMessage(err));
+      sfx.death();
+    }
   }
 
   async function updateMood(id: string, newMood: string) {
-    const { error } = await supabase.from("radio_tracks").update({ mood: newMood }).eq("id", id);
-    if (error) { setSaveMsg(error.message); return; }
-    loadTracks();
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("radio_tracks").update({ mood: newMood }).eq("id", id);
+      if (error) throw error;
+      loadTracks();
+    } catch (err) {
+      setSaveMsg(getSupabaseLoadMessage(err));
+    }
   }
 
   // ---- render ----
