@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
-import { Twitter, Github, Globe } from "lucide-react";
+import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
 export const Route = createFileRoute("/")({
@@ -113,7 +113,7 @@ function Index() {
                   @9THE_BRIDGE
                 </a>
                 <a
-                  href="https://www.artstation.com/"
+                  href="https://andreremi.artstation.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-display uppercase tracking-widest text-accent-foreground transition hover:bg-accent/20"
@@ -122,13 +122,40 @@ function Index() {
                   ArtStation
                 </a>
                 <a
-                  href="https://github.com/"
+                  href="https://github.com/MachineryStudio"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-3 py-2 text-xs font-display uppercase tracking-widest text-foreground transition hover:bg-secondary"
                 >
                   <Github className="h-4 w-4" />
-                  GitHub
+                  GitHub · MachineryStudio
+                </a>
+                <a
+                  href="https://www.roblox.com/users/profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/5 px-3 py-2 text-xs font-display uppercase tracking-widest text-primary transition hover:bg-primary/15"
+                >
+                  <Gamepad2 className="h-4 w-4" />
+                  Roblox
+                </a>
+                <a
+                  href="https://assetstore.unity.com/publishers"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/5 px-3 py-2 text-xs font-display uppercase tracking-widest text-accent-foreground transition hover:bg-accent/15"
+                >
+                  <Box className="h-4 w-4" />
+                  Unity Asset Store
+                </a>
+                <a
+                  href="https://www.unrealengine.com/marketplace/en-US/store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-3 py-2 text-xs font-display uppercase tracking-widest text-foreground transition hover:bg-secondary"
+                >
+                  <Boxes className="h-4 w-4" />
+                  Unreal Marketplace
                 </a>
               </div>
             </div>
