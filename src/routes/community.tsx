@@ -22,33 +22,60 @@ interface Msg {
   created_at: string;
 }
 
+interface AuthUser {
+  id: string;
+  email?: string | null;
+  user_metadata?: Record<string, unknown> | null;
+}
+
 function Community() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [body, setBody] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    return () => sub.subscription.unsubscribe();
+    let unsubscribe: (() => void) | undefined;
+
+    getSupabase()
+      .then((supabase) => {
+        const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser((s?.user as AuthUser) ?? null));
+        unsubscribe = () => sub.subscription.unsubscribe();
+        supabase.auth.getSession().then(({ data }) => setUser((data.session?.user as AuthUser) ?? null));
+      })
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+
+    return () => unsubscribe?.();
   }, []);
 
   useEffect(() => {
-    supabase
-      .from("community_messages")
-      .select("*")
-      .order("created_at", { ascending: true })
-      .limit(100)
-      .then(({ data }) => { if (data) setMessages(data as Msg[]); });
+    let active = true;
+    let unsubscribe: (() => void) | undefined;
 
-    const ch = supabase
-      .channel("community")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_messages" }, (payload) => {
-        setMessages((m) => [...m, payload.new as Msg]);
+    getSupabase()
+      .then(async (supabase) => {
+        const { data } = await supabase
+          .from("community_messages")
+          .select("*")
+          .order("created_at", { ascending: true })
+          .limit(100);
+
+        if (active && data) setMessages(data as Msg[]);
+
+        const ch = supabase
+          .channel("community")
+          .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_messages" }, (payload) => {
+            setMessages((m) => [...m, payload.new as Msg]);
+          })
+          .subscribe();
+        unsubscribe = () => supabase.removeChannel(ch);
       })
-      .subscribe();
-    return () => { supabase.removeChannel(ch); };
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+
+    return () => {
+      active = false;
+      unsubscribe?.();
+    };
   }, []);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
@@ -59,10 +86,17 @@ function Community() {
     const text = body.trim().slice(0, 500);
     setBody("");
     const display = (user.user_metadata?.display_name as string) || user.email?.split("@")[0] || "guest";
-    const { error } = await supabase.from("community_messages").insert({
-      user_id: user.id, display_name: display, body: text,
-    });
-    if (error) { sfx.death(); console.error(error); } else sfx.blip();
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("community_messages").insert({
+        user_id: user.id, display_name: display, body: text,
+      });
+      if (error) throw error;
+      sfx.blip();
+    } catch (err) {
+      sfx.death();
+      console.error(getSupabaseLoadMessage(err));
+    }
   }
 
   return (
