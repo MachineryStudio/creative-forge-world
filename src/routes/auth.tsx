@@ -48,7 +48,15 @@ function AuthPage() {
       }
     } catch (err) {
       sfx.death();
-      setMsg(getSupabaseLoadMessage(err));
+      const message = getSupabaseLoadMessage(err);
+      // Auto-switch to sign-in if account already exists
+      if (mode === "signup" && /already registered|already exists|user already/i.test(message)) {
+        setMode("signin");
+        setPassword("");
+        setMsg("This email already has an account. Enter your password to sign in.");
+      } else {
+        setMsg(message);
+      }
     } finally {
       setBusy(false);
     }
