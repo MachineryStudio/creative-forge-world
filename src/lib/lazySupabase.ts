@@ -219,10 +219,12 @@ export async function getSupabase() {
       };
     },
     channel() {
-      return {
-        on() { return this; },
-        subscribe() { return { unsubscribe() {} }; },
+      const channel = {
+        on(..._args: unknown[]) { return channel; },
+        subscribe() { return channel; },
+        unsubscribe() {},
       };
+      return channel;
     },
     removeChannel(channel: { unsubscribe?: () => void }) {
       channel.unsubscribe?.();
