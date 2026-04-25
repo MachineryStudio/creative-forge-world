@@ -46,14 +46,25 @@ function AdminPage() {
 
   // Auth state listener
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      setUserId(session?.user?.id ?? null);
-    });
-    supabase.auth.getSession().then(({ data }) => {
-      setUserId(data.session?.user?.id ?? null);
-      setLoading(false);
-    });
-    return () => sub.subscription.unsubscribe();
+    let unsubscribe: (() => void) | undefined;
+
+    getSupabase()
+      .then((supabase) => {
+        const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+          setUserId(session?.user?.id ?? null);
+        });
+        unsubscribe = () => sub.subscription.unsubscribe();
+        supabase.auth.getSession().then(({ data }) => {
+          setUserId(data.session?.user?.id ?? null);
+          setLoading(false);
+        });
+      })
+      .catch((err) => {
+        setAuthMsg(getSupabaseLoadMessage(err));
+        setLoading(false);
+      });
+
+    return () => unsubscribe?.();
   }, []);
 
   // Check admin role + load tracks
@@ -61,24 +72,34 @@ function AdminPage() {
     if (!userId) { setIsAdmin(false); return; }
     let active = true;
     (async () => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (!active) return;
-      setIsAdmin(!!data);
+      try {
+        const supabase = await getSupabase();
+        const { data } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId)
+          .eq("role", "admin")
+          .maybeSingle();
+        if (!active) return;
+        setIsAdmin(!!data);
+      } catch (err) {
+        if (active) setAuthMsg(getSupabaseLoadMessage(err));
+      }
     })();
     return () => { active = false; };
   }, [userId]);
 
   const loadTracks = async () => {
-    const { data } = await supabase
-      .from("radio_tracks")
-      .select("*")
-      .order("position", { ascending: true });
-    setTracks((data ?? []) as DBTrack[]);
+    try {
+      const supabase = await getSupabase();
+      const { data } = await supabase
+        .from("radio_tracks")
+        .select("*")
+        .order("position", { ascending: true });
+      setTracks((data ?? []) as DBTrack[]);
+    } catch (err) {
+      setSaveMsg(getSupabaseLoadMessage(err));
+    }
   };
   useEffect(() => { if (isAdmin) loadTracks(); }, [isAdmin]);
 
