@@ -111,7 +111,7 @@ function Index() {
               </p>
 
               <p className="font-mono text-xs leading-relaxed text-primary">
-                KeepOnLearning++ &nbsp; NeverGiveUP &nbsp; CloseYourEyesThinkOfMeFeelMyWarmRemotely &nbsp; LoveThePlanetFightTheAbuserNarcisms
+                KeepOnLearning++ &nbsp; NeverGiveUP &nbsp; CloseYourEyesThinkOfMeFeelMyWarmRemotely &nbsp; LoveThePlanetProtectThePeopleAttackTheTitans
               </p>
 
               <p className="text-sm leading-relaxed text-muted-foreground" lang="ja">
