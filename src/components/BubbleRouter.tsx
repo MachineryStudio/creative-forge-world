@@ -1,71 +1,48 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshTransmissionMaterial, OrbitControls, Sphere } from "@react-three/drei";
-import { useRef, useState, Suspense, useCallback, MouseEvent as ReactMouseEvent } from "react";
+import { Float, MeshTransmissionMaterial, Sphere, Stars } from "@react-three/drei";
+import { useRef, useState, Suspense, useCallback, useMemo, MouseEvent as ReactMouseEvent } from "react";
 import * as THREE from "three";
 import { Link } from "@tanstack/react-router";
 import { sfx } from "@/lib/sfx";
-import { Power, RotateCcw, Sparkles } from "lucide-react";
+import { RotateCcw, Sparkles } from "lucide-react";
+import { useMusic, type Mood } from "@/lib/musicStore";
 
 interface Hub {
   id: string;
   label: string;
   to: string;
-  color: string;
   /** angle on the ring in radians (initial position) */
   angle: number;
 }
 
+const WHITE = "#ffffff";
+
 const HUBS: Hub[] = [
-  { id: "3d", label: "3D Mesh", to: "/hub/3d-mesh", color: "#6ee7ff", angle: 0 },
-  { id: "2dc", label: "2D Concept", to: "/hub/2d-conceptual", color: "#ff6ec7", angle: Math.PI / 3 },
-  { id: "2dCr", label: "2D Creatures", to: "/hub/2d-creatures", color: "#ffd56e", angle: (2 * Math.PI) / 3 },
-  { id: "comic", label: "Comics-Manga", to: "/hub/comics", color: "#b16eff", angle: Math.PI },
-  { id: "tool", label: "Toolbox", to: "/hub/toolbox", color: "#6effa0", angle: (4 * Math.PI) / 3 },
-  { id: "mini", label: "Minitoires", to: "/hub/minitoires", color: "#ff8a6e", angle: (5 * Math.PI) / 3 },
-  { id: "script", label: "Scriptable", to: "/hub/scriptable", color: "#6e9bff", angle: (6 * Math.PI) / 3 + 0.4 },
+  { id: "3d",     label: "3D Mesh",      to: "/hub/3d-mesh",        angle: 0 },
+  { id: "2dc",    label: "2D Concept",   to: "/hub/2d-conceptual",  angle: Math.PI / 4 },
+  { id: "2dCr",   label: "2D Creatures", to: "/hub/2d-creatures",   angle: Math.PI / 2 },
+  { id: "comic",  label: "Comics",       to: "/hub/comics",         angle: (3 * Math.PI) / 4 },
+  { id: "tool",   label: "Toolbox",      to: "/hub/toolbox",        angle: Math.PI },
+  { id: "mini",   label: "Minitoires",   to: "/hub/minitoires",     angle: (5 * Math.PI) / 4 },
+  { id: "script", label: "Scriptable",   to: "/hub/scriptable",     angle: (3 * Math.PI) / 2 },
+  { id: "rig",    label: "Rigging",      to: "/hub/rigging",        angle: (7 * Math.PI) / 4 },
 ];
 
-function CenterBubble({ rotating }: { rotating: boolean }) {
-  const ref = useRef<THREE.Mesh>(null);
-  useFrame((_, dt) => {
-    if (ref.current && rotating) ref.current.rotation.y += dt * 0.3;
-  });
-  return (
-    <group>
-      <Sphere args={[1.6, 64, 64]} ref={ref}>
-        <MeshTransmissionMaterial
-          color="#ff3d8a"
-          thickness={0.6}
-          roughness={0.05}
-          transmission={1}
-          ior={1.4}
-          chromaticAberration={0.1}
-          backside
-        />
-      </Sphere>
-      <pointLight position={[0, 0, 2]} intensity={2.4} color="#ff3d8a" />
-    </group>
-  );
-}
+/* =================== 3D scene =================== */
 
-function Satellite({ hub, ringRotation, on }: { hub: Hub; ringRotation: number; on: boolean }) {
+function CenterBubble() {
   const ref = useRef<THREE.Mesh>(null);
-  const r = 3.4;
-  useFrame(() => {
-    if (!ref.current) return;
-    const a = hub.angle - ringRotation;
-    ref.current.position.x = Math.cos(a) * r;
-    ref.current.position.y = Math.sin(a) * r;
-  });
+  useFrame((_, dt) => { if (ref.current) ref.current.rotation.y += dt * 0.25; });
   return (
-    <Float speed={2} floatIntensity={0.4} rotationIntensity={0.4}>
-      <Sphere args={[0.55, 48, 48]} ref={ref}>
+    <Float speed={1.2} floatIntensity={0.3} rotationIntensity={0.2}>
+      <Sphere args={[1.4, 64, 64]} ref={ref}>
         <MeshTransmissionMaterial
-          color={on ? hub.color : "#444"}
-          thickness={0.4}
-          roughness={0.1}
+          color={WHITE}
+          thickness={0.8}
+          roughness={0.02}
           transmission={1}
-          ior={1.3}
+          ior={1.45}
+          chromaticAberration={0.15}
           backside
         />
       </Sphere>
@@ -73,66 +50,181 @@ function Satellite({ hub, ringRotation, on }: { hub: Hub; ringRotation: number; 
   );
 }
 
-function Ring({ on }: { on: boolean }) {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((_, dt) => {
-    if (ref.current && on) ref.current.rotation.z -= dt * 0.2;
+function Satellite({ angle, ringRot }: { angle: number; ringRot: number }) {
+  const ref = useRef<THREE.Mesh>(null);
+  const r = 3.2;
+  useFrame(() => {
+    if (!ref.current) return;
+    const a = angle + ringRot;
+    ref.current.position.x = Math.cos(a) * r;
+    ref.current.position.y = Math.sin(a) * r;
   });
   return (
-    <group ref={ref}>
-      {HUBS.map((h, i) => (
-        <line key={i}>
-          <bufferGeometry
-            attach="geometry"
-            onUpdate={(g) => {
-              const r = 3.4;
-              const verts = new Float32Array([0, 0, 0, Math.cos(h.angle) * r, Math.sin(h.angle) * r, 0]);
-              g.setAttribute("position", new THREE.BufferAttribute(verts, 3));
-            }}
-          />
-          <lineBasicMaterial color={h.color} transparent opacity={0.3} />
-        </line>
-      ))}
+    <Float speed={2} floatIntensity={0.5} rotationIntensity={0.4}>
+      <Sphere args={[0.5, 48, 48]} ref={ref}>
+        <MeshTransmissionMaterial
+          color={WHITE}
+          thickness={0.4}
+          roughness={0.05}
+          transmission={1}
+          ior={1.35}
+          backside
+        />
+      </Sphere>
+    </Float>
+  );
+}
+
+function Satellites({ ringRotRef }: { ringRotRef: React.MutableRefObject<number> }) {
+  const grp = useRef<THREE.Group>(null);
+  const [, force] = useState(0);
+  useFrame((_, dt) => {
+    ringRotRef.current -= dt * 0.18; // clockwise
+    force((n) => (n + 1) % 1000000);
+  });
+  return (
+    <group ref={grp}>
+      {HUBS.map((h) => <Satellite key={h.id} angle={h.angle} ringRot={ringRotRef.current} />)}
     </group>
   );
 }
 
-function Scene({ active, ringRot }: { active: Record<string, boolean>; ringRot: number }) {
+/* ---------- Mood backgrounds ---------- */
+
+function CloudsBg() {
+  const ref = useRef<THREE.Points>(null);
+  const geom = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    const N = 800;
+    const arr = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 24;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 14;
+      arr[i * 3 + 2] = -3 - Math.random() * 8;
+    }
+    g.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+    return g;
+  }, []);
+  useFrame((_, dt) => { if (ref.current) ref.current.rotation.z += dt * 0.02; });
+  return (
+    <points ref={ref} geometry={geom}>
+      <pointsMaterial color="#cfe6ff" size={0.35} transparent opacity={0.55} sizeAttenuation depthWrite={false} />
+    </points>
+  );
+}
+
+function PlanetsBg() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame((_, dt) => { if (ref.current) ref.current.rotation.y += dt * 0.05; });
+  return (
+    <group ref={ref}>
+      <Stars radius={40} depth={30} count={2500} factor={3} fade speed={1.2} />
+      <mesh position={[-7, 2, -8]}>
+        <sphereGeometry args={[1.2, 32, 32]} />
+        <meshStandardMaterial color="#ff8a6e" emissive="#552210" emissiveIntensity={0.4} />
+      </mesh>
+      <mesh position={[8, -3, -10]}>
+        <sphereGeometry args={[1.6, 32, 32]} />
+        <meshStandardMaterial color="#6e9bff" emissive="#101a55" emissiveIntensity={0.4} />
+      </mesh>
+    </group>
+  );
+}
+
+function RainBg() {
+  const ref = useRef<THREE.Points>(null);
+  const N = 1500;
+  const positions = useMemo(() => {
+    const arr = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 24;
+      arr[i * 3 + 1] = Math.random() * 16 - 8;
+      arr[i * 3 + 2] = -2 - Math.random() * 6;
+    }
+    return arr;
+  }, []);
+  useFrame((_, dt) => {
+    if (!ref.current) return;
+    const pos = (ref.current.geometry.attributes.position as THREE.BufferAttribute).array as Float32Array;
+    for (let i = 0; i < N; i++) {
+      pos[i * 3 + 1] -= dt * (3 + (i % 5));
+      if (pos[i * 3 + 1] < -8) pos[i * 3 + 1] = 8;
+    }
+    (ref.current.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true;
+  });
+  return (
+    <points ref={ref}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} count={N} />
+      </bufferGeometry>
+      <pointsMaterial color="#9ec8ff" size={0.06} transparent opacity={0.7} depthWrite={false} />
+    </points>
+  );
+}
+
+function NatureBg() {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame(({ clock }) => {
+    if (!ref.current) return;
+    const t = clock.getElapsedTime();
+    const geo = ref.current.geometry as THREE.PlaneGeometry;
+    const pos = geo.attributes.position as THREE.BufferAttribute;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i), y = pos.getY(i);
+      pos.setZ(i, Math.sin(x * 0.4 + t) * 0.4 + Math.cos(y * 0.4 + t * 0.8) * 0.4);
+    }
+    pos.needsUpdate = true;
+  });
+  return (
+    <mesh ref={ref} position={[0, 0, -6]} rotation={[-0.3, 0, 0]}>
+      <planeGeometry args={[24, 14, 40, 24]} />
+      <meshStandardMaterial color="#3aa37a" wireframe transparent opacity={0.5} />
+    </mesh>
+  );
+}
+
+function MoodBackground({ mood }: { mood: Mood }) {
+  if (mood === "clouds") return <CloudsBg />;
+  if (mood === "planets") return <PlanetsBg />;
+  if (mood === "rain") return <RainBg />;
+  if (mood === "nature") return <NatureBg />;
+  return <Stars radius={30} depth={20} count={800} factor={2} fade speed={0.3} />;
+}
+
+function Scene({ mood, ringRotRef }: { mood: Mood; ringRotRef: React.MutableRefObject<number> }) {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <pointLight position={[5, 5, 5]} intensity={1.5} />
-      <CenterBubble rotating={Object.values(active).some(Boolean)} />
-      <Ring on={Object.values(active).some(Boolean)} />
-      {HUBS.map((h) => (
-        <Satellite key={h.id} hub={h} ringRotation={ringRot} on={active[h.id]} />
-      ))}
+      <ambientLight intensity={0.6} />
+      <pointLight position={[5, 5, 5]} intensity={1.5} color={WHITE} />
+      <pointLight position={[-5, -3, 3]} intensity={0.8} color="#aad4ff" />
+      <MoodBackground mood={mood} />
+      <CenterBubble />
+      <Satellites ringRotRef={ringRotRef} />
     </>
   );
 }
 
-interface Ripple {
-  id: number;
-  x: number; // %
-  y: number; // %
-  hue: number;
-}
+/* =================== 2D overlay =================== */
 
-const initialActive = () => Object.fromEntries(HUBS.map((h) => [h.id, true])) as Record<string, boolean>;
-const initialPositions = (): Record<string, { x: number; y: number } | null> =>
-  Object.fromEntries(HUBS.map((h) => [h.id, null]));
+interface Ripple { id: number; x: number; y: number; hue: number; }
 
 export function BubbleRouter() {
-  const [active, setActive] = useState<Record<string, boolean>>(initialActive);
-  const [positions, setPositions] = useState<Record<string, { x: number; y: number } | null>>(initialPositions);
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const [points, setPoints] = useState(0);
-  const ringRot = 0;
+  const [tick, setTick] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const rippleId = useRef(0);
+  const ringRotRef = useRef(0);
+  const mood = useMusic((s) => s.mood);
+
+  // poll ringRot to re-render the SVG link layer at ~30fps
+  useMemo(() => {
+    const i = setInterval(() => setTick((t) => (t + 1) % 1000000), 33);
+    return () => clearInterval(i);
+  }, []);
+  void tick;
 
   const spawnRipple = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
-    // Only count clicks on the empty area (not on hubs / buttons)
     if ((e.target as HTMLElement).closest("[data-hub], [data-control]")) return;
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -147,12 +239,22 @@ export function BubbleRouter() {
   }, []);
 
   const reset = useCallback(() => {
-    setActive(initialActive());
-    setPositions(initialPositions());
     setRipples([]);
     setPoints(0);
+    ringRotRef.current = 0;
     sfx.power();
   }, []);
+
+  // compute satellite 2D positions for SVG curves (mirror of 3D math)
+  const r2D = 36; // % radius
+  const sats = HUBS.map((h) => {
+    const a = h.angle + ringRotRef.current;
+    return {
+      ...h,
+      x: 50 + Math.cos(a) * r2D,
+      y: 50 - Math.sin(a) * r2D, // invert Y for screen
+    };
+  });
 
   return (
     <div
@@ -160,15 +262,39 @@ export function BubbleRouter() {
       onClick={spawnRipple}
       className="relative h-[640px] w-full cursor-crosshair overflow-hidden rounded-2xl panel scanlines"
     >
-      {/* 3D canvas */}
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }} className="absolute inset-0">
         <Suspense fallback={null}>
-          <Scene active={active} ringRot={ringRot} />
+          <Scene mood={mood} ringRotRef={ringRotRef} />
         </Suspense>
-        <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
       </Canvas>
 
-      {/* Ripple bubbles */}
+      {/* Curved link connectors (white, glowing) */}
+      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <filter id="linkGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.4" result="b" />
+            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+        {sats.map((s, i) => {
+          // curved bezier from center to satellite
+          const mx = (50 + s.x) / 2 + Math.sin(i + ringRotRef.current) * 4;
+          const my = (50 + s.y) / 2 + Math.cos(i + ringRotRef.current) * 4;
+          return (
+            <path
+              key={s.id}
+              d={`M 50 50 Q ${mx} ${my} ${s.x} ${s.y}`}
+              stroke="white"
+              strokeOpacity={0.55}
+              strokeWidth={0.25}
+              fill="none"
+              filter="url(#linkGlow)"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Ripple bubbles (3D-ish glass) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {ripples.map((r) => (
           <span
@@ -177,34 +303,34 @@ export function BubbleRouter() {
             style={{
               left: `${r.x}%`,
               top: `${r.y}%`,
-              width: 24,
-              height: 24,
+              width: 28,
+              height: 28,
               transform: "translate(-50%, -50%)",
-              background: `radial-gradient(circle at 30% 30%, oklch(0.85 0.2 ${r.hue}) 0%, oklch(0.6 0.2 ${r.hue} / 0.6) 40%, transparent 70%)`,
-              boxShadow: `0 0 22px oklch(0.7 0.2 ${r.hue} / 0.7), inset 0 0 12px oklch(0.95 0.1 ${r.hue} / 0.6)`,
+              background: `radial-gradient(circle at 30% 30%, oklch(0.95 0.1 ${r.hue}) 0%, oklch(0.7 0.18 ${r.hue} / 0.5) 45%, transparent 75%)`,
+              boxShadow: `0 0 24px oklch(0.85 0.15 ${r.hue} / 0.7), inset 0 0 14px oklch(1 0.05 ${r.hue} / 0.7)`,
             }}
           />
         ))}
       </div>
 
-      {/* Top-left status / instructions */}
-      <div className="pointer-events-none absolute left-4 top-4 font-display text-[10px] uppercase tracking-[0.3em] text-primary/80">
+      {/* Status */}
+      <div className="pointer-events-none absolute left-4 top-4 font-display text-[10px] uppercase tracking-[0.3em] text-white/80">
         ◆ Network Online
-        <div className="mt-1 text-[9px] text-muted-foreground normal-case tracking-normal">
-          Drag nodes · click empty space for bubbles
+        <div className="mt-1 text-[9px] text-white/50 normal-case tracking-normal">
+          Click empty space for bubbles · {mood !== "off" ? `mood: ${mood}` : "play music to morph the sky"}
         </div>
       </div>
 
-      {/* Top-right controls: Points + Reset */}
+      {/* Controls */}
       <div data-control className="pointer-events-auto absolute right-4 top-4 flex items-center gap-2">
-        <div className="flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1.5 font-display text-xs text-primary backdrop-blur">
+        <div className="flex items-center gap-2 rounded-full border border-white/40 bg-black/40 px-3 py-1.5 font-display text-xs text-white backdrop-blur">
           <Sparkles className="h-3.5 w-3.5" />
           <span className="tabular-nums">{points.toString().padStart(4, "0")}</span>
-          <span className="text-[9px] uppercase tracking-widest text-muted-foreground">pts</span>
+          <span className="text-[9px] uppercase tracking-widest text-white/60">pts</span>
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); reset(); }}
-          className="flex items-center gap-1.5 rounded-full border border-primary/50 bg-primary/10 px-3 py-1.5 font-display text-[10px] uppercase tracking-widest text-primary transition hover:bg-primary/20"
+          className="flex items-center gap-1.5 rounded-full border border-white/50 bg-white/10 px-3 py-1.5 font-display text-[10px] uppercase tracking-widest text-white transition hover:bg-white/20"
           title="Reset network"
         >
           <RotateCcw className="h-3 w-3" />
@@ -212,127 +338,31 @@ export function BubbleRouter() {
         </button>
       </div>
 
-      {/* HUD overlay with draggable hub buttons positioned around the ring */}
+      {/* Hub link buttons positioned over satellites */}
       <div className="pointer-events-none absolute inset-0">
-        {HUBS.map((h, i) => {
-          const angle = h.angle;
-          const cx = 50 + Math.cos(angle) * 36;
-          const cy = 50 - Math.sin(angle) * 36;
-          return (
-            <DraggableHub
-              key={h.id}
-              hub={h}
-              cx={cx}
-              cy={cy}
-              pos={positions[h.id]}
-              setPos={(p) => setPositions((all) => ({ ...all, [h.id]: p }))}
-              active={active[h.id]}
-              onToggle={() => {
-                sfx.power();
-                setActive((a) => ({ ...a, [h.id]: !a[h.id] }));
-              }}
-              index={i}
-            />
-          );
-        })}
+        {sats.map((s) => (
+          <Link
+            key={s.id}
+            data-hub
+            to={s.to}
+            onClick={(e) => { e.stopPropagation(); sfx.coin(); }}
+            className="pointer-events-auto absolute grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white/80 bg-white/10 text-center font-display text-[9px] uppercase tracking-wider text-white backdrop-blur transition hover:scale-110 hover:bg-white/25"
+            style={{
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              boxShadow: "0 0 18px rgba(255,255,255,0.55), inset 0 0 10px rgba(255,255,255,0.25)",
+            }}
+          >
+            {s.label}
+          </Link>
+        ))}
       </div>
 
-      {/* HUD label center */}
+      {/* Center label */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-        <div className="font-display text-xs uppercase tracking-[0.3em] text-primary/80">Router · Switch</div>
-        <div className="font-display text-2xl neon-text">BRIDGE2</div>
-        <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">[ Hub v2.0 ]</div>
-      </div>
-    </div>
-  );
-}
-
-function DraggableHub({
-  hub, cx, cy, pos, setPos, active, onToggle, index,
-}: {
-  hub: Hub;
-  cx: number;
-  cy: number;
-  pos: { x: number; y: number } | null;
-  setPos: (p: { x: number; y: number } | null) => void;
-  active: boolean;
-  onToggle: () => void;
-  index: number;
-}) {
-  const dragRef = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
-  const moved = useRef(false);
-
-  const x = pos?.x ?? cx;
-  const y = pos?.y ?? cy;
-
-  return (
-    <div
-      data-hub
-      className="pointer-events-auto absolute"
-      style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%, -50%)" }}
-      onClick={(e) => e.stopPropagation()}
-      onMouseDown={(e) => {
-        e.stopPropagation();
-        moved.current = false;
-        dragRef.current = { sx: e.clientX, sy: e.clientY, px: x, py: y };
-        const parent = e.currentTarget.parentElement?.parentElement as HTMLElement;
-        const rect = parent.getBoundingClientRect();
-        const onMove = (ev: globalThis.MouseEvent) => {
-          if (!dragRef.current) return;
-          const dx = ((ev.clientX - dragRef.current.sx) / rect.width) * 100;
-          const dy = ((ev.clientY - dragRef.current.sy) / rect.height) * 100;
-          if (Math.abs(dx) + Math.abs(dy) > 0.5) moved.current = true;
-          setPos({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
-        };
-        const onUp = () => {
-          dragRef.current = null;
-          window.removeEventListener("mousemove", onMove);
-          window.removeEventListener("mouseup", onUp);
-        };
-        window.addEventListener("mousemove", onMove);
-        window.addEventListener("mouseup", onUp);
-      }}
-    >
-      <div className="relative flex flex-col items-center gap-1 select-none">
-        <svg className="pointer-events-none absolute" style={{ left: "50%", top: "50%", width: 1, height: 1, overflow: "visible" }}>
-          <line
-            x1={0}
-            y1={0}
-            x2={(50 - x) * 6}
-            y2={(50 - y) * 6}
-            stroke={hub.color}
-            strokeOpacity={0.4}
-            strokeDasharray="4 4"
-          />
-        </svg>
-
-        <Link
-          to={hub.to}
-          onClick={(e) => {
-            if (moved.current) { e.preventDefault(); return; }
-            sfx.coin();
-          }}
-          className="grid h-16 w-16 place-items-center rounded-full border-2 text-center font-display text-[10px] uppercase tracking-wider transition hover:scale-110"
-          style={{
-            borderColor: hub.color,
-            background: `radial-gradient(circle at 30% 30%, ${hub.color}40, transparent 70%)`,
-            boxShadow: active ? `0 0 18px ${hub.color}80` : "none",
-            color: active ? "#fff" : "#888",
-            opacity: active ? 1 : 0.5,
-          }}
-        >
-          {hub.label}
-        </Link>
-
-        <button
-          data-control
-          onClick={(e) => { e.stopPropagation(); onToggle(); }}
-          className={`grid h-5 w-5 place-items-center rounded-full border ${active ? "border-primary text-primary" : "border-muted-foreground text-muted-foreground"}`}
-          title="Power"
-        >
-          <Power className="h-3 w-3" />
-        </button>
-        <span className="text-[9px] text-muted-foreground">#{(index + 1).toString().padStart(2, "0")}</span>
+        <div className="font-display text-xs uppercase tracking-[0.3em] text-white/80">Router · Switch</div>
+        <div className="font-display text-2xl text-white" style={{ textShadow: "0 0 18px rgba(255,255,255,0.7)" }}>BRIDGE2</div>
+        <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-white/60">[ Hub v2.0 ]</div>
       </div>
     </div>
   );
