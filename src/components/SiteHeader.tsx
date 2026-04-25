@@ -16,8 +16,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
-          <div className="grid h-9 w-9 place-items-center rounded-md bg-gradient-to-br from-primary to-accent neon-glow">
-            <span className="font-display text-[10px] font-bold text-primary-foreground">BR2</span>
+          <div className="grid h-9 min-w-[3.5rem] place-items-center rounded-md bg-gradient-to-br from-primary to-accent px-2 neon-glow">
+            <span className="font-display text-[9px] font-bold tracking-[0.15em] text-primary-foreground">BRIDGE2</span>
           </div>
           <div className="hidden sm:block">
             <div className="font-display text-base leading-none neon-text">{t("brand")}</div>
