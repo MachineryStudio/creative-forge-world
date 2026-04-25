@@ -17,6 +17,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const t = useT();
   const { bilingual, jpOnly, lang } = useI18n();
+  const [attackTrigger, setAttackTrigger] = useState(0);
 
   const introEn = STRINGS.intro.en;
   const introJp = STRINGS.intro.jp;
