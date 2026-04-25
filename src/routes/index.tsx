@@ -4,8 +4,10 @@ import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
+import { CreatureAttack } from "@/components/CreatureAttack";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
+import { useState } from "react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
 export const Route = createFileRoute("/")({
@@ -15,6 +17,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const t = useT();
   const { bilingual, jpOnly, lang } = useI18n();
+  const [attackTrigger, setAttackTrigger] = useState(0);
 
   const introEn = STRINGS.intro.en;
   const introJp = STRINGS.intro.jp;
@@ -23,13 +26,19 @@ function Index() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
+      <CreatureAttack trigger={attackTrigger} />
 
       {/* HERO */}
       <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-display text-[10px] uppercase tracking-[0.3em] text-primary">
+        <button
+          type="button"
+          onClick={() => setAttackTrigger((n) => n + 1)}
+          className="mb-6 inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-display text-[10px] uppercase tracking-[0.3em] text-primary transition hover:scale-105 hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]"
+          aria-label="Summon a creature"
+        >
           <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
           Andree Online
-        </div>
+        </button>
         <h1 className="font-display text-5xl leading-tight md:text-7xl">
           <span className="neon-text">{t("brand")}</span>
         </h1>
