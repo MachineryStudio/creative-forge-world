@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
 
@@ -27,6 +27,8 @@ function AuthPage() {
     e.preventDefault();
     setBusy(true); setMsg(null);
     try {
+      const supabase = await getSupabase();
+
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email, password,
@@ -46,7 +48,7 @@ function AuthPage() {
       }
     } catch (err) {
       sfx.death();
-      setMsg(err instanceof Error ? err.message : "Auth failed");
+      setMsg(getSupabaseLoadMessage(err));
     } finally {
       setBusy(false);
     }

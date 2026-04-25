@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
-import type { User } from "@supabase/supabase-js";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { Plus } from "lucide-react";
 
 export const Route = createFileRoute("/marketplace")({
@@ -32,20 +31,39 @@ interface Product {
 
 const CATEGORIES = ["3d-model", "zbrush-brush", "texture", "pdf-tutorial", "python-script"];
 
+interface AuthUser {
+  id: string;
+  email?: string | null;
+  user_metadata?: Record<string, unknown> | null;
+}
+
 function Marketplace() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    return () => sub.subscription.unsubscribe();
+    let unsubscribe: (() => void) | undefined;
+
+    getSupabase()
+      .then((supabase) => {
+        const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser((s?.user as AuthUser) ?? null));
+        unsubscribe = () => sub.subscription.unsubscribe();
+        supabase.auth.getSession().then(({ data }) => setUser((data.session?.user as AuthUser) ?? null));
+      })
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+
+    return () => unsubscribe?.();
   }, []);
 
   async function load() {
-    const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
-    if (data) setProducts(data as Product[]);
+    try {
+      const supabase = await getSupabase();
+      const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
+      if (data) setProducts(data as Product[]);
+    } catch (err) {
+      console.warn(getSupabaseLoadMessage(err));
+    }
   }
   useEffect(() => { load(); }, []);
 
@@ -116,15 +134,24 @@ function ProductForm({ onClose, onSaved, userId }: { onClose: () => void; onSave
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = await supabase.from("products").insert({
-      owner_id: userId,
-      title, description, category,
-      price_cents: Math.round(parseFloat(price || "0") * 100),
-      image_url: imageUrl || null,
-      download_url: downloadUrl || null,
-    });
-    setBusy(false);
-    if (error) { sfx.death(); alert(error.message); } else { sfx.coin(); onSaved(); }
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("products").insert({
+        owner_id: userId,
+        title, description, category,
+        price_cents: Math.round(parseFloat(price || "0") * 100),
+        image_url: imageUrl || null,
+        download_url: downloadUrl || null,
+      });
+      if (error) throw error;
+      sfx.coin();
+      onSaved();
+    } catch (err) {
+      sfx.death();
+      alert(getSupabaseLoadMessage(err));
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
