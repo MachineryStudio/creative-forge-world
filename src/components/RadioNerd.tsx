@@ -99,7 +99,7 @@ export function RadioNerd() {
           <div className="truncate text-[11px] text-muted-foreground">{track.artist} · {track.genre}</div>
         </div>
         <button
-          onClick={() => { sfx.blip(); setIdx((i) => (i + 1) % TRACKS.length); }}
+          onClick={() => { sfx.blip(); setIdx((i) => (i + 1) % tracks.length); }}
           className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-primary"
         >
           <SkipForward className="h-4 w-4" />
@@ -107,7 +107,7 @@ export function RadioNerd() {
       </div>
 
       <div className="mb-3 grid grid-cols-2 gap-1 sm:grid-cols-3">
-        {TRACKS.map((t, i) => (
+        {tracks.map((t, i) => (
           <button
             key={t.id}
             onClick={() => { sfx.click(); setIdx(i); if (!on) setOn(true); }}
