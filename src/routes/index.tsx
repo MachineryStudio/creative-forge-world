@@ -28,7 +28,7 @@ function Index() {
       <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-display text-[10px] uppercase tracking-[0.3em] text-primary">
           <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-          ONLINE · v1.0
+          Andree Online
         </div>
         <h1 className="font-display text-5xl leading-tight md:text-7xl">
           <span className="neon-text">{t("brand")}</span>
