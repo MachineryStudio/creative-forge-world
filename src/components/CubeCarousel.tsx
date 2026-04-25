@@ -1,28 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/sfx";
+import { X } from "lucide-react";
+import imgCreatureToolbox from "@/assets/carousel-creature-toolbox.png";
+import imgFutureland from "@/assets/carousel-futureland.png";
+import imgKanji from "@/assets/carousel-kanji-dungeon.png";
+import imgMinis from "@/assets/carousel-3d-minis.png";
+import imgPipeline from "@/assets/carousel-3d-pipeline.png";
 
 interface Slide {
   title: string;
   subtitle: string;
-  hue: number; // 0-360
-  emoji: string;
+  hue: number;
+  image: string;
 }
 
 const SLIDES: Slide[] = [
-  { title: "Creature Toolbox", subtitle: "ZBrush · Maya · Substance", hue: 195, emoji: "🦎" },
-  { title: "Romaji Escaping", subtitle: "2D Conceptual · Manga", hue: 320, emoji: "🤖" },
-  { title: "Kanji Dungeon", subtitle: "Scene Composition", hue: 25, emoji: "🕷️" },
-  { title: "Bridge Wasteland", subtitle: "Character Design", hue: 280, emoji: "🚗" },
-  { title: "Cloud Hunter", subtitle: "Environment & Mood", hue: 200, emoji: "☁️" },
-  { title: "Tower Skyline", subtitle: "Worldbuilding", hue: 165, emoji: "🌊" },
-  { title: "Anthro Roster", subtitle: "Character Sheets", hue: 350, emoji: "🦊" },
+  { title: "Creature Toolbox", subtitle: "ZBrush · Maya · Substance", hue: 195, image: imgCreatureToolbox },
+  { title: "Futureland", subtitle: "2D Conceptual · Sci-Fi", hue: 320, image: imgFutureland },
+  { title: "Kanji Dungeon", subtitle: "Scene Composition", hue: 25, image: imgKanji },
+  { title: "3D Minis for Games", subtitle: "Miniatures & Props", hue: 280, image: imgMinis },
+  { title: "3D Pipeline Design", subtitle: "Sculpt · Retopo · Bake", hue: 200, image: imgPipeline },
 ];
 
-/** Slow right-to-left marquee of pseudo-3D cubes. Click a cube to "lock" it. */
+/** Slow right-to-left marquee of pseudo-3D cubes. Click a cube to expand it. */
 export function CubeCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<Slide | null>(null);
 
   useEffect(() => {
     const t = trackRef.current;
@@ -30,7 +34,7 @@ export function CubeCarousel() {
     let raf = 0;
     let x = 0;
     const step = () => {
-      if (!paused) {
+      if (!paused && !expanded) {
         x -= 0.4;
         if (Math.abs(x) > t.scrollWidth / 2) x = 0;
         t.style.transform = `translateX(${x}px)`;
@@ -39,71 +43,100 @@ export function CubeCarousel() {
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [paused]);
+  }, [paused, expanded]);
+
+  // pause while modal open
+  useEffect(() => {
+    if (!expanded) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setExpanded(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [expanded]);
 
   const items = [...SLIDES, ...SLIDES];
 
   return (
-    <div
-      className="relative overflow-hidden rounded-2xl panel scanlines py-8"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      style={{ perspective: "1200px" }}
-    >
-      <div className="mb-4 flex items-center justify-between px-6">
-        <h3 className="font-display text-sm uppercase tracking-[0.3em] text-muted-foreground">Carousel · 3D Cubes</h3>
-        <span className="text-xs text-muted-foreground">{paused ? "paused" : "auto-scroll →"}</span>
-      </div>
-      <div ref={trackRef} className="flex gap-8 px-6 will-change-transform">
-        {items.map((s, i) => {
-          const isSel = selected === i;
-          return (
+    <>
+      <div
+        className="relative overflow-hidden rounded-2xl panel scanlines py-8"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        style={{ perspective: "1200px" }}
+      >
+        <div className="mb-4 flex items-center justify-between px-6">
+          <h3 className="font-display text-sm uppercase tracking-[0.3em] text-muted-foreground">Carousel · 3D Cubes</h3>
+          <span className="text-xs text-muted-foreground">{paused ? "paused" : "auto-scroll →"} · click to expand</span>
+        </div>
+        <div ref={trackRef} className="flex gap-8 px-6 will-change-transform">
+          {items.map((s, i) => (
             <button
               key={i}
-              onClick={() => { sfx.coin(); setSelected(isSel ? null : i); }}
-              className="group relative h-44 w-44 shrink-0 transition-transform"
-              style={{ transformStyle: "preserve-3d", transform: isSel ? "rotateY(180deg)" : "rotateY(-18deg) rotateX(8deg)" }}
+              onClick={() => { sfx.coin(); setExpanded(s); }}
+              className="group relative h-44 w-44 shrink-0 transition-transform hover:scale-105"
+              style={{ transformStyle: "preserve-3d", transform: "rotateY(-18deg) rotateX(8deg)" }}
             >
-              {/* front */}
               <div
-                className="absolute inset-0 grid place-items-center rounded-md border text-center"
+                className="absolute inset-0 overflow-hidden rounded-md border"
                 style={{
                   borderColor: `oklch(0.7 0.2 ${s.hue})`,
-                  background: `linear-gradient(135deg, oklch(0.3 0.12 ${s.hue} / 0.6), oklch(0.2 0.05 ${s.hue} / 0.8))`,
                   boxShadow: `0 14px 30px oklch(0.1 0.05 ${s.hue} / 0.6), inset 0 0 30px oklch(0.7 0.2 ${s.hue} / 0.15)`,
-                  backfaceVisibility: "hidden",
                 }}
               >
-                <div className="space-y-2 p-3">
-                  <div className="text-4xl">{s.emoji}</div>
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(180deg, transparent 40%, oklch(0.15 0.08 ${s.hue} / 0.85) 100%)`,
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 p-3 text-center">
                   <div className="font-display text-xs uppercase tracking-widest text-foreground">{s.title}</div>
                   <div className="text-[10px] text-muted-foreground">{s.subtitle}</div>
                 </div>
               </div>
-              {/* back */}
-              <div
-                className="absolute inset-0 grid place-items-center rounded-md border p-3 text-center text-xs text-foreground"
-                style={{
-                  borderColor: `oklch(0.7 0.2 ${s.hue})`,
-                  background: `oklch(0.18 0.06 ${s.hue})`,
-                  transform: "rotateY(180deg)",
-                  backfaceVisibility: "hidden",
-                }}
-              >
-                <div>
-                  <div className="font-display text-sm neon-text">{s.title}</div>
-                  <p className="mt-2 text-[10px] leading-relaxed text-muted-foreground">{s.subtitle} · click to flip back.</p>
-                </div>
-              </div>
-              {/* shadow plate */}
               <div
                 className="absolute -bottom-3 left-1/2 h-3 w-32 -translate-x-1/2 rounded-full blur-md"
                 style={{ background: `oklch(0.7 0.2 ${s.hue} / 0.25)` }}
               />
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Expanded image modal */}
+      {expanded && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-background/85 p-6 backdrop-blur-md animate-in fade-in"
+          onClick={() => setExpanded(null)}
+        >
+          <div
+            className="relative max-h-[90vh] max-w-5xl overflow-hidden rounded-2xl border-2 panel"
+            style={{ borderColor: `oklch(0.7 0.2 ${expanded.hue})`, boxShadow: `0 30px 80px oklch(0.1 0.05 ${expanded.hue} / 0.8)` }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img src={expanded.image} alt={expanded.title} className="block max-h-[80vh] w-auto object-contain" />
+            <div
+              className="absolute inset-x-0 bottom-0 p-4"
+              style={{ background: `linear-gradient(0deg, oklch(0.1 0.05 ${expanded.hue} / 0.95), transparent)` }}
+            >
+              <div className="font-display text-lg uppercase tracking-widest neon-text">{expanded.title}</div>
+              <div className="text-xs text-muted-foreground">{expanded.subtitle}</div>
+            </div>
+            <button
+              onClick={() => setExpanded(null)}
+              className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-primary/60 bg-background/70 text-primary backdrop-blur transition hover:bg-primary/20"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
