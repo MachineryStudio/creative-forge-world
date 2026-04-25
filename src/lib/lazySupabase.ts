@@ -218,7 +218,7 @@ export async function getSupabase() {
         },
       };
     },
-    channel() {
+    channel(_name?: string) {
       const channel = {
         on(..._args: unknown[]) { return channel; },
         subscribe() { return channel; },
