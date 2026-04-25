@@ -25,32 +25,47 @@ export function RadioNerd() {
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
 
-  // Load tracks from DB (live-updates when admin edits)
+  // Load tracks from DB after render; fall back if the cached client chunk is unavailable.
   useEffect(() => {
     let mounted = true;
+    let channel: { unsubscribe: () => void } | null = null;
+
     const load = async () => {
-      const { data } = await supabase
-        .from("radio_tracks")
-        .select("id, title, youtube_id, mood")
-        .order("position", { ascending: true });
-      if (!mounted || !data || data.length === 0) return;
-      setTracks(
-        data.map((r) => ({
-          id: r.id,
-          title: r.title,
-          artist: "RadioNerd",
-          genre: "Anime" as const,
-          youtubeId: r.youtube_id,
-          mood: (r.mood as Mood) ?? "clouds",
-        }))
-      );
+      try {
+        const { supabase } = await import("@/integrations/supabase/client");
+        const { data } = await supabase
+          .from("radio_tracks")
+          .select("id, title, youtube_id, mood")
+          .order("position", { ascending: true });
+
+        if (!mounted || !data || data.length === 0) return;
+
+        setTracks(
+          data.map((r) => ({
+            id: r.id,
+            title: r.title,
+            artist: "RadioNerd",
+            genre: "Anime" as const,
+            youtubeId: r.youtube_id,
+            mood: (r.mood as Mood) ?? "clouds",
+          }))
+        );
+
+        channel = supabase
+          .channel("radio_tracks_changes")
+          .on("postgres_changes", { event: "*", schema: "public", table: "radio_tracks" }, load)
+          .subscribe();
+      } catch {
+        // Keep fallback tracks when the preview has a stale dependency chunk.
+      }
     };
+
     load();
-    const channel = supabase
-      .channel("radio_tracks_changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "radio_tracks" }, load)
-      .subscribe();
-    return () => { mounted = false; supabase.removeChannel(channel); };
+
+    return () => {
+      mounted = false;
+      channel?.unsubscribe();
+    };
   }, []);
 
   const track = tracks[idx] ?? tracks[0];
