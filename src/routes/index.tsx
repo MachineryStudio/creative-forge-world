@@ -4,8 +4,10 @@ import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
+import { CreatureAttack } from "@/components/CreatureAttack";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
+import { useState } from "react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
 export const Route = createFileRoute("/")({
