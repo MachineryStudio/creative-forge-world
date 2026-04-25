@@ -64,8 +64,8 @@ function Community() {
 
         const ch = supabase
           .channel("community")
-          .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_messages" }, (payload) => {
-            setMessages((m) => [...m, payload.new as Msg]);
+          .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_messages" }, (payload: { new: Msg }) => {
+            setMessages((m) => [...m, payload.new]);
           })
           .subscribe();
         unsubscribe = () => supabase.removeChannel(ch);
