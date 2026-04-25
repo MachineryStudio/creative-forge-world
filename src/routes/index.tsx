@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
+import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
 import andreePortrait from "@/assets/andree-portrait.png";
@@ -55,6 +56,9 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* MINI GAME */}
+      <AngelsFateGame />
 
       {/* ABOUT ANDREE / FOOTER */}
       <footer className="border-t border-border bg-background/40">
