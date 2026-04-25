@@ -2,20 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import knight from "@/assets/creature-dark-knight.png";
 import gunner from "@/assets/creature-gunner.png";
 import alien from "@/assets/creature-alien.png";
+import { sfx } from "@/lib/sfx";
 
 type AttackId = "knight" | "gunner" | "alien";
+type SfxKind = "scary" | "cute" | "alien";
 
 type Attack = {
   id: AttackId;
   img: string;
   from: "right" | "left" | "top";
   speech: string;
-  lang: string;
-  voiceLang: string; // BCP-47 used to bias accent
   rate: number;
   pitch: number;
   label: string;
-  tint: string; // glow color
+  tint: string;
+  sfx: SfxKind;
 };
 
 const ATTACKS: Attack[] = [
@@ -23,58 +24,69 @@ const ATTACKS: Attack[] = [
     id: "knight",
     img: knight,
     from: "right",
-    speech: "CreatureToolbox",
-    lang: "en",
-    voiceLang: "ja-JP", // forces Japanese-accented English
-    rate: 0.95,
-    pitch: 1.1,
-    label: "CreatureToolbox",
+    speech: "クリーチャーツールボックス！",
+    rate: 0.9,
+    pitch: 0.8,
+    label: "クリーチャーツールボックス",
     tint: "oklch(0.72 0.24 340)",
+    sfx: "scary",
   },
   {
     id: "gunner",
     img: gunner,
     from: "left",
-    speech: "Bridge Two!",
-    lang: "en",
-    voiceLang: "en-US",
-    rate: 1,
-    pitch: 1,
-    label: "BRIDGE2",
+    speech: "ブリッジ・ツー！いくよー！",
+    rate: 1.05,
+    pitch: 1.6,
+    label: "ブリッジ２！",
     tint: "oklch(0.82 0.18 75)",
+    sfx: "cute",
   },
   {
     id: "alien",
     img: alien,
     from: "top",
-    speech: "クリーチャーツールボックス",
-    lang: "ja",
-    voiceLang: "ja-JP",
-    rate: 0.85,
-    pitch: 0.6,
+    speech: "クリーチャーツールボックス…",
+    rate: 0.75,
+    pitch: 0.4,
     label: "クリーチャーツールボックス",
     tint: "oklch(0.78 0.18 195)",
+    sfx: "alien",
   },
 ];
+
+function pickJapaneseVoice(): SpeechSynthesisVoice | null {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  const ja = voices.filter((v) => v.lang?.toLowerCase().startsWith("ja"));
+  if (ja.length === 0) return null;
+  const preferred = ja.find((v) =>
+    /google|kyoko|otoya|haruka|ayumi|ichiro|nanami/i.test(v.name)
+  );
+  return preferred ?? ja[0];
+}
 
 function speak(attack: Attack) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
   try {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(attack.speech);
-    u.lang = attack.voiceLang;
+    u.lang = "ja-JP";
     u.rate = attack.rate;
     u.pitch = attack.pitch;
     u.volume = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const match =
-      voices.find((v) => v.lang?.toLowerCase().startsWith(attack.voiceLang.toLowerCase())) ||
-      voices.find((v) => v.lang?.toLowerCase().startsWith(attack.voiceLang.split("-")[0]));
-    if (match) u.voice = match;
+    const voice = pickJapaneseVoice();
+    if (voice) u.voice = voice;
     window.speechSynthesis.speak(u);
   } catch {
     /* noop */
   }
+}
+
+function playSfx(kind: SfxKind) {
+  if (kind === "scary") sfx.scaryRoar(2.8);
+  else if (kind === "alien") sfx.alienDrone(3);
+  else sfx.kawaiiJingle();
 }
 
 export function CreatureAttack({ trigger }: { trigger: number }) {
@@ -83,21 +95,28 @@ export function CreatureAttack({ trigger }: { trigger: number }) {
 
   useEffect(() => {
     if (trigger === 0) return;
-    // Pick a random attack different from the last one
     const pool = ATTACKS.filter((a) => a.id !== lastIdRef.current);
     const next = pool[Math.floor(Math.random() * pool.length)] ?? ATTACKS[0];
     lastIdRef.current = next.id;
     setAttack(next);
 
-    // Warm up voices then speak slightly after enter starts
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
     }
-    const speakT = window.setTimeout(() => speak(next), 600);
+
+    playSfx(next.sfx);
+    const speakT = window.setTimeout(() => speak(next), 700);
+    const layerT =
+      next.sfx === "scary"
+        ? window.setTimeout(() => sfx.scaryRoar(1.5), 1800)
+        : next.sfx === "alien"
+        ? window.setTimeout(() => sfx.alienDrone(1.5), 2000)
+        : 0;
     const clearT = window.setTimeout(() => setAttack(null), 5000);
     return () => {
       window.clearTimeout(speakT);
       window.clearTimeout(clearT);
+      if (layerT) window.clearTimeout(layerT);
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
         window.speechSynthesis.cancel();
       }
