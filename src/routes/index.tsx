@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
-import { Twitter, Github, Globe } from "lucide-react";
+import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
 export const Route = createFileRoute("/")({
