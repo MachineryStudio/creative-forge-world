@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { Trash2, Plus, LogOut, Music } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({

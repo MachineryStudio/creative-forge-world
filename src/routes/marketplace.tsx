@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
-import type { User } from "@supabase/supabase-js";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { Plus } from "lucide-react";
 
 export const Route = createFileRoute("/marketplace")({

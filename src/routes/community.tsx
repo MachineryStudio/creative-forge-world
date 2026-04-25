@@ -1,9 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
-import type { User } from "@supabase/supabase-js";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 
 export const Route = createFileRoute("/community")({
   head: () => ({
