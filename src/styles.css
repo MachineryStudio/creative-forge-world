@@ -136,3 +136,12 @@
   @keyframes spin-rev { to { transform: rotate(-360deg); } }
   .animate-spin-rev { animation: spin-rev 24s linear infinite; }
 }
+
+@layer utilities {
+  @keyframes ripple-bubble {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(8); }
+  }
+  .animate-ripple-bubble { animation: ripple-bubble 2s ease-out forwards; }
+}

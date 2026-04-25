@@ -1,10 +1,10 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshTransmissionMaterial, OrbitControls, Sphere } from "@react-three/drei";
-import { useRef, useState, Suspense } from "react";
+import { useRef, useState, Suspense, useCallback, MouseEvent as ReactMouseEvent } from "react";
 import * as THREE from "three";
 import { Link } from "@tanstack/react-router";
 import { sfx } from "@/lib/sfx";
-import { Power } from "lucide-react";
+import { Power, RotateCcw, Sparkles } from "lucide-react";
 
 interface Hub {
   id: string;
@@ -34,7 +34,7 @@ function CenterBubble({ rotating }: { rotating: boolean }) {
     <group>
       <Sphere args={[1.6, 64, 64]} ref={ref}>
         <MeshTransmissionMaterial
-          color="#7be0ff"
+          color="#ff3d8a"
           thickness={0.6}
           roughness={0.05}
           transmission={1}
@@ -43,7 +43,7 @@ function CenterBubble({ rotating }: { rotating: boolean }) {
           backside
         />
       </Sphere>
-      <pointLight position={[0, 0, 2]} intensity={2} color="#7be0ff" />
+      <pointLight position={[0, 0, 2]} intensity={2.4} color="#ff3d8a" />
     </group>
   );
 }
@@ -76,11 +76,10 @@ function Satellite({ hub, ringRotation, on }: { hub: Hub; ringRotation: number; 
 function Ring({ on }: { on: boolean }) {
   const ref = useRef<THREE.Group>(null);
   useFrame((_, dt) => {
-    if (ref.current && on) ref.current.rotation.z -= dt * 0.2; // opposite direction
+    if (ref.current && on) ref.current.rotation.z -= dt * 0.2;
   });
   return (
     <group ref={ref}>
-      {/* faint connector lines */}
       {HUBS.map((h, i) => (
         <line key={i}>
           <bufferGeometry
@@ -112,14 +111,55 @@ function Scene({ active, ringRot }: { active: Record<string, boolean>; ringRot: 
   );
 }
 
+interface Ripple {
+  id: number;
+  x: number; // %
+  y: number; // %
+  hue: number;
+}
+
+const initialActive = () => Object.fromEntries(HUBS.map((h) => [h.id, true])) as Record<string, boolean>;
+const initialPositions = (): Record<string, { x: number; y: number } | null> =>
+  Object.fromEntries(HUBS.map((h) => [h.id, null]));
+
 export function BubbleRouter() {
-  const [active, setActive] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(HUBS.map((h) => [h.id, true]))
-  );
-  const ringRot = 0; // rotation lives in 3D group; we keep external HUD static
+  const [active, setActive] = useState<Record<string, boolean>>(initialActive);
+  const [positions, setPositions] = useState<Record<string, { x: number; y: number } | null>>(initialPositions);
+  const [ripples, setRipples] = useState<Ripple[]>([]);
+  const [points, setPoints] = useState(0);
+  const ringRot = 0;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rippleId = useRef(0);
+
+  const spawnRipple = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
+    // Only count clicks on the empty area (not on hubs / buttons)
+    if ((e.target as HTMLElement).closest("[data-hub], [data-control]")) return;
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const id = ++rippleId.current;
+    const hue = Math.floor(Math.random() * 360);
+    setRipples((r) => [...r, { id, x, y, hue }]);
+    setPoints((p) => p + 1);
+    sfx.coin();
+    setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 2000);
+  }, []);
+
+  const reset = useCallback(() => {
+    setActive(initialActive());
+    setPositions(initialPositions());
+    setRipples([]);
+    setPoints(0);
+    sfx.power();
+  }, []);
 
   return (
-    <div className="relative h-[640px] w-full overflow-hidden rounded-2xl panel scanlines">
+    <div
+      ref={containerRef}
+      onClick={spawnRipple}
+      className="relative h-[640px] w-full cursor-crosshair overflow-hidden rounded-2xl panel scanlines"
+    >
       {/* 3D canvas */}
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }} className="absolute inset-0">
         <Suspense fallback={null}>
@@ -128,30 +168,97 @@ export function BubbleRouter() {
         <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
       </Canvas>
 
+      {/* Ripple bubbles */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {ripples.map((r) => (
+          <span
+            key={r.id}
+            className="absolute block animate-ripple-bubble rounded-full"
+            style={{
+              left: `${r.x}%`,
+              top: `${r.y}%`,
+              width: 24,
+              height: 24,
+              transform: "translate(-50%, -50%)",
+              background: `radial-gradient(circle at 30% 30%, oklch(0.85 0.2 ${r.hue}) 0%, oklch(0.6 0.2 ${r.hue} / 0.6) 40%, transparent 70%)`,
+              boxShadow: `0 0 22px oklch(0.7 0.2 ${r.hue} / 0.7), inset 0 0 12px oklch(0.95 0.1 ${r.hue} / 0.6)`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Top-left status / instructions */}
+      <div className="pointer-events-none absolute left-4 top-4 font-display text-[10px] uppercase tracking-[0.3em] text-primary/80">
+        ◆ Network Online
+        <div className="mt-1 text-[9px] text-muted-foreground normal-case tracking-normal">
+          Drag nodes · click empty space for bubbles
+        </div>
+      </div>
+
+      {/* Top-right controls: Points + Reset */}
+      <div data-control className="pointer-events-auto absolute right-4 top-4 flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1.5 font-display text-xs text-primary backdrop-blur">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span className="tabular-nums">{points.toString().padStart(4, "0")}</span>
+          <span className="text-[9px] uppercase tracking-widest text-muted-foreground">pts</span>
+        </div>
+        <button
+          onClick={(e) => { e.stopPropagation(); reset(); }}
+          className="flex items-center gap-1.5 rounded-full border border-primary/50 bg-primary/10 px-3 py-1.5 font-display text-[10px] uppercase tracking-widest text-primary transition hover:bg-primary/20"
+          title="Reset network"
+        >
+          <RotateCcw className="h-3 w-3" />
+          Reset
+        </button>
+      </div>
+
       {/* HUD overlay with draggable hub buttons positioned around the ring */}
       <div className="pointer-events-none absolute inset-0">
         {HUBS.map((h, i) => {
           const angle = h.angle;
           const cx = 50 + Math.cos(angle) * 36;
           const cy = 50 - Math.sin(angle) * 36;
-          return <DraggableHub key={h.id} hub={h} cx={cx} cy={cy} active={active[h.id]} onToggle={() => {
-            sfx.power();
-            setActive((a) => ({ ...a, [h.id]: !a[h.id] }));
-          }} index={i} />;
+          return (
+            <DraggableHub
+              key={h.id}
+              hub={h}
+              cx={cx}
+              cy={cy}
+              pos={positions[h.id]}
+              setPos={(p) => setPositions((all) => ({ ...all, [h.id]: p }))}
+              active={active[h.id]}
+              onToggle={() => {
+                sfx.power();
+                setActive((a) => ({ ...a, [h.id]: !a[h.id] }));
+              }}
+              index={i}
+            />
+          );
         })}
       </div>
 
       {/* HUD label center */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
         <div className="font-display text-xs uppercase tracking-[0.3em] text-primary/80">Router · Switch</div>
-        <div className="font-display text-2xl neon-text">World Space</div>
+        <div className="font-display text-2xl neon-text">BRIDGE2</div>
+        <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">[ Hub v2.0 ]</div>
       </div>
     </div>
   );
 }
 
-function DraggableHub({ hub, cx, cy, active, onToggle, index }: { hub: Hub; cx: number; cy: number; active: boolean; onToggle: () => void; index: number }) {
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+function DraggableHub({
+  hub, cx, cy, pos, setPos, active, onToggle, index,
+}: {
+  hub: Hub;
+  cx: number;
+  cy: number;
+  pos: { x: number; y: number } | null;
+  setPos: (p: { x: number; y: number } | null) => void;
+  active: boolean;
+  onToggle: () => void;
+  index: number;
+}) {
   const dragRef = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
   const moved = useRef(false);
 
@@ -160,14 +267,17 @@ function DraggableHub({ hub, cx, cy, active, onToggle, index }: { hub: Hub; cx: 
 
   return (
     <div
+      data-hub
       className="pointer-events-auto absolute"
       style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%, -50%)" }}
+      onClick={(e) => e.stopPropagation()}
       onMouseDown={(e) => {
+        e.stopPropagation();
         moved.current = false;
         dragRef.current = { sx: e.clientX, sy: e.clientY, px: x, py: y };
-        const parent = (e.currentTarget.parentElement?.parentElement as HTMLElement);
+        const parent = e.currentTarget.parentElement?.parentElement as HTMLElement;
         const rect = parent.getBoundingClientRect();
-        const onMove = (ev: MouseEvent) => {
+        const onMove = (ev: globalThis.MouseEvent) => {
           if (!dragRef.current) return;
           const dx = ((ev.clientX - dragRef.current.sx) / rect.width) * 100;
           const dy = ((ev.clientY - dragRef.current.sy) / rect.height) * 100;
@@ -184,7 +294,6 @@ function DraggableHub({ hub, cx, cy, active, onToggle, index }: { hub: Hub; cx: 
       }}
     >
       <div className="relative flex flex-col items-center gap-1 select-none">
-        {/* connector line back to center via SVG */}
         <svg className="pointer-events-none absolute" style={{ left: "50%", top: "50%", width: 1, height: 1, overflow: "visible" }}>
           <line
             x1={0}
@@ -216,13 +325,14 @@ function DraggableHub({ hub, cx, cy, active, onToggle, index }: { hub: Hub; cx: 
         </Link>
 
         <button
+          data-control
           onClick={(e) => { e.stopPropagation(); onToggle(); }}
           className={`grid h-5 w-5 place-items-center rounded-full border ${active ? "border-primary text-primary" : "border-muted-foreground text-muted-foreground"}`}
           title="Power"
         >
           <Power className="h-3 w-3" />
         </button>
-        <span className="text-[9px] text-muted-foreground">#{index + 1}</span>
+        <span className="text-[9px] text-muted-foreground">#{(index + 1).toString().padStart(2, "0")}</span>
       </div>
     </div>
   );
