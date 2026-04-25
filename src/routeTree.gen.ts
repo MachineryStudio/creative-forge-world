@@ -9,6 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HubToolboxRouteImport } from './routes/hub.toolbox'
 import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
@@ -19,6 +22,21 @@ import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
 import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
 import { Route as Hub2dConceptualRouteImport } from './routes/hub.2d-conceptual'
 
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +85,9 @@ const Hub2dConceptualRoute = Hub2dConceptualRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -78,6 +99,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -90,6 +114,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -103,6 +130,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -114,6 +144,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -125,6 +158,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -137,6 +173,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  CommunityRoute: typeof CommunityRoute
+  MarketplaceRoute: typeof MarketplaceRoute
   Hub2dConceptualRoute: typeof Hub2dConceptualRoute
   Hub2dCreaturesRoute: typeof Hub2dCreaturesRoute
   Hub3dMeshRoute: typeof Hub3dMeshRoute
@@ -149,6 +188,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -217,6 +277,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  CommunityRoute: CommunityRoute,
+  MarketplaceRoute: MarketplaceRoute,
   Hub2dConceptualRoute: Hub2dConceptualRoute,
   Hub2dCreaturesRoute: Hub2dCreaturesRoute,
   Hub3dMeshRoute: Hub3dMeshRoute,
@@ -229,3 +292,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
