@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HubToolboxRouteImport } from './routes/hub.toolbox'
+import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
+import { Route as HubRiggingRouteImport } from './routes/hub.rigging'
+import { Route as HubMinitoiresRouteImport } from './routes/hub.minitoires'
+import { Route as HubComicsRouteImport } from './routes/hub.comics'
+import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
+import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
+import { Route as Hub2dConceptualRouteImport } from './routes/hub.2d-conceptual'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HubToolboxRoute = HubToolboxRouteImport.update({
+  id: '/hub/toolbox',
+  path: '/hub/toolbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubScriptableRoute = HubScriptableRouteImport.update({
+  id: '/hub/scriptable',
+  path: '/hub/scriptable',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubRiggingRoute = HubRiggingRouteImport.update({
+  id: '/hub/rigging',
+  path: '/hub/rigging',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubMinitoiresRoute = HubMinitoiresRouteImport.update({
+  id: '/hub/minitoires',
+  path: '/hub/minitoires',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubComicsRoute = HubComicsRouteImport.update({
+  id: '/hub/comics',
+  path: '/hub/comics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Hub3dMeshRoute = Hub3dMeshRouteImport.update({
+  id: '/hub/3d-mesh',
+  path: '/hub/3d-mesh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Hub2dCreaturesRoute = Hub2dCreaturesRouteImport.update({
+  id: '/hub/2d-creatures',
+  path: '/hub/2d-creatures',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Hub2dConceptualRoute = Hub2dConceptualRouteImport.update({
+  id: '/hub/2d-conceptual',
+  path: '/hub/2d-conceptual',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/hub/2d-conceptual': typeof Hub2dConceptualRoute
+  '/hub/2d-creatures': typeof Hub2dCreaturesRoute
+  '/hub/3d-mesh': typeof Hub3dMeshRoute
+  '/hub/comics': typeof HubComicsRoute
+  '/hub/minitoires': typeof HubMinitoiresRoute
+  '/hub/rigging': typeof HubRiggingRoute
+  '/hub/scriptable': typeof HubScriptableRoute
+  '/hub/toolbox': typeof HubToolboxRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/hub/2d-conceptual': typeof Hub2dConceptualRoute
+  '/hub/2d-creatures': typeof Hub2dCreaturesRoute
+  '/hub/3d-mesh': typeof Hub3dMeshRoute
+  '/hub/comics': typeof HubComicsRoute
+  '/hub/minitoires': typeof HubMinitoiresRoute
+  '/hub/rigging': typeof HubRiggingRoute
+  '/hub/scriptable': typeof HubScriptableRoute
+  '/hub/toolbox': typeof HubToolboxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/hub/2d-conceptual': typeof Hub2dConceptualRoute
+  '/hub/2d-creatures': typeof Hub2dCreaturesRoute
+  '/hub/3d-mesh': typeof Hub3dMeshRoute
+  '/hub/comics': typeof HubComicsRoute
+  '/hub/minitoires': typeof HubMinitoiresRoute
+  '/hub/rigging': typeof HubRiggingRoute
+  '/hub/scriptable': typeof HubScriptableRoute
+  '/hub/toolbox': typeof HubToolboxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/hub/2d-conceptual'
+    | '/hub/2d-creatures'
+    | '/hub/3d-mesh'
+    | '/hub/comics'
+    | '/hub/minitoires'
+    | '/hub/rigging'
+    | '/hub/scriptable'
+    | '/hub/toolbox'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/hub/2d-conceptual'
+    | '/hub/2d-creatures'
+    | '/hub/3d-mesh'
+    | '/hub/comics'
+    | '/hub/minitoires'
+    | '/hub/rigging'
+    | '/hub/scriptable'
+    | '/hub/toolbox'
+  id:
+    | '__root__'
+    | '/'
+    | '/hub/2d-conceptual'
+    | '/hub/2d-creatures'
+    | '/hub/3d-mesh'
+    | '/hub/comics'
+    | '/hub/minitoires'
+    | '/hub/rigging'
+    | '/hub/scriptable'
+    | '/hub/toolbox'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Hub2dConceptualRoute: typeof Hub2dConceptualRoute
+  Hub2dCreaturesRoute: typeof Hub2dCreaturesRoute
+  Hub3dMeshRoute: typeof Hub3dMeshRoute
+  HubComicsRoute: typeof HubComicsRoute
+  HubMinitoiresRoute: typeof HubMinitoiresRoute
+  HubRiggingRoute: typeof HubRiggingRoute
+  HubScriptableRoute: typeof HubScriptableRoute
+  HubToolboxRoute: typeof HubToolboxRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hub/toolbox': {
+      id: '/hub/toolbox'
+      path: '/hub/toolbox'
+      fullPath: '/hub/toolbox'
+      preLoaderRoute: typeof HubToolboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/scriptable': {
+      id: '/hub/scriptable'
+      path: '/hub/scriptable'
+      fullPath: '/hub/scriptable'
+      preLoaderRoute: typeof HubScriptableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/rigging': {
+      id: '/hub/rigging'
+      path: '/hub/rigging'
+      fullPath: '/hub/rigging'
+      preLoaderRoute: typeof HubRiggingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/minitoires': {
+      id: '/hub/minitoires'
+      path: '/hub/minitoires'
+      fullPath: '/hub/minitoires'
+      preLoaderRoute: typeof HubMinitoiresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/comics': {
+      id: '/hub/comics'
+      path: '/hub/comics'
+      fullPath: '/hub/comics'
+      preLoaderRoute: typeof HubComicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/3d-mesh': {
+      id: '/hub/3d-mesh'
+      path: '/hub/3d-mesh'
+      fullPath: '/hub/3d-mesh'
+      preLoaderRoute: typeof Hub3dMeshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/2d-creatures': {
+      id: '/hub/2d-creatures'
+      path: '/hub/2d-creatures'
+      fullPath: '/hub/2d-creatures'
+      preLoaderRoute: typeof Hub2dCreaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/2d-conceptual': {
+      id: '/hub/2d-conceptual'
+      path: '/hub/2d-conceptual'
+      fullPath: '/hub/2d-conceptual'
+      preLoaderRoute: typeof Hub2dConceptualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Hub2dConceptualRoute: Hub2dConceptualRoute,
+  Hub2dCreaturesRoute: Hub2dCreaturesRoute,
+  Hub3dMeshRoute: Hub3dMeshRoute,
+  HubComicsRoute: HubComicsRoute,
+  HubMinitoiresRoute: HubMinitoiresRoute,
+  HubRiggingRoute: HubRiggingRoute,
+  HubScriptableRoute: HubScriptableRoute,
+  HubToolboxRoute: HubToolboxRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
