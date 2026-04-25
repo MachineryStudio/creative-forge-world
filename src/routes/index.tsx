@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
+import { VisitorMap } from "@/components/VisitorMap";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { CreatureAttack } from "@/components/CreatureAttack";
@@ -49,6 +50,7 @@ function Index() {
 
           <div className="space-y-6">
             <RadioNerd />
+            <VisitorMap />
             <div className="panel scanlines relative p-5">
               <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Intro</div>
               {bilingual ? (
