@@ -107,7 +107,6 @@ export function RadioNerd() {
       </div>
 
       <div className="mb-3 grid grid-cols-2 gap-1 sm:grid-cols-3">
-        {/* track list */}
         {tracks.map((t, i) => (
           <button
             key={t.id}
