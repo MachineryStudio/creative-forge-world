@@ -218,6 +218,17 @@ export async function getSupabase() {
         },
       };
     },
+    async rpc(fn: string, args?: Record<string, unknown>) {
+      try {
+        const data = await request(`/rest/v1/rpc/${fn}`, {
+          method: "POST",
+          body: JSON.stringify(args ?? {}),
+        });
+        return { data, error: null };
+      } catch (error) {
+        return { data: null, error: error as Error };
+      }
+    },
     channel(_name?: string) {
       const channel = {
         on(..._args: unknown[]) { return channel; },
