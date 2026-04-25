@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Power, Radio, SkipForward } from "lucide-react";
 import { sfx } from "@/lib/sfx";
 import { useMusic, type Mood } from "@/lib/musicStore";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Track {
   id: string;
@@ -12,26 +13,50 @@ interface Track {
   mood: Mood;
 }
 
-// Public, well-known music videos / official channels.
-const TRACKS: Track[] = [
+const FALLBACK_TRACKS: Track[] = [
   { id: "4", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "Anime", youtubeId: "o6wtDPVkKqI", mood: "clouds" },
-  { id: "7", title: "Mix 1", artist: "YouTube Radio", genre: "Anime", youtubeId: "8_jqN2DpaDQ", mood: "clouds" },
-  { id: "8", title: "Mix 2", artist: "YouTube Radio", genre: "Anime", youtubeId: "Wqsoiun3pnY", mood: "rain" },
-  { id: "9", title: "Mix 3", artist: "YouTube Radio", genre: "Game", youtubeId: "HtZCmSZ0Zl8", mood: "nature" },
-  { id: "10", title: "Mix 4", artist: "YouTube Radio", genre: "Visual Kei", youtubeId: "OLVyJl87_CI", mood: "planets" },
-  { id: "11", title: "Playlist Mix", artist: "YouTube Playlist", genre: "Anime", youtubeId: "b17po9LwvPM", mood: "clouds" },
-  { id: "12", title: "Mix 6", artist: "YouTube Radio", genre: "Game", youtubeId: "4oL8MQY_KPY", mood: "nature" },
 ];
 
 export function RadioNerd() {
   const [on, setOn] = useState(false);
   const [idx, setIdx] = useState(0);
-  const track = TRACKS[idx];
+  const [tracks, setTracks] = useState<Track[]>(FALLBACK_TRACKS);
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
 
+  // Load tracks from DB (live-updates when admin edits)
   useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      const { data } = await supabase
+        .from("radio_tracks")
+        .select("id, title, youtube_id, mood")
+        .order("position", { ascending: true });
+      if (!mounted || !data || data.length === 0) return;
+      setTracks(
+        data.map((r) => ({
+          id: r.id,
+          title: r.title,
+          artist: "RadioNerd",
+          genre: "Anime" as const,
+          youtubeId: r.youtube_id,
+          mood: (r.mood as Mood) ?? "clouds",
+        }))
+      );
+    };
+    load();
+    const channel = supabase
+      .channel("radio_tracks_changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "radio_tracks" }, load)
+      .subscribe();
+    return () => { mounted = false; supabase.removeChannel(channel); };
+  }, []);
+
+  const track = tracks[idx] ?? tracks[0];
+
+  useEffect(() => {
+    if (!track) return;
     if (on) setMusic(track.id, track.mood);
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, setMusic, setMusicOn, setMood]);
