@@ -71,8 +71,8 @@ function Index() {
 
       {/* FOOTER */}
       <footer className="mx-auto max-w-7xl px-4 py-10 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} World Space · Creature & Pipeline Lab</p>
-        <p className="mt-1">Built with TanStack Start · Lovable Cloud · WebGL</p>
+        <p>© {new Date().getFullYear()} CreatureToolBox · Creature & Pipeline Lab</p>
+        <p className="mt-1">CreatureToolBox · BRIDGE2 · 3D Meshes · Pipeline · Code</p>
       </footer>
     </div>
   );

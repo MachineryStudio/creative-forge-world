@@ -20,7 +20,8 @@ const T = (en: string, jp: string, fr: string, zh: string, es: string, it: strin
 });
 
 export const STRINGS = {
-  brand: T("World Space", "ワールドスペース", "World Space", "世界空间", "World Space", "World Space", "World Space"),
+  brand: T("CreatureToolBox", "クリーチャーツールボックス", "CreatureToolBox", "生物工具箱", "CreatureToolBox", "CreatureToolBox", "CreatureToolBox"),
+  bridge: T("BRIDGE2 · 3D Meshes · Pipeline · Code", "BRIDGE2 · 3Dメッシュ · パイプライン · コード", "BRIDGE2 · Maillages 3D · Pipeline · Code", "BRIDGE2 · 3D网格 · 流水线 · 代码", "BRIDGE2 · Mallas 3D · Pipeline · Código", "BRIDGE2 · Mesh 3D · Pipeline · Codice", "BRIDGE2 · 3D-меши · Пайплайн · Код"),
   tagline: T(
     "Algorithms & pipelines for game characters and creatures.",
     "ゲームのキャラクターとクリーチャーのためのアルゴリズムとパイプライン。",
