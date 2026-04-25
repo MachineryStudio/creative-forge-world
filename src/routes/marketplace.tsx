@@ -134,15 +134,24 @@ function ProductForm({ onClose, onSaved, userId }: { onClose: () => void; onSave
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = await supabase.from("products").insert({
-      owner_id: userId,
-      title, description, category,
-      price_cents: Math.round(parseFloat(price || "0") * 100),
-      image_url: imageUrl || null,
-      download_url: downloadUrl || null,
-    });
-    setBusy(false);
-    if (error) { sfx.death(); alert(error.message); } else { sfx.coin(); onSaved(); }
+    try {
+      const supabase = await getSupabase();
+      const { error } = await supabase.from("products").insert({
+        owner_id: userId,
+        title, description, category,
+        price_cents: Math.round(parseFloat(price || "0") * 100),
+        image_url: imageUrl || null,
+        download_url: downloadUrl || null,
+      });
+      if (error) throw error;
+      sfx.coin();
+      onSaved();
+    } catch (err) {
+      sfx.death();
+      alert(getSupabaseLoadMessage(err));
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
