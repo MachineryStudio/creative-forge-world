@@ -1,203 +1,172 @@
 import { useEffect, useRef, useState } from "react";
-import knight from "@/assets/creature-dark-knight.png";
-import gunner from "@/assets/creature-gunner.png";
-import alien from "@/assets/creature-alien.png";
-import { sfx } from "@/lib/sfx";
+import video1 from "@/assets/creature-video-1.mp4";
+import video2 from "@/assets/creature-video-2.mp4";
+import video3 from "@/assets/creature-video-3.mp4";
+import audio1 from "@/assets/creature-audio-1.mp3";
+import audio2 from "@/assets/creature-audio-2.mp3";
+import audio3 from "@/assets/creature-audio-3.mp3";
 
-type AttackId = "knight" | "gunner" | "alien";
-type SfxKind = "scary" | "cute" | "alien";
+type ClipId = "scared" | "hunter" | "heroine";
 
-type Attack = {
-  id: AttackId;
-  img: string;
-  from: "right" | "left" | "top";
-  speech: string;
-  rate: number;
-  pitch: number;
+type Clip = {
+  id: ClipId;
+  video: string;
+  audio: string;
   label: string;
   tint: string;
-  sfx: SfxKind;
 };
 
-const ATTACKS: Attack[] = [
-  {
-    id: "knight",
-    img: knight,
-    from: "right",
-    speech: "クリーチャーツールボックス！",
-    rate: 0.9,
-    pitch: 0.8,
-    label: "クリーチャーツールボックス",
-    tint: "oklch(0.72 0.24 340)",
-    sfx: "scary",
-  },
-  {
-    id: "gunner",
-    img: gunner,
-    from: "left",
-    speech: "ブリッジ・ツー！いくよー！",
-    rate: 1.05,
-    pitch: 1.6,
-    label: "ブリッジ２！",
-    tint: "oklch(0.82 0.18 75)",
-    sfx: "cute",
-  },
-  {
-    id: "alien",
-    img: alien,
-    from: "top",
-    speech: "クリーチャーツールボックス…",
-    rate: 0.75,
-    pitch: 0.4,
-    label: "クリーチャーツールボックス",
-    tint: "oklch(0.78 0.18 195)",
-    sfx: "alien",
-  },
+const CLIPS: Clip[] = [
+  { id: "scared", video: video1, audio: audio1, label: "SCARED", tint: "oklch(0.72 0.24 340)" },
+  { id: "hunter", video: video2, audio: audio2, label: "CLOUD HUNTER", tint: "oklch(0.82 0.18 75)" },
+  { id: "heroine", video: video3, audio: audio3, label: "HEROINE", tint: "oklch(0.78 0.18 195)" },
 ];
 
-function pickJapaneseVoice(): SpeechSynthesisVoice | null {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
-  const voices = window.speechSynthesis.getVoices();
-  const ja = voices.filter((v) => v.lang?.toLowerCase().startsWith("ja"));
-  if (ja.length === 0) return null;
-  const preferred = ja.find((v) =>
-    /google|kyoko|otoya|haruka|ayumi|ichiro|nanami/i.test(v.name)
-  );
-  return preferred ?? ja[0];
-}
-
-function speak(attack: Attack) {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(attack.speech);
-    u.lang = "ja-JP";
-    u.rate = attack.rate;
-    u.pitch = attack.pitch;
-    u.volume = 1;
-    const voice = pickJapaneseVoice();
-    if (voice) u.voice = voice;
-    window.speechSynthesis.speak(u);
-  } catch {
-    /* noop */
-  }
-}
-
-function playSfx(kind: SfxKind) {
-  if (kind === "scary") sfx.scaryRoar(2.8);
-  else if (kind === "alien") sfx.alienDrone(3);
-  else sfx.kawaiiJingle();
-}
-
 export function CreatureAttack({ trigger }: { trigger: number }) {
-  const [attack, setAttack] = useState<Attack | null>(null);
-  const lastIdRef = useRef<AttackId | null>(null);
+  const [clip, setClip] = useState<Clip | null>(null);
+  const lastIdRef = useRef<ClipId | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (trigger === 0) return;
-    const pool = ATTACKS.filter((a) => a.id !== lastIdRef.current);
-    const next = pool[Math.floor(Math.random() * pool.length)] ?? ATTACKS[0];
+    const pool = CLIPS.filter((c) => c.id !== lastIdRef.current);
+    const next = pool[Math.floor(Math.random() * pool.length)] ?? CLIPS[0];
     lastIdRef.current = next.id;
-    setAttack(next);
-
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.getVoices();
-    }
-
-    playSfx(next.sfx);
-    const speakT = window.setTimeout(() => speak(next), 700);
-    const layerT =
-      next.sfx === "scary"
-        ? window.setTimeout(() => sfx.scaryRoar(1.5), 1800)
-        : next.sfx === "alien"
-        ? window.setTimeout(() => sfx.alienDrone(1.5), 2000)
-        : 0;
-    const clearT = window.setTimeout(() => setAttack(null), 5000);
-    return () => {
-      window.clearTimeout(speakT);
-      window.clearTimeout(clearT);
-      if (layerT) window.clearTimeout(layerT);
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      }
-    };
+    setClip(next);
   }, [trigger]);
 
-  if (!attack) return null;
+  useEffect(() => {
+    if (!clip) return;
+    const a = new Audio(clip.audio);
+    a.volume = 1;
+    audioRef.current = a;
+    a.play().catch(() => {});
 
-  const animationName =
-    attack.from === "right"
-      ? "creature-attack-right"
-      : attack.from === "left"
-      ? "creature-attack-left"
-      : "creature-attack-top";
+    const v = videoRef.current;
+    if (v) {
+      v.currentTime = 0;
+      v.play().catch(() => {});
+    }
 
-  const speechSide =
-    attack.from === "right"
-      ? { right: "10%", top: "20%" }
-      : attack.from === "left"
-      ? { left: "10%", top: "20%" }
-      : { left: "50%", top: "12%", transform: "translateX(-50%)" };
+    const handleEnded = () => setClip(null);
+    a.addEventListener("ended", handleEnded);
+
+    // Safety stop after 20s in case audio metadata is missing
+    const safety = window.setTimeout(() => setClip(null), 20000);
+
+    return () => {
+      a.removeEventListener("ended", handleEnded);
+      a.pause();
+      a.currentTime = 0;
+      audioRef.current = null;
+      window.clearTimeout(safety);
+    };
+  }, [clip]);
+
+  if (!clip) return null;
+
+  const close = () => setClip(null);
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[80] overflow-hidden"
-      aria-hidden="true"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-background/80 backdrop-blur-sm"
+      onClick={close}
+      role="dialog"
+      aria-label="Creature feature"
     >
-      {/* vignette flash */}
+      {/* Theater frame */}
       <div
-        className="absolute inset-0"
+        className="relative animate-[creature-theater-in_500ms_cubic-bezier(.2,.8,.2,1)]"
+        onClick={(e) => e.stopPropagation()}
         style={{
-          background: `radial-gradient(circle at center, transparent 40%, ${attack.tint} 180%)`,
-          mixBlendMode: "screen",
-          opacity: 0.35,
-          animation: "creature-flash 5s ease-out forwards",
-        }}
-      />
-      {/* shake wrapper */}
-      <div
-        className="absolute inset-0"
-        style={{ animation: "creature-shake 0.5s ease-in-out 0.6s 6" }}
-      >
-        <img
-          src={attack.img}
-          alt=""
-          className="absolute select-none"
-          style={{
-            height: attack.from === "top" ? "70vh" : "85vh",
-            maxWidth: "none",
-            filter: `drop-shadow(0 0 28px ${attack.tint}) drop-shadow(0 12px 40px rgba(0,0,0,0.7))`,
-            animation: `${animationName} 5s cubic-bezier(.2,.8,.2,1) forwards`,
-            ...(attack.from === "top"
-              ? { left: "50%", top: 0 }
-              : attack.from === "right"
-              ? { right: 0, bottom: 0 }
-              : { left: 0, bottom: 0 }),
-          }}
-        />
-      </div>
-      {/* speech bubble */}
-      <div
-        className="absolute"
-        style={{
-          ...speechSide,
-          animation: "creature-speech 5s ease-out forwards",
+          width: "min(720px, 86vw)",
+          padding: "18px",
+          borderRadius: "14px",
+          background: "linear-gradient(180deg, oklch(0.18 0.04 280) 0%, oklch(0.08 0.03 260) 100%)",
+          border: `2px solid ${clip.tint}`,
+          boxShadow: `0 0 60px ${clip.tint}, 0 30px 80px rgba(0,0,0,0.7), inset 0 0 30px rgba(0,0,0,0.6)`,
         }}
       >
+        {/* Marquee bulbs */}
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex gap-1.5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                key={i}
+                className="block h-2 w-2 rounded-full"
+                style={{
+                  background: clip.tint,
+                  boxShadow: `0 0 8px ${clip.tint}`,
+                  animation: `creature-bulb 0.8s ease-in-out ${i * 0.12}s infinite alternate`,
+                }}
+              />
+            ))}
+          </div>
+          <div
+            className="font-display text-xs uppercase tracking-[0.3em]"
+            style={{ color: clip.tint, textShadow: `0 0 12px ${clip.tint}` }}
+          >
+            ◆ NOW SHOWING ◆
+          </div>
+          <button
+            type="button"
+            onClick={close}
+            className="font-display text-xs uppercase tracking-widest text-muted-foreground transition hover:text-foreground"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Screen */}
         <div
-          className="panel scanlines relative px-5 py-3 font-display text-2xl md:text-4xl"
+          className="relative aspect-video w-full overflow-hidden rounded-md bg-black"
           style={{
-            color: attack.tint,
-            textShadow: `0 0 18px ${attack.tint}`,
-            border: `1px solid ${attack.tint}`,
-            boxShadow: `0 0 30px ${attack.tint}`,
-            letterSpacing: "0.08em",
+            border: `1px solid ${clip.tint}`,
+            boxShadow: `inset 0 0 40px rgba(0,0,0,0.9), 0 0 30px ${clip.tint}`,
           }}
-          lang="ja"
         >
-          {attack.label}
+          <video
+            ref={videoRef}
+            src={clip.video}
+            className="h-full w-full object-cover"
+            autoPlay
+            playsInline
+            muted={false}
+            controls={false}
+          />
+          {/* Scanlines overlay */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-20"
+            style={{
+              background:
+                "repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px)",
+            }}
+          />
+        </div>
+
+        {/* Title plate */}
+        <div className="mt-3 flex items-center justify-center">
+          <div
+            className="px-4 py-1 font-display text-sm uppercase tracking-[0.4em]"
+            style={{ color: clip.tint, textShadow: `0 0 12px ${clip.tint}` }}
+          >
+            {clip.label}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes creature-theater-in {
+          0% { transform: scale(0.6) rotateX(15deg); opacity: 0; }
+          100% { transform: scale(1) rotateX(0); opacity: 1; }
+        }
+        @keyframes creature-bulb {
+          0% { opacity: 0.4; }
+          100% { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
