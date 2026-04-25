@@ -172,12 +172,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      products_public: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          image_url: string | null
+          owner_id: string | null
+          price_cents: number | null
+          title: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          image_url?: string | null
+          owner_id?: string | null
+          price_cents?: number | null
+          title?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          image_url?: string | null
+          owner_id?: string | null
+          price_cents?: number | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       can_access_channel: {
         Args: { _topic: string; _user_id: string }
         Returns: boolean
+      }
+      get_product_download_url: {
+        Args: { _product_id: string }
+        Returns: string
       }
       has_role: {
         Args: {
@@ -185,6 +221,19 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      list_products: {
+        Args: never
+        Returns: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string
+          owner_id: string
+          price_cents: number
+          title: string
+        }[]
       }
     }
     Enums: {
