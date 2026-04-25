@@ -232,8 +232,17 @@ function AdminPage() {
             <form onSubmit={submitAuth} className="mt-6 space-y-3">
               <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email"
                 className="w-full rounded-md border border-border bg-input px-3 py-2 text-sm" />
-              <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password (min 6)"
-                className="w-full rounded-md border border-border bg-input px-3 py-2 text-sm" />
+              <input
+                type="password"
+                required
+                minLength={12}
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}"
+                title="At least 12 chars, with uppercase, lowercase, number, and symbol"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password (12+ chars, mixed case, number, symbol)"
+                className="w-full rounded-md border border-border bg-input px-3 py-2 text-sm"
+              />
               <button disabled={busy} type="submit"
                 className="w-full rounded-md bg-gradient-to-r from-primary to-accent px-4 py-2 font-display text-sm text-primary-foreground neon-glow disabled:opacity-50">
                 {busy ? "..." : (authMode === "signup" ? "Create Account" : "Sign In")}
