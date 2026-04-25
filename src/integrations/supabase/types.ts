@@ -122,6 +122,33 @@ export type Database = {
         }
         Relationships: []
       }
+      realtime_channel_access: {
+        Row: {
+          created_at: string
+          id: string
+          is_public: boolean
+          role: Database["public"]["Enums"]["app_role"] | null
+          topic: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          role?: Database["public"]["Enums"]["app_role"] | null
+          topic: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          role?: Database["public"]["Enums"]["app_role"] | null
+          topic?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -148,6 +175,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_channel: {
+        Args: { _topic: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
