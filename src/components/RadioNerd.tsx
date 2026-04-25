@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Power, Radio, SkipForward } from "lucide-react";
 import { sfx } from "@/lib/sfx";
 import { useMusic, type Mood } from "@/lib/musicStore";
-import { supabase } from "@/integrations/supabase/client";
+
 
 interface Track {
   id: string;
