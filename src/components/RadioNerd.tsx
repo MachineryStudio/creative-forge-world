@@ -14,12 +14,7 @@ interface Track {
 
 // Public, well-known music videos / official channels.
 const TRACKS: Track[] = [
-  { id: "1", title: "Megalovania", artist: "Toby Fox · Undertale OST", genre: "Game", youtubeId: "wDgQdr8ZkTw", mood: "planets" },
-  { id: "2", title: "Snake Eater", artist: "MGS3 OST", genre: "Game", youtubeId: "78-0Xi8fkR4", mood: "nature" },
-  { id: "3", title: "Tank! (Cowboy Bebop)", artist: "Yoko Kanno", genre: "Anime", youtubeId: "EQXZUTVPVPg", mood: "clouds" },
   { id: "4", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "Anime", youtubeId: "o6wtDPVkKqI", mood: "clouds" },
-  { id: "5", title: "Glamorous Sky", artist: "NANA · Mika Nakashima", genre: "Visual Kei", youtubeId: "N0mJh1jKb_g", mood: "rain" },
-  { id: "6", title: "ROCKET DIVE", artist: "hide", genre: "Visual Kei", youtubeId: "krrBjcKJq2g", mood: "planets" },
   { id: "7", title: "Mix 1", artist: "YouTube Radio", genre: "Anime", youtubeId: "8_jqN2DpaDQ", mood: "clouds" },
   { id: "8", title: "Mix 2", artist: "YouTube Radio", genre: "Anime", youtubeId: "Wqsoiun3pnY", mood: "rain" },
   { id: "9", title: "Mix 3", artist: "YouTube Radio", genre: "Game", youtubeId: "HtZCmSZ0Zl8", mood: "nature" },
