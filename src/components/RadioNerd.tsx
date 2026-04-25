@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Power, Radio, SkipForward } from "lucide-react";
 import { sfx } from "@/lib/sfx";
+import { useMusic, type Mood } from "@/lib/musicStore";
 
 interface Track {
   id: string;
@@ -8,22 +9,31 @@ interface Track {
   artist: string;
   genre: "Game" | "Anime" | "Visual Kei";
   youtubeId: string;
+  mood: Mood;
 }
 
 // Public, well-known music videos / official channels.
 const TRACKS: Track[] = [
-  { id: "1", title: "Megalovania", artist: "Toby Fox · Undertale OST", genre: "Game", youtubeId: "wDgQdr8ZkTw" },
-  { id: "2", title: "Snake Eater", artist: "MGS3 OST", genre: "Game", youtubeId: "78-0Xi8fkR4" },
-  { id: "3", title: "Tank! (Cowboy Bebop)", artist: "Yoko Kanno", genre: "Anime", youtubeId: "EQXZUTVPVPg" },
-  { id: "4", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "Anime", youtubeId: "o6wtDPVkKqI" },
-  { id: "5", title: "Glamorous Sky", artist: "NANA · Mika Nakashima", genre: "Visual Kei", youtubeId: "N0mJh1jKb_g" },
-  { id: "6", title: "ROCKET DIVE", artist: "hide", genre: "Visual Kei", youtubeId: "krrBjcKJq2g" },
+  { id: "1", title: "Megalovania", artist: "Toby Fox · Undertale OST", genre: "Game", youtubeId: "wDgQdr8ZkTw", mood: "planets" },
+  { id: "2", title: "Snake Eater", artist: "MGS3 OST", genre: "Game", youtubeId: "78-0Xi8fkR4", mood: "nature" },
+  { id: "3", title: "Tank! (Cowboy Bebop)", artist: "Yoko Kanno", genre: "Anime", youtubeId: "EQXZUTVPVPg", mood: "clouds" },
+  { id: "4", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "Anime", youtubeId: "o6wtDPVkKqI", mood: "clouds" },
+  { id: "5", title: "Glamorous Sky", artist: "NANA · Mika Nakashima", genre: "Visual Kei", youtubeId: "N0mJh1jKb_g", mood: "rain" },
+  { id: "6", title: "ROCKET DIVE", artist: "hide", genre: "Visual Kei", youtubeId: "krrBjcKJq2g", mood: "planets" },
 ];
 
 export function RadioNerd() {
   const [on, setOn] = useState(false);
   const [idx, setIdx] = useState(0);
   const track = TRACKS[idx];
+  const setMusic = useMusic((s) => s.setTrack);
+  const setMusicOn = useMusic((s) => s.setOn);
+  const setMood = useMusic((s) => s.setMood);
+
+  useEffect(() => {
+    if (on) setMusic(track.id, track.mood);
+    else { setMusicOn(false); setMood("off"); }
+  }, [on, track, setMusic, setMusicOn, setMood]);
 
   return (
     <div className="panel scanlines relative overflow-hidden p-5">
