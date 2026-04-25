@@ -26,13 +26,19 @@ function Index() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
+      <CreatureAttack trigger={attackTrigger} />
 
       {/* HERO */}
       <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-display text-[10px] uppercase tracking-[0.3em] text-primary">
+        <button
+          type="button"
+          onClick={() => setAttackTrigger((n) => n + 1)}
+          className="mb-6 inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-display text-[10px] uppercase tracking-[0.3em] text-primary transition hover:scale-105 hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]"
+          aria-label="Summon a creature"
+        >
           <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
           Andree Online
-        </div>
+        </button>
         <h1 className="font-display text-5xl leading-tight md:text-7xl">
           <span className="neon-text">{t("brand")}</span>
         </h1>
