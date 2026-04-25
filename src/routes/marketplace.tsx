@@ -31,20 +31,39 @@ interface Product {
 
 const CATEGORIES = ["3d-model", "zbrush-brush", "texture", "pdf-tutorial", "python-script"];
 
+interface AuthUser {
+  id: string;
+  email?: string | null;
+  user_metadata?: Record<string, unknown> | null;
+}
+
 function Marketplace() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    return () => sub.subscription.unsubscribe();
+    let unsubscribe: (() => void) | undefined;
+
+    getSupabase()
+      .then((supabase) => {
+        const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser((s?.user as AuthUser) ?? null));
+        unsubscribe = () => sub.subscription.unsubscribe();
+        supabase.auth.getSession().then(({ data }) => setUser((data.session?.user as AuthUser) ?? null));
+      })
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+
+    return () => unsubscribe?.();
   }, []);
 
   async function load() {
-    const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
-    if (data) setProducts(data as Product[]);
+    try {
+      const supabase = await getSupabase();
+      const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
+      if (data) setProducts(data as Product[]);
+    } catch (err) {
+      console.warn(getSupabaseLoadMessage(err));
+    }
   }
   useEffect(() => { load(); }, []);
 
