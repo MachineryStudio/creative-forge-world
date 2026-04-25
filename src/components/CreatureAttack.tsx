@@ -193,7 +193,7 @@ export function CreatureAttack({ trigger }: { trigger: number }) {
             boxShadow: `0 0 30px ${attack.tint}`,
             letterSpacing: "0.08em",
           }}
-          lang={attack.lang}
+          lang="ja"
         >
           {attack.label}
         </div>
