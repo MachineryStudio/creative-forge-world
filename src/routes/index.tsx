@@ -7,7 +7,7 @@ import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { CreatureAttack } from "@/components/CreatureAttack";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
-import { Twitter, Github, Globe, Gamepad2, Box, Boxes } from "lucide-react";
+import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
@@ -177,6 +177,33 @@ function Index() {
                 >
                   <Boxes className="h-4 w-4" />
                   Unreal Marketplace
+                </a>
+                <a
+                  href="https://bridge2play.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-xs font-display uppercase tracking-widest text-primary transition hover:bg-primary/20"
+                >
+                  <Joystick className="h-4 w-4" />
+                  bridge2play.com
+                </a>
+                <a
+                  href="https://decodedshell.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-display uppercase tracking-widest text-accent-foreground transition hover:bg-accent/20"
+                >
+                  <Terminal className="h-4 w-4" />
+                  decodedshell.com
+                </a>
+                <a
+                  href="https://bridge3ai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-3 py-2 text-xs font-display uppercase tracking-widest text-foreground transition hover:bg-secondary"
+                >
+                  <BrainCircuit className="h-4 w-4" />
+                  bridge3ai.com
                 </a>
               </div>
             </div>
