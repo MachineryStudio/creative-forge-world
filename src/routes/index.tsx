@@ -42,15 +42,18 @@ function Index() {
           Andree Online
         </button>
         <h1 className="font-display text-5xl leading-tight md:text-7xl">
-          <span className="neon-text">{t("brand")}</span>
+          <span className="neon-text">LIGHTHOUSE 橋</span>
         </h1>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{t("tagline")}</p>
+        <p className="mt-2 font-display text-xs uppercase tracking-[0.4em] text-primary">Prototype Software Pipeline</p>
+        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
+          Interactive tools for prototyping and production.
+        </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <BubbleRouter />
 
           <div className="space-y-6">
-            <RadioNerd />
+            <AnnouncementsPanel />
             <VisitorMap />
             <div className="panel scanlines relative p-5">
               <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Intro</div>
@@ -69,6 +72,19 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* RADIONERD PANELS — 5 genres */}
+      <section className="mx-auto max-w-7xl px-4 pb-10">
+        <h2 className="mb-4 font-display text-2xl neon-text">RadioNerd · Channels</h2>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <RadioNerd genre="anime" label="Anime" ownsMusic />
+          <RadioNerd genre="game" label="Game" />
+          <RadioNerd genre="visual_kei" label="Visual Kei" />
+          <RadioNerd genre="jpop" label="JPop" />
+          <RadioNerd genre="universal" label="Universal" />
+        </div>
+      </section>
+
 
       {/* CAROUSEL */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
