@@ -139,7 +139,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
       {/* track list + artist info side-by-side */}
       <div className="mb-3 grid gap-3 md:grid-cols-[1fr_auto]">
         <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
-          {tracks.map((t, i) => (
+          {safeTracks.map((t, i) => (
             <button
               key={t.id}
               onClick={() => { sfx.click(); setIdx(i); if (!on) setOn(true); }}
