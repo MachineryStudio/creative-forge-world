@@ -73,7 +73,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     return () => { mounted = false; channel?.unsubscribe(); };
   }, [genre]);
 
-  const track = tracks[idx] ?? tracks[0];
+  const track = tracks[idx] ?? tracks[0] ?? null;
 
   useEffect(() => {
     if (!ownsMusic || !track) return;
@@ -81,7 +81,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
 
-  const next = () => { sfx.blip(); setIdx((i) => (i + 1) % tracks.length); };
+  const next = () => { sfx.blip(); setIdx((i) => (tracks.length ? (i + 1) % tracks.length : 0)); };
 
   return (
     <div className="panel scanlines relative overflow-hidden p-5">
