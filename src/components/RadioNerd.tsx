@@ -168,7 +168,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
       </div>
 
       {/* Larger YouTube player */}
-      {on && (
+      {on && track && (
         <div className="overflow-hidden rounded-md border border-border" style={{ height: 240 }}>
           <iframe
             key={`${track.id}-${loop}`}
