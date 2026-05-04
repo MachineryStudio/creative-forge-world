@@ -59,7 +59,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
         const { supabase } = await import("@/integrations/supabase/client");
         const { data } = await supabase
           .from("radio_tracks")
-          .select("id, title, youtube_id, mood, genre, artist_name, artist_url, artist_official_url")
+          .select("id, title, youtube_id, mood, genre, artist_name, artist_url, artist_official_url, notes")
           .eq("genre", genre)
           .order("position", { ascending: true });
         if (!mounted || !data || data.length === 0) return;
@@ -73,6 +73,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
             mood: (r.mood as Mood) ?? "clouds",
             artistUrl: r.artist_url,
             artistOfficialUrl: r.artist_official_url,
+            notes: r.notes,
           }))
         );
         channel = supabase
