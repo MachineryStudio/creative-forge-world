@@ -63,6 +63,7 @@ function AdminPage() {
   const [artistName, setArtistName] = useState("");
   const [artistUrl, setArtistUrl] = useState("");
   const [artistOfficialUrl, setArtistOfficialUrl] = useState("");
+  const [trackNotes, setTrackNotes] = useState("");
   const [saveMsg, setSaveMsg] = useState<string | null>(null);
 
   const [annTitleEn, setAnnTitleEn] = useState("");
