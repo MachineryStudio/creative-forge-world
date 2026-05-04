@@ -8,6 +8,7 @@ import { VisitorMap } from "@/components/VisitorMap";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { CreatureAttack } from "@/components/CreatureAttack";
+import { MiyuChat } from "@/components/MiyuChat";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit } from "lucide-react";
 import { useState } from "react";
@@ -233,6 +234,7 @@ function Index() {
           </div>
         </section>
       </footer>
+      <MiyuChat />
     </div>
   );
 }

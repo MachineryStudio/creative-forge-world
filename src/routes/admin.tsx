@@ -32,6 +32,7 @@ interface DBTrack {
   artist_name: string | null;
   artist_url: string | null;
   artist_official_url: string | null;
+  notes: string | null;
 }
 
 interface Announcement {
@@ -63,6 +64,7 @@ function AdminPage() {
   const [artistName, setArtistName] = useState("");
   const [artistUrl, setArtistUrl] = useState("");
   const [artistOfficialUrl, setArtistOfficialUrl] = useState("");
+  const [trackNotes, setTrackNotes] = useState("");
   const [saveMsg, setSaveMsg] = useState<string | null>(null);
 
   const [annTitleEn, setAnnTitleEn] = useState("");
@@ -165,10 +167,11 @@ function AdminPage() {
         artist_name: artistName.trim() || null,
         artist_url: artistUrl.trim() || null,
         artist_official_url: artistOfficialUrl.trim() || null,
+        notes: trackNotes.trim() || null,
       });
       if (error) throw error;
       sfx.coin();
-      setTitle(""); setYtInput(""); setMood("clouds"); setArtistName(""); setArtistUrl(""); setArtistOfficialUrl("");
+      setTitle(""); setYtInput(""); setMood("clouds"); setArtistName(""); setArtistUrl(""); setArtistOfficialUrl(""); setTrackNotes("");
       setSaveMsg("Track added."); loadTracks();
     } catch (err) { setSaveMsg(getSupabaseLoadMessage(err)); sfx.death(); }
   }
@@ -324,6 +327,8 @@ function AdminPage() {
             className="rounded-md border border-border bg-input px-3 py-2 text-sm" />
           <input value={artistOfficialUrl} onChange={(e) => setArtistOfficialUrl(e.target.value)} placeholder="Artist official website"
             className="rounded-md border border-border bg-input px-3 py-2 text-sm md:col-span-2" />
+          <textarea value={trackNotes} onChange={(e) => setTrackNotes(e.target.value)} placeholder="Admin notes (internal — shown small under Support panel)"
+            rows={2} className="rounded-md border border-border bg-input px-3 py-2 text-sm md:col-span-2" />
           <button type="submit" className="md:col-span-2 rounded-md bg-gradient-to-r from-primary to-accent px-4 py-2 font-display text-sm text-primary-foreground neon-glow">
             <Plus className="mr-1 inline h-4 w-4" /> Add track
           </button>
@@ -352,6 +357,8 @@ function AdminPage() {
                       <input defaultValue={t.artist_official_url ?? ""} placeholder="Official website" onBlur={(e) => updateTrackField(t.id, "artist_official_url", e.target.value)}
                         className="rounded border border-border bg-input px-2 py-1 text-[11px]" />
                     </div>
+                    <textarea defaultValue={t.notes ?? ""} placeholder="Admin notes" onBlur={(e) => updateTrackField(t.id, "notes", e.target.value)}
+                      rows={2} className="mt-1 w-full rounded border border-border bg-input px-2 py-1 text-[11px]" />
                   </div>
                   <select value={t.genre} onChange={(e) => updateTrackField(t.id, "genre", e.target.value)}
                     className="rounded-md border border-border bg-input px-2 py-1 text-xs">
