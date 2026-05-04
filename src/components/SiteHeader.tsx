@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { LampPanel } from "./LampPanel";
 import { HamburgerMenu } from "./HamburgerMenu";
-import { useI18n } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 import { useEffect } from "react";
 import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
 export function SiteHeader() {
+  const t = useT();
   const { jpOnly } = useI18n();
 
   useEffect(() => {
