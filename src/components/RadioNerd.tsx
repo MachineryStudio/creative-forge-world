@@ -34,7 +34,10 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
   const [on, setOn] = useState(false);
   const [idx, setIdx] = useState(0);
   const [loop, setLoop] = useState(false);
-  const [tracks, setTracks] = useState<Track[]>(FALLBACK[genre] ?? FALLBACK.universal ?? []);
+  const [tracks, setTracks] = useState<Track[]>(() => {
+    const fb = FALLBACK[genre] ?? FALLBACK.universal;
+    return Array.isArray(fb) ? fb : [];
+  });
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
@@ -73,7 +76,8 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     return () => { mounted = false; channel?.unsubscribe(); };
   }, [genre]);
 
-  const track = tracks[idx] ?? tracks[0] ?? null;
+  const safeTracks = Array.isArray(tracks) ? tracks : [];
+  const track = safeTracks[idx] ?? safeTracks[0] ?? null;
 
   useEffect(() => {
     if (!ownsMusic || !track) return;
@@ -81,7 +85,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
 
-  const next = () => { sfx.blip(); setIdx((i) => (tracks.length ? (i + 1) % tracks.length : 0)); };
+  const next = () => { sfx.blip(); setIdx((i) => (safeTracks.length ? (i + 1) % safeTracks.length : 0)); };
 
   return (
     <div className="panel scanlines relative overflow-hidden p-5">
@@ -135,7 +139,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
       {/* track list + artist info side-by-side */}
       <div className="mb-3 grid gap-3 md:grid-cols-[1fr_auto]">
         <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
-          {tracks.map((t, i) => (
+          {safeTracks.map((t, i) => (
             <button
               key={t.id}
               onClick={() => { sfx.click(); setIdx(i); if (!on) setOn(true); }}
