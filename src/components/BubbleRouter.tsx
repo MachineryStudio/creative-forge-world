@@ -10,20 +10,34 @@ import { useMusic, type Mood } from "@/lib/musicStore";
 interface Hub {
   id: string;
   label: string;
+  group: "production" | "tools";
   to: string;
   angle: number;
   color: string;
 }
 
+const PRODUCTION: Omit<Hub, "angle">[] = [
+  { id: "p-vg",    label: "Video Games",     group: "production", to: "/hub/scriptable",    color: "#ff5d8f" },
+  { id: "p-art",   label: "2D/3D Concept",   group: "production", to: "/hub/2d-conceptual", color: "#ffb84d" },
+  { id: "p-anim",  label: "Animation",       group: "production", to: "/hub/rigging",       color: "#ffe14d" },
+  { id: "p-tech",  label: "Technical Art",   group: "production", to: "/hub/3d-mesh",       color: "#7cff6b" },
+  { id: "p-music", label: "Music",           group: "production", to: "/hub/toolbox",       color: "#4dd6ff" },
+  { id: "p-gen",   label: "General",         group: "production", to: "/hub/comics",        color: "#7c8bff" },
+];
+
+const TOOLS: Omit<Hub, "angle">[] = [
+  { id: "t-vg",    label: "PL · Video Game",   group: "tools", to: "/hub/scriptable",    color: "#ff7cf0" },
+  { id: "t-3d",    label: "PL · 3D Sculpt",    group: "tools", to: "/hub/3d-mesh",       color: "#c97cff" },
+  { id: "t-2d",    label: "PL · 2D Paint",     group: "tools", to: "/hub/2d-conceptual", color: "#ff5d8f" },
+  { id: "t-rig",   label: "PL · Rig & Anim",   group: "tools", to: "/hub/rigging",       color: "#ffb84d" },
+  { id: "t-music", label: "PL · Music",        group: "tools", to: "/hub/toolbox",       color: "#4dd6ff" },
+  { id: "t-gen",   label: "PL · General",      group: "tools", to: "/hub/minitoires",    color: "#7cff6b" },
+];
+
+// Production on top half (angles 0..π), Tools on bottom half (angles π..2π)
 const HUBS: Hub[] = [
-  { id: "3d",     label: "3D Mesh",      to: "/hub/3d-mesh",        angle: 0,                       color: "#ff5d8f" },
-  { id: "2dc",    label: "2D Concept",   to: "/hub/2d-conceptual",  angle: Math.PI / 4,             color: "#ffb84d" },
-  { id: "2dCr",   label: "2D Creatures", to: "/hub/2d-creatures",   angle: Math.PI / 2,             color: "#ffe14d" },
-  { id: "comic",  label: "Comics",       to: "/hub/comics",         angle: (3 * Math.PI) / 4,       color: "#7cff6b" },
-  { id: "tool",   label: "Toolbox",      to: "/hub/toolbox",        angle: Math.PI,                 color: "#4dd6ff" },
-  { id: "mini",   label: "Minitoires",   to: "/hub/minitoires",     angle: (5 * Math.PI) / 4,       color: "#7c8bff" },
-  { id: "script", label: "Scriptable",   to: "/hub/scriptable",     angle: (3 * Math.PI) / 2,       color: "#c97cff" },
-  { id: "rig",    label: "Rigging",      to: "/hub/rigging",        angle: (7 * Math.PI) / 4,       color: "#ff7cf0" },
+  ...PRODUCTION.map((h, i, arr) => ({ ...h, angle: Math.PI * (i / (arr.length - 1)) })),
+  ...TOOLS.map((h, i, arr) => ({ ...h, angle: Math.PI + Math.PI * (i / (arr.length - 1)) })),
 ];
 
 const RING_R = 36; // % radius for satellites
@@ -421,7 +435,7 @@ export function BubbleRouter() {
     <div
       ref={containerRef}
       onClick={onContainerClick}
-      className="relative h-[640px] w-full cursor-crosshair overflow-hidden rounded-2xl panel scanlines"
+      className="relative h-[760px] w-full cursor-crosshair overflow-hidden rounded-2xl panel scanlines"
     >
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }} className="absolute inset-0">
         <Suspense fallback={null}>
@@ -530,8 +544,8 @@ export function BubbleRouter() {
       {/* Center label */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
         <div className="font-display text-xs uppercase tracking-[0.3em] text-white/80">Router · Switch</div>
-        <div className="font-display text-2xl text-white" style={{ textShadow: "0 0 18px rgba(255,255,255,0.7)" }}>BRIDGE2</div>
-        <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-white/60">[ Hub v2.0 ]</div>
+        <div className="font-display text-2xl text-white" style={{ textShadow: "0 0 18px rgba(255,255,255,0.7)" }}>RADIONERD</div>
+        <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-white/60">[ Production ◆ Tools Prototype ]</div>
       </div>
     </div>
   );
