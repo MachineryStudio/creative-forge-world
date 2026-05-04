@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
+import { AnnouncementsPanel } from "@/components/AnnouncementsPanel";
 import { VisitorMap } from "@/components/VisitorMap";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
@@ -41,15 +42,18 @@ function Index() {
           Andree Online
         </button>
         <h1 className="font-display text-5xl leading-tight md:text-7xl">
-          <span className="neon-text">{t("brand")}</span>
+          <span className="neon-text">LIGHTHOUSE 橋</span>
         </h1>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{t("tagline")}</p>
+        <p className="mt-2 font-display text-xs uppercase tracking-[0.4em] text-primary">Prototype Software Pipeline</p>
+        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
+          Interactive tools for prototyping and production.
+        </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <BubbleRouter />
 
           <div className="space-y-6">
-            <RadioNerd />
+            <AnnouncementsPanel />
             <VisitorMap />
             <div className="panel scanlines relative p-5">
               <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Intro</div>
@@ -68,6 +72,19 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* RADIONERD PANELS — 5 genres */}
+      <section className="mx-auto max-w-7xl px-4 pb-10">
+        <h2 className="mb-4 font-display text-2xl neon-text">RadioNerd · Channels</h2>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <RadioNerd genre="anime" label="Anime" ownsMusic />
+          <RadioNerd genre="game" label="Game" />
+          <RadioNerd genre="visual_kei" label="Visual Kei" />
+          <RadioNerd genre="jpop" label="JPop" />
+          <RadioNerd genre="universal" label="Universal" />
+        </div>
+      </section>
+
 
       {/* CAROUSEL */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
@@ -100,7 +117,7 @@ function Index() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
                 <div className="font-display text-lg uppercase tracking-widest neon-text">Andree</div>
-                <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">BRIDGE2 · CreatureToolBox</div>
+                <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">LIGHTHOUSE 橋</div>
               </div>
             </div>
 
@@ -210,7 +227,7 @@ function Index() {
           </div>
 
           <div className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} CreatureToolBox · BRIDGE2 · 2D · 3D Art · Pipeline · Code</p>
+            <p>© {new Date().getFullYear()} LIGHTHOUSE 橋 · Prototype Software Pipeline · 2D · 3D Art · Pipeline · Code</p>
           </div>
         </section>
       </footer>

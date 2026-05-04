@@ -58,21 +58,21 @@ export function CubeCarousel() {
   return (
     <>
       <div
-        className="relative overflow-hidden rounded-2xl panel scanlines py-8"
+        className="relative overflow-hidden rounded-2xl panel scanlines py-12"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        style={{ perspective: "1200px" }}
+        style={{ perspective: "1600px" }}
       >
-        <div className="mb-4 flex items-center justify-between px-6">
-          <h3 className="font-display text-sm uppercase tracking-[0.3em] text-muted-foreground">Carousel · 3D Cubes</h3>
+        <div className="mb-6 flex items-center justify-between px-8">
+          <h3 className="font-display text-base uppercase tracking-[0.3em] text-muted-foreground">Carousel · 3D Cubes</h3>
           <span className="text-xs text-muted-foreground">{paused ? "paused" : "auto-scroll →"} · click to expand</span>
         </div>
-        <div ref={trackRef} className="flex gap-8 px-6 will-change-transform">
+        <div ref={trackRef} className="flex gap-12 px-8 will-change-transform">
           {items.map((s, i) => (
             <button
               key={i}
               onClick={() => { sfx.coin(); setExpanded(s); }}
-              className="group relative h-44 w-44 shrink-0 transition-transform hover:scale-105"
+              className="group relative h-72 w-72 shrink-0 transition-transform hover:scale-105"
               style={{ transformStyle: "preserve-3d", transform: "rotateY(-18deg) rotateX(8deg)" }}
             >
               <div

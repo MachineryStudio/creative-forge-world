@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          body_en: string
+          body_jp: string
+          created_at: string
+          id: string
+          is_active: boolean
+          position: number
+          title_en: string
+          title_jp: string
+          updated_at: string
+        }
+        Insert: {
+          body_en?: string
+          body_jp?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          position?: number
+          title_en?: string
+          title_jp?: string
+          updated_at?: string
+        }
+        Update: {
+          body_en?: string
+          body_jp?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          position?: number
+          title_en?: string
+          title_jp?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       community_messages: {
         Row: {
           body: string
@@ -97,7 +133,11 @@ export type Database = {
       }
       radio_tracks: {
         Row: {
+          artist_name: string | null
+          artist_official_url: string | null
+          artist_url: string | null
           created_at: string
+          genre: string
           id: string
           mood: string
           position: number
@@ -105,7 +145,11 @@ export type Database = {
           youtube_id: string
         }
         Insert: {
+          artist_name?: string | null
+          artist_official_url?: string | null
+          artist_url?: string | null
           created_at?: string
+          genre?: string
           id?: string
           mood?: string
           position?: number
@@ -113,7 +157,11 @@ export type Database = {
           youtube_id: string
         }
         Update: {
+          artist_name?: string | null
+          artist_official_url?: string | null
+          artist_url?: string | null
           created_at?: string
+          genre?: string
           id?: string
           mood?: string
           position?: number
