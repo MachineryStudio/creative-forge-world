@@ -77,6 +77,10 @@
   --neon-cyan: oklch(0.88 0.18 195);
   --neon-amber: oklch(0.92 0.2 105);
 
+  /* Sakura White — soft cherry-blossom white used behind logo & headers */
+  --sakura-white: oklch(0.97 0.04 350);
+  --color-sakura-white: var(--sakura-white);
+
   --gradient-radial:
     radial-gradient(circle at 20% 15%, oklch(0.55 0.25 350 / 0.45), transparent 55%),
     radial-gradient(circle at 85% 25%, oklch(0.55 0.22 305 / 0.4), transparent 55%),
