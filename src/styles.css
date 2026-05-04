@@ -39,40 +39,54 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
-  /* Game UI dark — cosmic obsidian + neon */
-  --background: oklch(0.16 0.03 270);
-  --foreground: oklch(0.95 0.02 240);
-  --panel: oklch(0.22 0.04 265);
-  --card: oklch(0.21 0.04 265);
-  --card-foreground: oklch(0.95 0.02 240);
-  --popover: oklch(0.2 0.04 265);
-  --popover-foreground: oklch(0.95 0.02 240);
-  --primary: oklch(0.78 0.18 195);
-  --primary-foreground: oklch(0.12 0.04 270);
-  --secondary: oklch(0.32 0.06 270);
-  --secondary-foreground: oklch(0.95 0.02 240);
-  --muted: oklch(0.26 0.03 265);
-  --muted-foreground: oklch(0.7 0.03 250);
-  --accent: oklch(0.7 0.22 340);
-  --accent-foreground: oklch(0.12 0.04 270);
-  --destructive: oklch(0.65 0.25 25);
+  /* Tokyo Harajuku — cyber-sakura × vaporwave × city-pop
+     Deep midnight indigo with hot sakura pink, electric purple,
+     mint cyan, and neon yellow as kawaii-pop accents. */
+  --background: oklch(0.15 0.05 290);
+  --foreground: oklch(0.97 0.02 320);
+  --panel: oklch(0.22 0.07 295);
+  --card: oklch(0.21 0.07 295);
+  --card-foreground: oklch(0.97 0.02 320);
+  --popover: oklch(0.2 0.07 295);
+  --popover-foreground: oklch(0.97 0.02 320);
+
+  /* Primary = sakura hot pink (Harajuku signature) */
+  --primary: oklch(0.76 0.24 350);
+  --primary-foreground: oklch(0.13 0.05 290);
+
+  --secondary: oklch(0.34 0.1 300);
+  --secondary-foreground: oklch(0.97 0.02 320);
+  --muted: oklch(0.26 0.06 295);
+  --muted-foreground: oklch(0.78 0.05 320);
+
+  /* Accent = electric purple (Shibuya night) */
+  --accent: oklch(0.7 0.24 305);
+  --accent-foreground: oklch(0.12 0.05 290);
+
+  --destructive: oklch(0.68 0.26 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.35 0.05 265 / 0.6);
-  --input: oklch(0.28 0.04 265);
-  --ring: oklch(0.78 0.18 195);
+  --border: oklch(0.5 0.15 320 / 0.45);
+  --input: oklch(0.28 0.08 295);
+  --ring: oklch(0.76 0.24 350);
 
-  --neon: oklch(0.82 0.2 195);
-  --neon-pink: oklch(0.72 0.24 340);
-  --neon-cyan: oklch(0.85 0.18 200);
-  --neon-amber: oklch(0.82 0.18 75);
+  /* Neon set: sakura pink, mint cyan, electric purple, dopamine yellow */
+  --neon: oklch(0.82 0.22 350);
+  --neon-pink: oklch(0.78 0.26 350);
+  --neon-cyan: oklch(0.88 0.18 195);
+  --neon-amber: oklch(0.92 0.2 105);
 
-  --gradient-radial: radial-gradient(circle at 30% 20%, oklch(0.32 0.1 280 / 0.6), transparent 60%),
-    radial-gradient(circle at 80% 80%, oklch(0.3 0.12 200 / 0.5), transparent 55%);
-  --gradient-neon: linear-gradient(135deg, oklch(0.78 0.18 195), oklch(0.72 0.24 340));
-  --shadow-neon: 0 0 24px oklch(0.78 0.18 195 / 0.45), 0 0 60px oklch(0.72 0.24 340 / 0.25);
-  --shadow-panel: 0 8px 32px oklch(0 0 0 / 0.5), inset 0 1px 0 oklch(1 0 0 / 0.06);
+  --gradient-radial:
+    radial-gradient(circle at 20% 15%, oklch(0.55 0.25 350 / 0.45), transparent 55%),
+    radial-gradient(circle at 85% 25%, oklch(0.55 0.22 305 / 0.4), transparent 55%),
+    radial-gradient(circle at 50% 95%, oklch(0.55 0.2 195 / 0.35), transparent 60%);
+  --gradient-neon: linear-gradient(135deg,
+    oklch(0.78 0.26 350) 0%,
+    oklch(0.7 0.24 305) 50%,
+    oklch(0.85 0.2 195) 100%);
+  --shadow-neon: 0 0 24px oklch(0.78 0.26 350 / 0.55), 0 0 60px oklch(0.7 0.24 305 / 0.3);
+  --shadow-panel: 0 8px 32px oklch(0 0 0 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.08);
 }
 
 .dark {
