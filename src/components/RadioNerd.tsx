@@ -124,8 +124,8 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
 
       <div className="mb-3 flex items-center justify-between gap-2 rounded-md border border-border bg-background/40 px-3 py-2">
         <div className="min-w-0 flex-1">
-          <div className="truncate font-display text-sm text-foreground">{track.title}</div>
-          <div className="truncate text-[11px] text-muted-foreground">{track.artist}</div>
+          <div className="truncate font-display text-sm text-foreground">{track?.title ?? "No tracks"}</div>
+          <div className="truncate text-[11px] text-muted-foreground">{track?.artist ?? "—"}</div>
         </div>
         <button onClick={next} className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-primary" title="Next">
           <SkipForward className="h-4 w-4" />
