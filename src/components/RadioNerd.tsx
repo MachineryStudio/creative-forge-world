@@ -160,25 +160,42 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
           ))}
         </div>
 
-        {/* Artist info side panel */}
-        <div className="flex w-full min-w-[160px] flex-col gap-2 rounded-md border border-accent/30 bg-accent/5 p-3 md:w-44">
-          <div className="font-display text-[10px] uppercase tracking-[0.2em] text-accent">Support Artist</div>
-          <div className="truncate text-xs text-foreground">{track?.artist ?? "—"}</div>
-          {track?.artistUrl ? (
-            <a href={track.artistUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-primary/40 bg-primary/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-primary hover:bg-primary/20">
-              <ExternalLink className="h-3 w-3" /> More info
-            </a>
-          ) : (
-            <span className="text-[10px] text-muted-foreground">No info link</span>
-          )}
-          {track?.artistOfficialUrl ? (
-            <a href={track.artistOfficialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-accent/40 bg-accent/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-accent-foreground hover:bg-accent/20">
-              <Globe2 className="h-3 w-3" /> Official site
-            </a>
-          ) : (
-            <span className="text-[10px] text-muted-foreground">No official site</span>
-          )}
-        </div>
+        {/* Support The Artist side panel — color rotates per selected track */}
+        {(() => {
+          const c = ACCENTS[idx % ACCENTS.length];
+          return (
+            <div
+              className="flex w-full min-w-[160px] flex-col gap-2 rounded-md border p-3 transition-colors md:w-44"
+              style={{ borderColor: c.ring, background: c.bg, boxShadow: `0 0 18px ${c.ring}` }}
+            >
+              <div className="font-display text-[10px] uppercase tracking-[0.2em]" style={{ color: c.text }}>
+                Support The Artist
+              </div>
+              <div className="truncate text-xs text-foreground">{track?.artist ?? "—"}</div>
+              {track?.artistUrl ? (
+                <a href={track.artistUrl} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 truncate rounded border px-2 py-1 text-[10px] font-display uppercase tracking-widest hover:opacity-90"
+                  style={{ borderColor: c.ring, color: c.text, background: c.bg }}>
+                  <ExternalLink className="h-3 w-3" /> Artist info
+                </a>
+              ) : (
+                <span className="text-[10px] text-muted-foreground">No info link</span>
+              )}
+              {track?.artistOfficialUrl ? (
+                <a href={track.artistOfficialUrl} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 truncate rounded border px-2 py-1 text-[10px] font-display uppercase tracking-widest hover:opacity-90"
+                  style={{ borderColor: c.ring, color: c.text, background: c.bg }}>
+                  <Globe2 className="h-3 w-3" /> Official site
+                </a>
+              ) : (
+                <span className="text-[10px] text-muted-foreground">No official site</span>
+              )}
+              {track?.notes && (
+                <p className="mt-1 line-clamp-3 text-[10px] italic text-muted-foreground">“{track.notes}”</p>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       {/* Larger YouTube player */}
