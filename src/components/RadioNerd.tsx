@@ -149,8 +149,8 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
         {/* Artist info side panel */}
         <div className="flex w-full min-w-[160px] flex-col gap-2 rounded-md border border-accent/30 bg-accent/5 p-3 md:w-44">
           <div className="font-display text-[10px] uppercase tracking-[0.2em] text-accent">Support Artist</div>
-          <div className="truncate text-xs text-foreground">{track.artist}</div>
-          {track.artistUrl ? (
+          <div className="truncate text-xs text-foreground">{track?.artist ?? "—"}</div>
+          {track?.artistUrl ? (
             <a href={track.artistUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-primary/40 bg-primary/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-primary hover:bg-primary/20">
               <ExternalLink className="h-3 w-3" /> More info
             </a>
