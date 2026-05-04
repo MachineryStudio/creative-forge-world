@@ -34,7 +34,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
   const [on, setOn] = useState(false);
   const [idx, setIdx] = useState(0);
   const [loop, setLoop] = useState(false);
-  const [tracks, setTracks] = useState<Track[]>(FALLBACK[genre]);
+  const [tracks, setTracks] = useState<Track[]>(FALLBACK[genre] ?? FALLBACK.universal ?? []);
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
@@ -73,7 +73,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     return () => { mounted = false; channel?.unsubscribe(); };
   }, [genre]);
 
-  const track = tracks[idx] ?? tracks[0];
+  const track = tracks[idx] ?? tracks[0] ?? null;
 
   useEffect(() => {
     if (!ownsMusic || !track) return;
@@ -81,7 +81,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
 
-  const next = () => { sfx.blip(); setIdx((i) => (i + 1) % tracks.length); };
+  const next = () => { sfx.blip(); setIdx((i) => (tracks.length ? (i + 1) % tracks.length : 0)); };
 
   return (
     <div className="panel scanlines relative overflow-hidden p-5">
@@ -124,8 +124,8 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
 
       <div className="mb-3 flex items-center justify-between gap-2 rounded-md border border-border bg-background/40 px-3 py-2">
         <div className="min-w-0 flex-1">
-          <div className="truncate font-display text-sm text-foreground">{track.title}</div>
-          <div className="truncate text-[11px] text-muted-foreground">{track.artist}</div>
+          <div className="truncate font-display text-sm text-foreground">{track?.title ?? "No tracks"}</div>
+          <div className="truncate text-[11px] text-muted-foreground">{track?.artist ?? "—"}</div>
         </div>
         <button onClick={next} className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-primary" title="Next">
           <SkipForward className="h-4 w-4" />
@@ -149,15 +149,15 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
         {/* Artist info side panel */}
         <div className="flex w-full min-w-[160px] flex-col gap-2 rounded-md border border-accent/30 bg-accent/5 p-3 md:w-44">
           <div className="font-display text-[10px] uppercase tracking-[0.2em] text-accent">Support Artist</div>
-          <div className="truncate text-xs text-foreground">{track.artist}</div>
-          {track.artistUrl ? (
+          <div className="truncate text-xs text-foreground">{track?.artist ?? "—"}</div>
+          {track?.artistUrl ? (
             <a href={track.artistUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-primary/40 bg-primary/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-primary hover:bg-primary/20">
               <ExternalLink className="h-3 w-3" /> More info
             </a>
           ) : (
             <span className="text-[10px] text-muted-foreground">No info link</span>
           )}
-          {track.artistOfficialUrl ? (
+          {track?.artistOfficialUrl ? (
             <a href={track.artistOfficialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-accent/40 bg-accent/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-accent-foreground hover:bg-accent/20">
               <Globe2 className="h-3 w-3" /> Official site
             </a>
@@ -168,7 +168,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
       </div>
 
       {/* Larger YouTube player */}
-      {on && (
+      {on && track && (
         <div className="overflow-hidden rounded-md border border-border" style={{ height: 240 }}>
           <iframe
             key={`${track.id}-${loop}`}
