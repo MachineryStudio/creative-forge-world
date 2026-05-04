@@ -227,7 +227,7 @@ function Index() {
           </div>
 
           <div className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} CreatureToolBox · BRIDGE2 · 2D · 3D Art · Pipeline · Code</p>
+            <p>© {new Date().getFullYear()} LIGHTHOUSE 橋 · Prototype Software Pipeline · 2D · 3D Art · Pipeline · Code</p>
           </div>
         </section>
       </footer>
