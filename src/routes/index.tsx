@@ -117,7 +117,7 @@ function Index() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
                 <div className="font-display text-lg uppercase tracking-widest neon-text">Andree</div>
-                <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">BRIDGE2 · CreatureToolBox</div>
+                <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">LIGHTHOUSE 橋</div>
               </div>
             </div>
 
