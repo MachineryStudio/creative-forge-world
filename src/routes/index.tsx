@@ -234,6 +234,7 @@ function Index() {
           </div>
         </section>
       </footer>
+      <MiyuChat />
     </div>
   );
 }
