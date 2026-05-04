@@ -32,6 +32,7 @@ interface DBTrack {
   artist_name: string | null;
   artist_url: string | null;
   artist_official_url: string | null;
+  notes: string | null;
 }
 
 interface Announcement {
