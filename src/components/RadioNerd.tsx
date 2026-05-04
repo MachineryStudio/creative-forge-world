@@ -76,7 +76,8 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     return () => { mounted = false; channel?.unsubscribe(); };
   }, [genre]);
 
-  const track = tracks[idx] ?? tracks[0] ?? null;
+  const safeTracks = Array.isArray(tracks) ? tracks : [];
+  const track = safeTracks[idx] ?? safeTracks[0] ?? null;
 
   useEffect(() => {
     if (!ownsMusic || !track) return;
