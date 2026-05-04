@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
 import { RadioNerd } from "@/components/RadioNerd";
 import { AnnouncementsPanel } from "@/components/AnnouncementsPanel";
-import { DesignTokensPanel } from "@/components/DesignTokensPanel";
+
 import { VisitorMap } from "@/components/VisitorMap";
 import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
@@ -32,8 +32,8 @@ function Index() {
       <SiteHeader />
       <CreatureAttack trigger={attackTrigger} />
 
-      {/* HERO */}
-      <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10">
+      {/* HERO — centered like a lighthouse beam */}
+      <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10 text-center">
         <button
           type="button"
           onClick={() => setAttackTrigger((n) => n + 1)}
@@ -47,16 +47,15 @@ function Index() {
           <span className="neon-text">LIGHTHOUSE 橋</span>
         </h1>
         <p className="mt-2 font-display text-xs uppercase tracking-[0.4em] text-primary">Prototype Software Pipeline</p>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-3 max-w-2xl text-lg text-muted-foreground">
           Interactive tools for prototyping and production.
         </p>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <div className="mt-10 grid gap-6 text-left lg:grid-cols-[2fr_1fr]">
           <BubbleRouter />
 
           <div className="space-y-6">
             <AnnouncementsPanel />
-            <DesignTokensPanel />
             <VisitorMap />
             <div className="panel scanlines relative p-5">
               <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Intro</div>
