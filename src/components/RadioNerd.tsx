@@ -157,7 +157,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
           ) : (
             <span className="text-[10px] text-muted-foreground">No info link</span>
           )}
-          {track.artistOfficialUrl ? (
+          {track?.artistOfficialUrl ? (
             <a href={track.artistOfficialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 truncate rounded border border-accent/40 bg-accent/10 px-2 py-1 text-[10px] font-display uppercase tracking-widest text-accent-foreground hover:bg-accent/20">
               <Globe2 className="h-3 w-3" /> Official site
             </a>
