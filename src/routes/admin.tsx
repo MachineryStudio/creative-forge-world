@@ -167,10 +167,11 @@ function AdminPage() {
         artist_name: artistName.trim() || null,
         artist_url: artistUrl.trim() || null,
         artist_official_url: artistOfficialUrl.trim() || null,
+        notes: trackNotes.trim() || null,
       });
       if (error) throw error;
       sfx.coin();
-      setTitle(""); setYtInput(""); setMood("clouds"); setArtistName(""); setArtistUrl(""); setArtistOfficialUrl("");
+      setTitle(""); setYtInput(""); setMood("clouds"); setArtistName(""); setArtistUrl(""); setArtistOfficialUrl(""); setTrackNotes("");
       setSaveMsg("Track added."); loadTracks();
     } catch (err) { setSaveMsg(getSupabaseLoadMessage(err)); sfx.death(); }
   }
