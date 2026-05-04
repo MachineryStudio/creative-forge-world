@@ -327,6 +327,8 @@ function AdminPage() {
             className="rounded-md border border-border bg-input px-3 py-2 text-sm" />
           <input value={artistOfficialUrl} onChange={(e) => setArtistOfficialUrl(e.target.value)} placeholder="Artist official website"
             className="rounded-md border border-border bg-input px-3 py-2 text-sm md:col-span-2" />
+          <textarea value={trackNotes} onChange={(e) => setTrackNotes(e.target.value)} placeholder="Admin notes (internal — shown small under Support panel)"
+            rows={2} className="rounded-md border border-border bg-input px-3 py-2 text-sm md:col-span-2" />
           <button type="submit" className="md:col-span-2 rounded-md bg-gradient-to-r from-primary to-accent px-4 py-2 font-display text-sm text-primary-foreground neon-glow">
             <Plus className="mr-1 inline h-4 w-4" /> Add track
           </button>
