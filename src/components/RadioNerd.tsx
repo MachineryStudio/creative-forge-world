@@ -14,13 +14,22 @@ interface Track {
   mood: Mood;
   artistUrl?: string | null;
   artistOfficialUrl?: string | null;
+  notes?: string | null;
 }
 
 interface RadioNerdProps {
   genre: Genre;
   label: string;
-  ownsMusic?: boolean; // only one panel should drive global music mood
+  ownsMusic?: boolean;
 }
+
+const ACCENTS = [
+  { ring: "var(--neon-pink)", text: "var(--neon-pink)", bg: "color-mix(in oklab, var(--neon-pink) 12%, transparent)" },
+  { ring: "var(--neon-cyan)", text: "var(--neon-cyan)", bg: "color-mix(in oklab, var(--neon-cyan) 12%, transparent)" },
+  { ring: "var(--neon-amber)", text: "var(--neon-amber)", bg: "color-mix(in oklab, var(--neon-amber) 14%, transparent)" },
+  { ring: "var(--accent)",    text: "var(--accent)",    bg: "color-mix(in oklab, var(--accent) 14%, transparent)" },
+  { ring: "var(--primary)",   text: "var(--primary)",   bg: "color-mix(in oklab, var(--primary) 14%, transparent)" },
+];
 
 const FALLBACK: Record<Genre, Track[]> = {
   anime: [{ id: "fb-a", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "anime", youtubeId: "o6wtDPVkKqI", mood: "clouds" }],
