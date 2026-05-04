@@ -85,7 +85,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
 
-  const next = () => { sfx.blip(); setIdx((i) => (tracks.length ? (i + 1) % tracks.length : 0)); };
+  const next = () => { sfx.blip(); setIdx((i) => (safeTracks.length ? (i + 1) % safeTracks.length : 0)); };
 
   return (
     <div className="panel scanlines relative overflow-hidden p-5">
