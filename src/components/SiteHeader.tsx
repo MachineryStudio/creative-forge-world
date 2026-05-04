@@ -17,11 +17,16 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3" aria-label="LIGHTHOUSE 橋 — Home">
-          <img
-            src={lighthouseLogo}
-            alt="LIGHTHOUSE 橋"
-            className="h-12 w-auto object-contain drop-shadow-[0_0_18px_var(--color-neon)]"
-          />
+          <span
+            className="flex h-14 w-14 items-center justify-center rounded-full p-1 ring-2 ring-primary/40"
+            style={{ background: "var(--sakura-white)", boxShadow: "0 0 24px var(--sakura-white)" }}
+          >
+            <img
+              src={lighthouseLogo}
+              alt="LIGHTHOUSE 橋"
+              className="h-12 w-auto object-contain"
+            />
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-5 md:flex">
