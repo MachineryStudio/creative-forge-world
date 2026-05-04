@@ -57,39 +57,39 @@ export function HamburgerMenu() {
     <>
       <button
         onClick={() => { sfx.click(); setOpen(true); }}
-        className="grid h-10 w-10 place-items-center rounded-md border border-border bg-card/60 text-foreground hover:text-primary"
+        className="grid h-11 w-11 place-items-center rounded-md border border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10 text-primary transition hover:scale-105 hover:from-primary/20 hover:to-accent/20 hover:shadow-[0_0_20px_var(--color-neon)]"
         aria-label="Menu"
       >
-        <Menu className="h-5 w-5" />
+        <Menu className="h-6 w-6" />
       </button>
 
       {open && (
         <div className="fixed inset-0 z-[100] flex">
           <div className="flex-1 bg-background/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <aside className="relative h-full w-[min(440px,90vw)] overflow-y-auto panel scanlines border-l border-border p-6">
-            <div className="mb-6 flex items-center justify-between">
-              <span className="font-display text-lg neon-text">{t("menu")}</span>
-              <button onClick={() => { sfx.click(); setOpen(false); }} className="text-muted-foreground hover:text-foreground">
+          <aside className="relative h-full w-[min(520px,92vw)] overflow-y-auto panel scanlines border-l-2 border-primary/40 p-8">
+            <div className="mb-8 flex items-center justify-between border-b border-border/60 pb-4">
+              <span className="font-display text-2xl neon-text">{t("menu")}</span>
+              <button onClick={() => { sfx.click(); setOpen(false); }} className="rounded-md border border-border p-2 text-muted-foreground hover:border-primary hover:text-primary">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {SECTIONS.map((s, i) => (
                 <div key={s.titleKey}>
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="grid h-6 w-6 place-items-center rounded border border-primary/50 font-display text-xs text-primary">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="grid h-8 w-8 place-items-center rounded-md border border-primary/60 bg-primary/10 font-display text-sm text-primary neon-glow">
                       {i + 1}
                     </span>
-                    <h3 className="font-display text-sm uppercase tracking-widest text-foreground">{t(s.titleKey)}</h3>
+                    <h3 className="font-display text-base uppercase tracking-widest text-foreground">{t(s.titleKey)}</h3>
                   </div>
-                  <ul className="ml-8 space-y-1">
+                  <ul className="ml-11 space-y-1.5 border-l border-border/40 pl-4">
                     {s.items.map((it) => (
                       <li key={it.label}>
                         <Link
                           to={it.to}
                           onClick={() => { sfx.blip(); setOpen(false); }}
-                          className="block rounded px-2 py-1 text-sm text-muted-foreground transition hover:bg-secondary hover:text-primary"
+                          className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-primary/10 hover:pl-5 hover:text-primary"
                         >
                           › {it.label}
                         </Link>
