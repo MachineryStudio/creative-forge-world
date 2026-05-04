@@ -34,7 +34,10 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
   const [on, setOn] = useState(false);
   const [idx, setIdx] = useState(0);
   const [loop, setLoop] = useState(false);
-  const [tracks, setTracks] = useState<Track[]>(FALLBACK[genre] ?? FALLBACK.universal ?? []);
+  const [tracks, setTracks] = useState<Track[]>(() => {
+    const fb = FALLBACK[genre] ?? FALLBACK.universal;
+    return Array.isArray(fb) ? fb : [];
+  });
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
