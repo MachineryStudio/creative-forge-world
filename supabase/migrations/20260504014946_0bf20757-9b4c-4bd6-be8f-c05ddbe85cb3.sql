@@ -1,0 +1,1 @@
+ALTER TABLE public.radio_tracks ADD COLUMN IF NOT EXISTS notes text;

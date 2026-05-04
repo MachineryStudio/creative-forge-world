@@ -140,6 +140,7 @@ export type Database = {
           genre: string
           id: string
           mood: string
+          notes: string | null
           position: number
           title: string
           youtube_id: string
@@ -152,6 +153,7 @@ export type Database = {
           genre?: string
           id?: string
           mood?: string
+          notes?: string | null
           position?: number
           title: string
           youtube_id: string
@@ -164,6 +166,7 @@ export type Database = {
           genre?: string
           id?: string
           mood?: string
+          notes?: string | null
           position?: number
           title?: string
           youtube_id?: string
