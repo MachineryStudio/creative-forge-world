@@ -357,6 +357,8 @@ function AdminPage() {
                       <input defaultValue={t.artist_official_url ?? ""} placeholder="Official website" onBlur={(e) => updateTrackField(t.id, "artist_official_url", e.target.value)}
                         className="rounded border border-border bg-input px-2 py-1 text-[11px]" />
                     </div>
+                    <textarea defaultValue={t.notes ?? ""} placeholder="Admin notes" onBlur={(e) => updateTrackField(t.id, "notes", e.target.value)}
+                      rows={2} className="mt-1 w-full rounded border border-border bg-input px-2 py-1 text-[11px]" />
                   </div>
                   <select value={t.genre} onChange={(e) => updateTrackField(t.id, "genre", e.target.value)}
                     className="rounded-md border border-border bg-input px-2 py-1 text-xs">
