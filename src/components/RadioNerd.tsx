@@ -50,6 +50,15 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
+  const activeStation = useMusic((s) => s.activeStation);
+  const setActiveStation = useMusic((s) => s.setActiveStation);
+
+  // Enforce single active station globally
+  useEffect(() => {
+    if (on && activeStation && activeStation !== genre) {
+      setOn(false);
+    }
+  }, [activeStation, genre, on]);
 
   useEffect(() => {
     let mounted = true;
