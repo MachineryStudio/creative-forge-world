@@ -15,7 +15,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3" aria-label="LIGHTHOUSE 橋 — Home">
           <span
             className="flex h-20 w-20 items-center justify-center rounded-2xl p-2 ring-2 ring-primary/50"
