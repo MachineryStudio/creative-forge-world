@@ -381,12 +381,51 @@ function Radioneto() {
         ctx.fillText("♪ MELODY x2 — trace the wave ♪", 20, H * 0.25 - 40);
       }
 
+      // Ambient JP atmosphere — kanji drifting down + drifting money
+      if (isJP && Math.random() < 0.35) {
+        particlesRef.current.push({
+          x: Math.random() * W, y: -20,
+          vx: (Math.random() - 0.5) * 0.6, vy: 1 + Math.random() * 1.2,
+          life: 1.5, color: "#fde047",
+          size: 18 + Math.random() * 16,
+          kind: Math.random() < 0.4 ? "money" : "kanji",
+          char: KANJI_POOL[Math.floor(Math.random() * KANJI_POOL.length)],
+        });
+      }
+
       // Particles
       particlesRef.current = particlesRef.current.filter((p) => {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.life -= 0.02;
-        if (p.life <= 0) return false;
-        ctx.fillStyle = p.color + Math.floor(p.life * 255).toString(16).padStart(2, "0");
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2); ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.kind === "money" || p.kind === "kanji") {
+          p.vy += 0.04; p.vx *= 0.995;
+          p.life -= 0.008;
+        } else if (p.kind === "fire") {
+          p.vy -= 0.08; p.vx *= 0.96;
+          p.life -= 0.025;
+        } else if (p.kind === "water") {
+          p.vy += 0.18; p.vx *= 0.97;
+          p.life -= 0.02;
+        } else {
+          p.vy += 0.15;
+          p.life -= 0.02;
+        }
+        if (p.life <= 0 || p.y > H + 40) return false;
+        const alpha = Math.max(0, Math.min(1, p.life));
+        if (p.kind === "kanji") {
+          ctx.fillStyle = `rgba(253,224,71,${alpha})`;
+          ctx.font = `bold ${Math.floor(p.size)}px serif`;
+          ctx.fillText(p.char ?? "音", p.x, p.y);
+          // glow
+          ctx.fillStyle = `rgba(244,114,182,${alpha * 0.4})`;
+          ctx.fillText(p.char ?? "音", p.x + 1, p.y + 1);
+        } else if (p.kind === "money") {
+          ctx.fillStyle = `rgba(250,204,21,${alpha})`;
+          ctx.font = `bold ${Math.floor(p.size)}px sans-serif`;
+          ctx.fillText("¥", p.x, p.y);
+        } else {
+          ctx.fillStyle = p.color + Math.floor(alpha * 255).toString(16).padStart(2, "0");
+          ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(1, p.size * alpha), 0, Math.PI * 2); ctx.fill();
+        }
         return true;
       });
 
