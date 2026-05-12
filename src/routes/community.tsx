@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { RadioNerd } from "@/components/RadioNerd";
 import { sfx } from "@/lib/sfx";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 
