@@ -63,6 +63,7 @@ interface Particle {
 }
 
 function Radioneto() {
+  const [gameMode, setGameMode] = useState<GameMode>("beatsync");
   const [role, setRole] = useState<Role>(null);
   const [songIdx, setSongIdx] = useState(0);
   const [songs, setSongs] = useState<Song[]>(DEFAULT_SONGS);
