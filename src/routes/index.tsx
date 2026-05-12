@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
-import { RadioNerd } from "@/components/RadioNerd";
+
 import { AnnouncementsPanel } from "@/components/AnnouncementsPanel";
 
 import { VisitorMap } from "@/components/VisitorMap";
@@ -75,15 +75,15 @@ function Index() {
         </div>
       </section>
 
-      {/* RADIONERD PANELS — 5 genres */}
+      {/* RadioNerd moved to /community. RADIONETO game lives at /radioneto */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
-        <h2 className="mb-4 font-display text-2xl neon-text">RadioNerd · Channels</h2>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          <RadioNerd genre="anime" label="Anime" ownsMusic />
-          <RadioNerd genre="game" label="Game" />
-          <RadioNerd genre="visual_kei" label="Visual Kei" />
-          <RadioNerd genre="jpop" label="JPop" />
-          <RadioNerd genre="universal" label="Universal" />
+        <div className="panel scanlines flex flex-col items-start gap-3 p-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード</div>
+            <h2 className="font-display text-2xl neon-text">RADIONETO — Rhythm Game</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Pick Drums or Bass. Tap the kick. Trace the melody. Survive the visual-kei concert.</p>
+          </div>
+          <a href="/radioneto" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary neon-glow hover:bg-primary/20">▶ Play</a>
         </div>
       </section>
 

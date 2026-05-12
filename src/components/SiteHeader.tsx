@@ -32,6 +32,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-5 md:flex">
           <Link to="/marketplace" className="text-sm text-muted-foreground hover:text-primary">{t("marketplace")}</Link>
           <Link to="/community" className="text-sm text-muted-foreground hover:text-primary">{t("community")}</Link>
+          <Link to="/radioneto" className="text-sm text-muted-foreground hover:text-primary">RADIONETO</Link>
           <Link to="/auth" className="text-sm text-muted-foreground hover:text-primary">{t("signIn")}</Link>
         </nav>
 

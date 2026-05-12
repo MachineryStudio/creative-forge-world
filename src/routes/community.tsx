@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { RadioNerd } from "@/components/RadioNerd";
 import { sfx } from "@/lib/sfx";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 
@@ -141,6 +142,19 @@ function Community() {
             Send
           </button>
         </form>
+
+        {/* RadioNerd channels — only one station can be ON at a time */}
+        <section className="mt-12">
+          <h2 className="mb-2 font-display text-2xl neon-text">RadioNerd · Channels</h2>
+          <p className="mb-4 text-xs text-muted-foreground">Only one station plays at a time. Turning on another switches off the previous.</p>
+          <div className="grid gap-6 md:grid-cols-2">
+            <RadioNerd genre="anime" label="Anime" ownsMusic />
+            <RadioNerd genre="game" label="Game" ownsMusic />
+            <RadioNerd genre="visual_kei" label="Visual Kei" ownsMusic />
+            <RadioNerd genre="jpop" label="JPop" ownsMusic />
+            <RadioNerd genre="universal" label="Universal" ownsMusic />
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -50,6 +50,15 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
   const setMusic = useMusic((s) => s.setTrack);
   const setMusicOn = useMusic((s) => s.setOn);
   const setMood = useMusic((s) => s.setMood);
+  const activeStation = useMusic((s) => s.activeStation);
+  const setActiveStation = useMusic((s) => s.setActiveStation);
+
+  // Enforce single active station globally
+  useEffect(() => {
+    if (on && activeStation && activeStation !== genre) {
+      setOn(false);
+    }
+  }, [activeStation, genre, on]);
 
   useEffect(() => {
     let mounted = true;
@@ -94,6 +103,12 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     if (on) setMusic(track.id, track.mood);
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
+
+  // Claim/release activeStation when this radio toggles
+  useEffect(() => {
+    if (on) setActiveStation(genre);
+    else if (activeStation === genre) setActiveStation(null);
+  }, [on, genre, activeStation, setActiveStation]);
 
   const next = () => { sfx.blip(); setIdx((i) => (safeTracks.length ? (i + 1) % safeTracks.length : 0)); };
 
