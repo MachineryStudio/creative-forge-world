@@ -32,17 +32,22 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 md:flex">
-          <Link to="/marketplace" className="text-sm text-muted-foreground hover:text-primary">{t("marketplace")}</Link>
-          <Link to="/community" className="text-sm text-muted-foreground hover:text-primary">{t("community")}</Link>
-          <Link to="/radioneto" className="text-sm text-muted-foreground hover:text-primary">RADIONETO</Link>
-          <Link
-            to="/games"
-            className="rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_16px_var(--color-neon)]"
-          >
-            LIGHTHOUSE 橋 GAMES
-          </Link>
-          <Link to="/auth" className="text-sm text-muted-foreground hover:text-primary">{t("signIn")}</Link>
+        <nav className="hidden items-center gap-3 md:flex">
+          {[
+            { to: "/marketplace", label: t("marketplace") },
+            { to: "/community", label: t("community") },
+            { to: "/radioneto", label: "RADIONETO" },
+            { to: "/games", label: "LIGHTHOUSE 橋 GAMES" },
+            { to: "/auth", label: t("signIn") },
+          ].map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_16px_var(--color-neon)]"
+            >
+              {typeof item.label === "string" ? item.label.toUpperCase() : item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-4">
