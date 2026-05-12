@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BubbleRouter } from "@/components/BubbleRouter";
-import { RadioNerd } from "@/components/RadioNerd";
+
 import { AnnouncementsPanel } from "@/components/AnnouncementsPanel";
 
 import { VisitorMap } from "@/components/VisitorMap";
