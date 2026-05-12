@@ -466,10 +466,25 @@ function Radioneto() {
       <SiteHeader />
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-4">
-          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード</div>
-          <h1 className="font-display text-4xl neon-text">RADIONETO — BeatSync Studio</h1>
-          <p className="text-sm text-muted-foreground">Japanese visual-kei rhythm game. Tap on beat. Miss 5 in a row and the music stops.</p>
+          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード · RADIONETO</div>
+          <h1 className="font-display text-4xl neon-text">RADIONETO — BeatSync Studio 拍同期スタジオ</h1>
+          <p className="text-sm text-muted-foreground">ビジュアル系リズムゲーム · Tap on beat. Miss 5 in a row (連続ミス5回) and the music stops.</p>
         </div>
+
+        {/* RadioNerd channels moved here from Community — only one station can be ON at a time */}
+        <section className="mb-8">
+          <div className="mb-2 flex items-end justify-between gap-2">
+            <h2 className="font-display text-2xl neon-text">RadioNerd · チャンネル</h2>
+            <p className="hidden text-xs text-muted-foreground md:block">同時に再生できるのは1局のみ · Only one station plays at a time.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <RadioNerd genre="anime" label="Anime アニメ" ownsMusic />
+            <RadioNerd genre="game" label="Game ゲーム" ownsMusic />
+            <RadioNerd genre="visual_kei" label="Visual Kei ヴィジュアル系" ownsMusic />
+            <RadioNerd genre="jpop" label="JPop ジェイポップ" ownsMusic />
+            <RadioNerd genre="universal" label="Universal 全般" ownsMusic />
+          </div>
+        </section>
 
         {phase === "select" && (
           <div className="space-y-6">
