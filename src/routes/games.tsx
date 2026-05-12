@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import miyuWave from "@/assets/miyu-wave.png";
 
@@ -14,71 +14,31 @@ export const Route = createFileRoute("/games")({
 });
 
 const ENGAGES = ["unreal-engine", "unity", "roblox", "phaser3"] as const;
-
-function pickVoice(lang: "en" | "ja"): SpeechSynthesisVoice | undefined {
-  const voices = window.speechSynthesis.getVoices();
-  if (lang === "ja") {
-    return voices.find((v) => v.lang?.toLowerCase().startsWith("ja"));
-  }
-  return (
-    voices.find((v) => v.lang?.toLowerCase().startsWith("en") && /female|samantha|victoria|zira/i.test(v.name)) ||
-    voices.find((v) => v.lang?.toLowerCase().startsWith("en"))
-  );
-}
-
-function speakSequence() {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  try {
-    window.speechSynthesis.cancel();
-    const en = new SpeechSynthesisUtterance("Our games are in development.");
-    en.lang = "en-US";
-    en.rate = 1;
-    en.pitch = 1.1;
-    const enVoice = pickVoice("en");
-    if (enVoice) en.voice = enVoice;
-
-    const ja = new SpeechSynthesisUtterance("現在、ゲームは開発中です。");
-    ja.lang = "ja-JP";
-    ja.rate = 1;
-    ja.pitch = 1.1;
-    const jaVoice = pickVoice("ja");
-    if (jaVoice) ja.voice = jaVoice;
-
-    en.onend = () => window.speechSynthesis.speak(ja);
-    window.speechSynthesis.speak(en);
-  } catch {
-    /* ignore */
-  }
-}
+const MIYU_VOICE_SRC = "/audio/miyu-game-under-development.mp3";
 
 function GamesHub() {
-  const [spoke, setSpoke] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [played, setPlayed] = useState(false);
+
+  const playVoice = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = 0;
+    a.play().catch(() => {/* autoplay may be blocked */});
+  };
 
   useEffect(() => {
-    if (spoke) return;
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    // Voices may load async
-    const trigger = () => {
-      speakSequence();
-      setSpoke(true);
-    };
-    if (window.speechSynthesis.getVoices().length > 0) {
-      trigger();
-    } else {
-      const handler = () => {
-        trigger();
-        window.speechSynthesis.removeEventListener("voiceschanged", handler);
-      };
-      window.speechSynthesis.addEventListener("voiceschanged", handler);
-      // Fallback in case event never fires
-      const t = setTimeout(() => { if (!spoke) trigger(); }, 1200);
-      return () => { clearTimeout(t); window.speechSynthesis.removeEventListener("voiceschanged", handler); };
-    }
-  }, [spoke]);
+    if (played) return;
+    setPlayed(true);
+    // Try autoplay; some browsers require interaction
+    const t = setTimeout(playVoice, 400);
+    return () => clearTimeout(t);
+  }, [played]);
 
   return (
     <div className="min-h-screen">
       <SiteHeader />
+      <audio ref={audioRef} src={MIYU_VOICE_SRC} preload="auto" />
       <div className="mx-auto max-w-5xl px-4 py-12 text-center">
         <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ライトハウス · ARCADE</div>
         <h1 className="font-display text-4xl neon-text">LIGHTHOUSE 橋 GAMES</h1>
@@ -94,7 +54,6 @@ function GamesHub() {
           />
 
           <div className="relative max-w-md">
-            {/* Speech bubble tail */}
             <div
               className="hidden md:block absolute -left-3 bottom-8 h-4 w-4 rotate-45 border-b border-l border-primary/40 bg-card"
               aria-hidden
@@ -108,10 +67,10 @@ function GamesHub() {
                 現在、ゲームは開発中です。
               </p>
               <button
-                onClick={speakSequence}
+                onClick={playVoice}
                 className="mt-3 rounded-md border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-display uppercase tracking-widest text-primary transition hover:bg-primary/20"
               >
-                ▶ Replay voice · もう一度
+                ▶ Play MIYU voice · もう一度
               </button>
             </div>
           </div>
