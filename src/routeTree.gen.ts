@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RadionetoRouteImport } from './routes/radioneto'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -23,6 +24,11 @@ import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
 import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
 import { Route as Hub2dConceptualRouteImport } from './routes/hub.2d-conceptual'
 
+const RadionetoRoute = RadionetoRouteImport.update({
+  id: '/radioneto',
+  path: '/radioneto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
+  '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
+  '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
+  '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/community'
     | '/marketplace'
+    | '/radioneto'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/community'
     | '/marketplace'
+    | '/radioneto'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/community'
     | '/marketplace'
+    | '/radioneto'
     | '/hub/2d-conceptual'
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CommunityRoute: typeof CommunityRoute
   MarketplaceRoute: typeof MarketplaceRoute
+  RadionetoRoute: typeof RadionetoRoute
   Hub2dConceptualRoute: typeof Hub2dConceptualRoute
   Hub2dCreaturesRoute: typeof Hub2dCreaturesRoute
   Hub3dMeshRoute: typeof Hub3dMeshRoute
@@ -201,6 +214,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/radioneto': {
+      id: '/radioneto'
+      path: '/radioneto'
+      fullPath: '/radioneto'
+      preLoaderRoute: typeof RadionetoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/marketplace': {
       id: '/marketplace'
       path: '/marketplace'
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CommunityRoute: CommunityRoute,
   MarketplaceRoute: MarketplaceRoute,
+  RadionetoRoute: RadionetoRoute,
   Hub2dConceptualRoute: Hub2dConceptualRoute,
   Hub2dCreaturesRoute: Hub2dCreaturesRoute,
   Hub3dMeshRoute: Hub3dMeshRoute,
