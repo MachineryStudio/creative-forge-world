@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { RadioNerd } from "@/components/RadioNerd";
+import { MiyuChat } from "@/components/MiyuChat";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import bassImg from "@/assets/rocker-bass.jpg";
 import drumImg from "@/assets/rocker-drummer.jpg";
@@ -648,6 +649,7 @@ function Radioneto() {
           </div>
         )}
       </div>
+      <MiyuChat />
     </div>
   );
 }
