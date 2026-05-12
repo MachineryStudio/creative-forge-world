@@ -509,25 +509,26 @@ function Radioneto() {
 
             <div className="panel scanlines flex flex-col items-start gap-3 p-5 md:flex-row md:items-center md:justify-between">
               <div className="flex flex-col gap-2">
-                <label className="font-display text-xs uppercase tracking-widest text-primary">Select Song</label>
+                <label className="font-display text-xs uppercase tracking-widest text-primary">Select Song · 曲を選ぶ</label>
                 <select
                   value={songIdx}
                   onChange={(e) => setSongIdx(parseInt(e.target.value))}
                   className="rounded-md border border-border bg-input px-3 py-2 text-sm"
                 >
                   {songs.map((s, i) => (
-                    <option key={s.id} value={i}>{s.title} — {s.artist} · {s.bpm} BPM · {s.genre}</option>
+                    <option key={s.id} value={i}>{hasJapanese(s.title) || hasJapanese(s.artist) ? "🎌 " : ""}{s.title} — {s.artist} · {s.bpm} BPM · {s.genre}</option>
                   ))}
                 </select>
+                <p className="text-[10px] text-muted-foreground">管理者が追加した曲も自動で読み込まれます · Admin-added tracks load automatically.</p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="text-xs text-muted-foreground">Best: <span className="font-display text-primary">{bestScore}</span></div>
+                <div className="text-xs text-muted-foreground">Best · 最高: <span className="font-display text-primary">{bestScore}</span></div>
                 <button
                   onClick={startGame}
                   disabled={!role}
                   className="rounded-md bg-gradient-to-r from-primary to-accent px-6 py-3 font-display text-sm uppercase tracking-widest text-primary-foreground disabled:opacity-50"
                 >
-                  ▶ Start Song
+                  ▶ Start · 開始
                 </button>
               </div>
             </div>
