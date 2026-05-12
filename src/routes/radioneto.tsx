@@ -541,11 +541,11 @@ function Radioneto() {
               {/* HUD */}
               <div className="pointer-events-none absolute left-0 right-0 top-0 z-20 flex items-start justify-between p-3 text-white">
                 <div className="rounded-md bg-black/50 px-3 py-2 font-display text-xs uppercase tracking-widest backdrop-blur">
-                  <div className="text-[10px] text-pink-300">Score</div>
+                  <div className="text-[10px] text-pink-300">Score · 点数</div>
                   <div className="text-2xl text-pink-200">{score}</div>
                 </div>
                 <div className="rounded-md bg-black/50 px-3 py-2 text-center font-display backdrop-blur">
-                  <div className="text-[10px] uppercase tracking-widest text-cyan-300">Combo</div>
+                  <div className="text-[10px] uppercase tracking-widest text-cyan-300">Combo · 連続</div>
                   <div className="text-3xl text-cyan-200">{combo}x</div>
                 </div>
                 <div className="rounded-md bg-black/50 px-3 py-2 font-display text-xs uppercase tracking-widest backdrop-blur">
@@ -629,10 +629,10 @@ function Radioneto() {
               </div>
 
               <div className="panel rounded-xl p-3 text-xs">
-                <div className="mb-1 font-display uppercase tracking-widest text-accent-foreground">Now Playing</div>
+                <div className="mb-1 font-display uppercase tracking-widest text-accent-foreground">Now Playing · 再生中</div>
                 <div className="text-sm text-foreground">{song.title}</div>
                 <div className="text-muted-foreground">{song.artist} · {song.bpm} BPM</div>
-                <div className="mt-2 text-[11px] text-muted-foreground">Miss streak: {missStreak}/5</div>
+                <div className="mt-2 text-[11px] text-muted-foreground">Miss streak · ミス連続: {missStreak}/5</div>
               </div>
 
               <img
@@ -642,7 +642,7 @@ function Radioneto() {
               />
 
               <div className="rounded-xl border border-border bg-background/40 p-3 text-[11px] text-muted-foreground">
-                <strong className="text-primary">How to play:</strong> Tap SPACE, click, or touch the target on each beat. Trace the wave on chorus for x2. Miss 5 in a row → game over.
+                <strong className="text-primary">How to play · 遊び方:</strong> Tap SPACE, click, or touch the target on each beat. Trace the wave on chorus for x2. Miss 5 in a row → game over.
               </div>
             </aside>
           </div>
