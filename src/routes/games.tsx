@@ -1,51 +1,142 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import miyuWave from "@/assets/miyu-wave.png";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
     meta: [
       { title: "LIGHTHOUSE 橋 GAMES — Arcade Hub" },
-      { name: "description", content: "Play rhythm and arcade mini-games inside the LIGHTHOUSE 橋 universe." },
+      { name: "description", content: "Game development in production — MIYU greets you at the LIGHTHOUSE 橋 arcade." },
     ],
   }),
   component: GamesHub,
 });
 
-const GAMES = [
-  { key: "beatsync", title: "BeatSync Studio", jp: "拍同期スタジオ", desc: "Visual-kei rhythm game. Tap on beat with bass or drums.", emoji: "🎸" },
-  { key: "invaders", title: "Space Invaders", jp: "スペースインベーダー", desc: "Classic shooter. Defend the neon skyline.", emoji: "👾" },
-  { key: "tetris", title: "Tetris", jp: "テトリス", desc: "Stack falling blocks, clear lines, chase combos.", emoji: "🟦" },
-  { key: "tabbird", title: "Tab Bird", jp: "タブバード", desc: "Flap through pipes — one tap to fly.", emoji: "🐤" },
-  { key: "matching", title: "Input Matching", jp: "入力一致", desc: "Simon-style memory with kanji keys 桜 水 金 森.", emoji: "🀄" },
-];
+const ENGAGES = ["unreal-engine", "unity", "roblox", "phaser3"] as const;
+
+function pickVoice(lang: "en" | "ja"): SpeechSynthesisVoice | undefined {
+  const voices = window.speechSynthesis.getVoices();
+  if (lang === "ja") {
+    return voices.find((v) => v.lang?.toLowerCase().startsWith("ja"));
+  }
+  return (
+    voices.find((v) => v.lang?.toLowerCase().startsWith("en") && /female|samantha|victoria|zira/i.test(v.name)) ||
+    voices.find((v) => v.lang?.toLowerCase().startsWith("en"))
+  );
+}
+
+function speakSequence() {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const en = new SpeechSynthesisUtterance("Our games are in development.");
+    en.lang = "en-US";
+    en.rate = 1;
+    en.pitch = 1.1;
+    const enVoice = pickVoice("en");
+    if (enVoice) en.voice = enVoice;
+
+    const ja = new SpeechSynthesisUtterance("現在、ゲームは開発中です。");
+    ja.lang = "ja-JP";
+    ja.rate = 1;
+    ja.pitch = 1.1;
+    const jaVoice = pickVoice("ja");
+    if (jaVoice) ja.voice = jaVoice;
+
+    en.onend = () => window.speechSynthesis.speak(ja);
+    window.speechSynthesis.speak(en);
+  } catch {
+    /* ignore */
+  }
+}
 
 function GamesHub() {
+  const [spoke, setSpoke] = useState(false);
+
+  useEffect(() => {
+    if (spoke) return;
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    // Voices may load async
+    const trigger = () => {
+      speakSequence();
+      setSpoke(true);
+    };
+    if (window.speechSynthesis.getVoices().length > 0) {
+      trigger();
+    } else {
+      const handler = () => {
+        trigger();
+        window.speechSynthesis.removeEventListener("voiceschanged", handler);
+      };
+      window.speechSynthesis.addEventListener("voiceschanged", handler);
+      // Fallback in case event never fires
+      const t = setTimeout(() => { if (!spoke) trigger(); }, 1200);
+      return () => { clearTimeout(t); window.speechSynthesis.removeEventListener("voiceschanged", handler); };
+    }
+  }, [spoke]);
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <div className="mx-auto max-w-7xl px-4 py-10">
-        <div className="mb-8">
-          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ライトハウス · ARCADE</div>
-          <h1 className="font-display text-4xl neon-text">LIGHTHOUSE 橋 GAMES</h1>
-          <p className="text-sm text-muted-foreground">Choose your game · ゲームを選んでください</p>
+      <div className="mx-auto max-w-5xl px-4 py-12 text-center">
+        <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ライトハウス · ARCADE</div>
+        <h1 className="font-display text-4xl neon-text">LIGHTHOUSE 橋 GAMES</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Choose your game · ゲームを選んでください</p>
+
+        {/* MIYU greeting */}
+        <div className="relative mx-auto mt-10 flex max-w-3xl flex-col items-center gap-6 md:flex-row md:items-end md:justify-center md:text-left">
+          <img
+            src={miyuWave}
+            alt="MIYU waving"
+            className="h-56 w-auto shrink-0 animate-float object-contain"
+            style={{ filter: "drop-shadow(0 0 24px var(--neon-pink))" }}
+          />
+
+          <div className="relative max-w-md">
+            {/* Speech bubble tail */}
+            <div
+              className="hidden md:block absolute -left-3 bottom-8 h-4 w-4 rotate-45 border-b border-l border-primary/40 bg-card"
+              aria-hidden
+            />
+            <div className="rounded-2xl border border-primary/40 bg-card/80 p-5 shadow-[0_0_24px_var(--color-neon)] backdrop-blur-sm">
+              <div className="font-display text-xs uppercase tracking-widest text-primary">MIYU 🐾 says</div>
+              <p className="mt-2 text-base text-foreground">
+                Our games are in development.
+              </p>
+              <p className="mt-1 text-base text-foreground" lang="ja">
+                現在、ゲームは開発中です。
+              </p>
+              <button
+                onClick={speakSequence}
+                className="mt-3 rounded-md border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-display uppercase tracking-widest text-primary transition hover:bg-primary/20"
+              >
+                ▶ Replay voice · もう一度
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {GAMES.map((g) => (
-            <Link
-              key={g.key}
-              to="/radioneto"
-              className="group relative overflow-hidden rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-accent/10 p-6 transition hover:scale-[1.02] hover:border-primary hover:shadow-[0_0_24px_var(--color-neon)]"
-            >
-              <div className="mb-3 text-5xl">{g.emoji}</div>
-              <h2 className="font-display text-xl neon-text">{g.title}</h2>
-              <div className="text-xs text-accent">{g.jp}</div>
-              <p className="mt-2 text-sm text-muted-foreground">{g.desc}</p>
-              <div className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary opacity-0 transition group-hover:opacity-100">
-                Play › プレイ
-              </div>
-            </Link>
-          ))}
+        {/* Production banner */}
+        <div className="mx-auto mt-12 max-w-3xl rounded-lg border border-accent/40 bg-gradient-to-br from-primary/5 to-accent/10 p-6">
+          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-accent">In Production · 開発中</div>
+          <h2 className="mt-1 font-display text-2xl neon-text">GAME DEVELOPMENT IN PRODUCTION</h2>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {ENGAGES.map((e) => (
+              <span
+                key={e}
+                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-display uppercase tracking-widest text-primary"
+              >
+                {e}
+              </span>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            See demos or videos soon · デモまたは動画は近日公開
+          </p>
+          <p className="mt-6 font-display text-sm uppercase tracking-widest text-accent">
+            Thank you for your patience · ご辛抱ありがとうございます
+          </p>
         </div>
       </div>
     </div>
