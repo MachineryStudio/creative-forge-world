@@ -23,8 +23,14 @@ function GamesHub() {
   const playVoice = () => {
     const a = audioRef.current;
     if (!a) return;
-    a.currentTime = 0;
-    a.play().catch(() => {/* autoplay may be blocked */});
+    try {
+      a.pause();
+      a.currentTime = 0;
+    } catch { /* ignore */ }
+    // Defer to next tick so the seek settles before play (prevents AbortError / stutter)
+    requestAnimationFrame(() => {
+      a.play().catch(() => {/* autoplay may be blocked */});
+    });
   };
 
   useEffect(() => {
