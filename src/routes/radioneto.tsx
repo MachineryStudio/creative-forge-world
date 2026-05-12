@@ -594,7 +594,7 @@ function Radioneto() {
           </div>
         )}
 
-        {phase !== "select" && (
+        {gameMode === "beatsync" && phase !== "select" && (
           <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
             <div className="relative">
               {/* HUD */}
