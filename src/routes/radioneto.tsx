@@ -125,8 +125,38 @@ function Radioneto() {
       const sp = 2 + Math.random() * 4;
       particlesRef.current.push({
         x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
-        life: 1, color, size: 2 + Math.random() * 4,
+        life: 1, color, size: 2 + Math.random() * 4, kind: "spark",
       });
+    }
+    // When a Japanese-native track is playing, sprinkle bonus FX on every hit
+    if (isJP) {
+      // Kanji burst
+      for (let i = 0; i < 4; i++) {
+        const a = Math.random() * Math.PI * 2;
+        particlesRef.current.push({
+          x, y, vx: Math.cos(a) * 2, vy: Math.sin(a) * 2 - 2,
+          life: 1.4, color: "#fde047", size: 22 + Math.random() * 10,
+          kind: "kanji", char: KANJI_POOL[Math.floor(Math.random() * KANJI_POOL.length)],
+        });
+      }
+      // Money rain
+      for (let i = 0; i < 6; i++) {
+        particlesRef.current.push({
+          x: x + (Math.random() - 0.5) * 60, y: y - 40, vx: (Math.random() - 0.5) * 1.5, vy: -3 - Math.random() * 2,
+          life: 1.2, color: "#facc15", size: 14, kind: "money",
+        });
+      }
+      // Fire + water mixed
+      for (let i = 0; i < 10; i++) {
+        const fire = Math.random() < 0.5;
+        const a = Math.random() * Math.PI * 2;
+        const sp = 1 + Math.random() * 3;
+        particlesRef.current.push({
+          x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1,
+          life: 1, color: fire ? "#fb923c" : "#22d3ee", size: 4 + Math.random() * 4,
+          kind: fire ? "fire" : "water",
+        });
+      }
     }
   };
 
