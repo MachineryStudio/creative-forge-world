@@ -318,20 +318,43 @@ function Radioneto() {
         ctx.fill();
       }
 
-      // Fire / water side effects
-      const sideColor = role === "drummer" ? ["#fb923c", "#ef4444", "#fde047"] : ["#22d3ee", "#60a5fa", "#a78bfa"];
-      for (let side = 0; side < 2; side++) {
-        const sx = side === 0 ? 30 : W - 30;
-        for (let i = 0; i < 14; i++) {
-          const t = (elapsed / 200 + i * 0.7) % 6;
-          const y = H - 40 - t * 50;
-          const r = 14 - t * 2;
-          ctx.fillStyle = sideColor[i % sideColor.length] + "55";
-          ctx.beginPath();
-          ctx.arc(sx + Math.sin(elapsed / 200 + i) * 12, y, Math.max(2, r), 0, Math.PI * 2);
-          ctx.fill();
-        }
+      // Fire (left) vs Water (right) — dueling elemental walls
+      const fireColors = ["#fde047", "#fb923c", "#ef4444", "#b91c1c"];
+      const waterColors = ["#a5f3fc", "#22d3ee", "#3b82f6", "#1e3a8a"];
+      // Fire wall — rises from bottom-left
+      for (let i = 0; i < 40; i++) {
+        const phase = (elapsed / 80 + i * 0.5) % 8;
+        const fx = 20 + Math.sin(elapsed / 200 + i * 1.3) * 30 + i * 2;
+        const fy = H - 20 - phase * 50 - Math.random() * 6;
+        const r = Math.max(2, 22 - phase * 2.4);
+        const g = ctx.createRadialGradient(fx, fy, 1, fx, fy, r * 2);
+        g.addColorStop(0, fireColors[0] + "cc");
+        g.addColorStop(0.4, fireColors[1] + "99");
+        g.addColorStop(1, fireColors[2] + "00");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(fx, fy, r * 2, 0, Math.PI * 2); ctx.fill();
       }
+      // Water wall — cascades on the right
+      for (let i = 0; i < 40; i++) {
+        const phase = (elapsed / 90 + i * 0.4) % 7;
+        const wx = W - 20 - Math.sin(elapsed / 180 + i) * 30 - i * 2;
+        const wy = 40 + phase * 60 + Math.random() * 4;
+        const r = Math.max(2, 18 - phase * 1.6);
+        const g = ctx.createRadialGradient(wx, wy, 1, wx, wy, r * 2);
+        g.addColorStop(0, waterColors[0] + "cc");
+        g.addColorStop(0.5, waterColors[1] + "88");
+        g.addColorStop(1, waterColors[3] + "00");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(wx, wy, r * 2, 0, Math.PI * 2); ctx.fill();
+      }
+      // Steam clash in the middle on every beat
+      const clashAlpha = Math.max(0, 1 - beatPhase) * 0.5;
+      const cg = ctx.createRadialGradient(W / 2, H * 0.55, 4, W / 2, H * 0.55, 180);
+      cg.addColorStop(0, `rgba(255,255,255,${clashAlpha})`);
+      cg.addColorStop(0.4, `rgba(244,114,182,${clashAlpha * 0.5})`);
+      cg.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = cg;
+      ctx.beginPath(); ctx.arc(W / 2, H * 0.55, 180, 0, Math.PI * 2); ctx.fill();
 
       // Beat detector visualizer — bars
       ctx.fillStyle = "rgba(244,114,182,0.6)";
