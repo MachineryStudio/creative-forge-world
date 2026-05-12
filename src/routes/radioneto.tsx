@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { RadioNerd } from "@/components/RadioNerd";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import bassImg from "@/assets/rocker-bass.jpg";
 import drumImg from "@/assets/rocker-drummer.jpg";
 import drumImg2 from "@/assets/rocker-drummer-2.jpg";
