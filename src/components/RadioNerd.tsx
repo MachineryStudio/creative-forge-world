@@ -104,6 +104,12 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
     else { setMusicOn(false); setMood("off"); }
   }, [on, track, ownsMusic, setMusic, setMusicOn, setMood]);
 
+  // Claim/release activeStation when this radio toggles
+  useEffect(() => {
+    if (on) setActiveStation(genre);
+    else if (activeStation === genre) setActiveStation(null);
+  }, [on, genre, activeStation, setActiveStation]);
+
   const next = () => { sfx.blip(); setIdx((i) => (safeTracks.length ? (i + 1) % safeTracks.length : 0)); };
 
   return (
