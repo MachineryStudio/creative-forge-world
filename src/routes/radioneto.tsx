@@ -431,7 +431,7 @@ function Radioneto() {
                   onChange={(e) => setSongIdx(parseInt(e.target.value))}
                   className="rounded-md border border-border bg-input px-3 py-2 text-sm"
                 >
-                  {SONGS.map((s, i) => (
+                  {songs.map((s, i) => (
                     <option key={s.id} value={i}>{s.title} — {s.artist} · {s.bpm} BPM · {s.genre}</option>
                   ))}
                 </select>
