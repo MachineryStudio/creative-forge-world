@@ -3,6 +3,9 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { RadioNerd } from "@/components/RadioNerd";
 import { MiyuChat } from "@/components/MiyuChat";
+import { SpaceInvaders, Tetris, TabBird, InputMatching } from "@/components/RadionetoMiniGames";
+
+type GameMode = "beatsync" | "invaders" | "tetris" | "tabbird" | "matching";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import bassImg from "@/assets/rocker-bass.jpg";
 import drumImg from "@/assets/rocker-drummer.jpg";
