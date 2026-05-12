@@ -15,17 +15,20 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3" aria-label="LIGHTHOUSE 橋 — Home">
           <span
-            className="flex h-14 w-14 items-center justify-center rounded-full p-1 ring-2 ring-primary/40"
-            style={{ background: "var(--sakura-white)", boxShadow: "0 0 24px var(--sakura-white)" }}
+            className="flex h-20 w-20 items-center justify-center rounded-2xl p-2 ring-2 ring-primary/50"
+            style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--sakura-white), 0 0 12px var(--color-neon)" }}
           >
             <img
               src={lighthouseLogo}
               alt="LIGHTHOUSE 橋"
-              className="h-12 w-auto object-contain"
+              className="h-full w-full object-contain"
             />
+          </span>
+          <span className="hidden font-display text-sm uppercase tracking-[0.3em] text-primary md:inline">
+            LIGHTHOUSE <span className="text-accent">橋</span>
           </span>
         </Link>
 
@@ -33,6 +36,12 @@ export function SiteHeader() {
           <Link to="/marketplace" className="text-sm text-muted-foreground hover:text-primary">{t("marketplace")}</Link>
           <Link to="/community" className="text-sm text-muted-foreground hover:text-primary">{t("community")}</Link>
           <Link to="/radioneto" className="text-sm text-muted-foreground hover:text-primary">RADIONETO</Link>
+          <Link
+            to="/games"
+            className="rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_16px_var(--color-neon)]"
+          >
+            LIGHTHOUSE 橋 GAMES
+          </Link>
           <Link to="/auth" className="text-sm text-muted-foreground hover:text-primary">{t("signIn")}</Link>
         </nav>
 
