@@ -29,18 +29,22 @@ interface Song {
   youtubeId?: string;
 }
 
-const SONGS: Song[] = [
-  { id: "s1", title: "Neon Sakura", artist: "MIYU", bpm: 128, genre: "Visual Kei", duration: 45, youtubeId: "o6wtDPVkKqI" },
-  { id: "s2", title: "Tokyo Rain", artist: "RadioNerd", bpm: 110, genre: "JPop", duration: 40 },
-  { id: "s3", title: "Bullet Train", artist: "Hanna", bpm: 160, genre: "Visual Kei", duration: 35 },
+const DEFAULT_SONGS: Song[] = [
+  { id: "s1", title: "Neon Sakura 桜", artist: "MIYU", bpm: 128, genre: "Visual Kei", duration: 45, youtubeId: "o6wtDPVkKqI" },
+  { id: "s2", title: "Tokyo Rain 東京の雨", artist: "RadioNerd", bpm: 110, genre: "JPop", duration: 40 },
+  { id: "s3", title: "Bullet Train 新幹線", artist: "Hanna", bpm: 160, genre: "Visual Kei", duration: 35 },
   { id: "s4", title: "Pixel Heart", artist: "8bit Idol", bpm: 140, genre: "Game", duration: 40 },
-  { id: "s5", title: "Moonlight Solo", artist: "Yuki", bpm: 90, genre: "Anime", duration: 50 },
-  { id: "s6", title: "Cyber Kawaii", artist: "Mirai", bpm: 150, genre: "JPop", duration: 38 },
-  { id: "s7", title: "Storm Drums", artist: "Raiden", bpm: 175, genre: "Metal", duration: 32 },
+  { id: "s5", title: "Moonlight Solo 月光", artist: "Yuki", bpm: 90, genre: "Anime", duration: 50 },
+  { id: "s6", title: "Cyber Kawaii かわいい", artist: "Mirai", bpm: 150, genre: "JPop", duration: 38 },
+  { id: "s7", title: "Storm Drums 嵐", artist: "Raiden", bpm: 175, genre: "Metal", duration: 32 },
 ];
 
 const JP_GOOD = ["スゴイ!", "やった!", "最高!", "完璧!", "見事!"];
 const JP_BAD = ["ダメ!", "残念!", "もう一度!"];
+const KANJI_POOL = ["桜", "炎", "水", "金", "夢", "心", "光", "音", "舞", "雷", "風", "月", "愛", "魂", "侍", "龍"];
+
+// Detect any Japanese character (hiragana/katakana/kanji) in a string
+const hasJapanese = (s: string) => /[\u3040-\u30ff\u31f0-\u31ff\u3400-\u4dbf\u4e00-\u9fff\uff66-\uff9d]/.test(s);
 
 interface Note {
   t: number; // beat time (ms from start)
@@ -50,6 +54,8 @@ interface Note {
 
 interface Particle {
   x: number; y: number; vx: number; vy: number; life: number; color: string; size: number;
+  kind?: "spark" | "fire" | "water" | "money" | "kanji";
+  char?: string;
 }
 
 function Radioneto() {
