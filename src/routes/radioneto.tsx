@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { RadioNerd } from "@/components/RadioNerd";
+import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import bassImg from "@/assets/rocker-bass.jpg";
 import drumImg from "@/assets/rocker-drummer.jpg";
 import drumImg2 from "@/assets/rocker-drummer-2.jpg";
@@ -27,18 +29,22 @@ interface Song {
   youtubeId?: string;
 }
 
-const SONGS: Song[] = [
-  { id: "s1", title: "Neon Sakura", artist: "MIYU", bpm: 128, genre: "Visual Kei", duration: 45, youtubeId: "o6wtDPVkKqI" },
-  { id: "s2", title: "Tokyo Rain", artist: "RadioNerd", bpm: 110, genre: "JPop", duration: 40 },
-  { id: "s3", title: "Bullet Train", artist: "Hanna", bpm: 160, genre: "Visual Kei", duration: 35 },
+const DEFAULT_SONGS: Song[] = [
+  { id: "s1", title: "Neon Sakura 桜", artist: "MIYU", bpm: 128, genre: "Visual Kei", duration: 45, youtubeId: "o6wtDPVkKqI" },
+  { id: "s2", title: "Tokyo Rain 東京の雨", artist: "RadioNerd", bpm: 110, genre: "JPop", duration: 40 },
+  { id: "s3", title: "Bullet Train 新幹線", artist: "Hanna", bpm: 160, genre: "Visual Kei", duration: 35 },
   { id: "s4", title: "Pixel Heart", artist: "8bit Idol", bpm: 140, genre: "Game", duration: 40 },
-  { id: "s5", title: "Moonlight Solo", artist: "Yuki", bpm: 90, genre: "Anime", duration: 50 },
-  { id: "s6", title: "Cyber Kawaii", artist: "Mirai", bpm: 150, genre: "JPop", duration: 38 },
-  { id: "s7", title: "Storm Drums", artist: "Raiden", bpm: 175, genre: "Metal", duration: 32 },
+  { id: "s5", title: "Moonlight Solo 月光", artist: "Yuki", bpm: 90, genre: "Anime", duration: 50 },
+  { id: "s6", title: "Cyber Kawaii かわいい", artist: "Mirai", bpm: 150, genre: "JPop", duration: 38 },
+  { id: "s7", title: "Storm Drums 嵐", artist: "Raiden", bpm: 175, genre: "Metal", duration: 32 },
 ];
 
 const JP_GOOD = ["スゴイ!", "やった!", "最高!", "完璧!", "見事!"];
 const JP_BAD = ["ダメ!", "残念!", "もう一度!"];
+const KANJI_POOL = ["桜", "炎", "水", "金", "夢", "心", "光", "音", "舞", "雷", "風", "月", "愛", "魂", "侍", "龍"];
+
+// Detect any Japanese character (hiragana/katakana/kanji) in a string
+const hasJapanese = (s: string) => /[\u3040-\u30ff\u31f0-\u31ff\u3400-\u4dbf\u4e00-\u9fff\uff66-\uff9d]/.test(s);
 
 interface Note {
   t: number; // beat time (ms from start)
@@ -48,11 +54,14 @@ interface Note {
 
 interface Particle {
   x: number; y: number; vx: number; vy: number; life: number; color: string; size: number;
+  kind?: "spark" | "fire" | "water" | "money" | "kanji";
+  char?: string;
 }
 
 function Radioneto() {
   const [role, setRole] = useState<Role>(null);
   const [songIdx, setSongIdx] = useState(0);
+  const [songs, setSongs] = useState<Song[]>(DEFAULT_SONGS);
   const [phase, setPhase] = useState<"select" | "playing" | "win" | "fail">("select");
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -71,11 +80,38 @@ function Radioneto() {
   const ytRef = useRef<HTMLIFrameElement>(null);
   const lastBeatRef = useRef<number>(-1);
 
-  const song = SONGS[songIdx];
+  const song = songs[songIdx] ?? songs[0];
+  const isJP = !!song && (hasJapanese(song.title) || hasJapanese(song.artist));
 
   useEffect(() => {
     const s = localStorage.getItem("radioneto_best");
     if (s) setBestScore(parseInt(s));
+  }, []);
+
+  // Pull admin-fed tracks from radio_tracks DB and merge into the song list
+  useEffect(() => {
+    let active = true;
+    getSupabase()
+      .then(async (supabase) => {
+        const { data } = await supabase
+          .from("radio_tracks")
+          .select("id, title, artist_name, genre, youtube_id")
+          .order("position", { ascending: true });
+        const rows = (data ?? []) as Array<{ id: string; title: string; artist_name: string | null; genre: string; youtube_id: string }>;
+        if (!active || rows.length === 0) return;
+        const dbSongs: Song[] = rows.map((r) => ({
+          id: `db-${r.id}`,
+          title: r.title,
+          artist: r.artist_name || "RadioNerd",
+          bpm: 120,
+          genre: r.genre,
+          duration: 45,
+          youtubeId: r.youtube_id,
+        }));
+        setSongs([...dbSongs, ...DEFAULT_SONGS]);
+      })
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+    return () => { active = false; };
   }, []);
 
   const showFloat = (text: string, color: string) => {
@@ -89,8 +125,38 @@ function Radioneto() {
       const sp = 2 + Math.random() * 4;
       particlesRef.current.push({
         x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
-        life: 1, color, size: 2 + Math.random() * 4,
+        life: 1, color, size: 2 + Math.random() * 4, kind: "spark",
       });
+    }
+    // When a Japanese-native track is playing, sprinkle bonus FX on every hit
+    if (isJP) {
+      // Kanji burst
+      for (let i = 0; i < 4; i++) {
+        const a = Math.random() * Math.PI * 2;
+        particlesRef.current.push({
+          x, y, vx: Math.cos(a) * 2, vy: Math.sin(a) * 2 - 2,
+          life: 1.4, color: "#fde047", size: 22 + Math.random() * 10,
+          kind: "kanji", char: KANJI_POOL[Math.floor(Math.random() * KANJI_POOL.length)],
+        });
+      }
+      // Money rain
+      for (let i = 0; i < 6; i++) {
+        particlesRef.current.push({
+          x: x + (Math.random() - 0.5) * 60, y: y - 40, vx: (Math.random() - 0.5) * 1.5, vy: -3 - Math.random() * 2,
+          life: 1.2, color: "#facc15", size: 14, kind: "money",
+        });
+      }
+      // Fire + water mixed
+      for (let i = 0; i < 10; i++) {
+        const fire = Math.random() < 0.5;
+        const a = Math.random() * Math.PI * 2;
+        const sp = 1 + Math.random() * 3;
+        particlesRef.current.push({
+          x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1,
+          life: 1, color: fire ? "#fb923c" : "#22d3ee", size: 4 + Math.random() * 4,
+          kind: fire ? "fire" : "water",
+        });
+      }
     }
   };
 
@@ -315,12 +381,51 @@ function Radioneto() {
         ctx.fillText("♪ MELODY x2 — trace the wave ♪", 20, H * 0.25 - 40);
       }
 
+      // Ambient JP atmosphere — kanji drifting down + drifting money
+      if (isJP && Math.random() < 0.35) {
+        particlesRef.current.push({
+          x: Math.random() * W, y: -20,
+          vx: (Math.random() - 0.5) * 0.6, vy: 1 + Math.random() * 1.2,
+          life: 1.5, color: "#fde047",
+          size: 18 + Math.random() * 16,
+          kind: Math.random() < 0.4 ? "money" : "kanji",
+          char: KANJI_POOL[Math.floor(Math.random() * KANJI_POOL.length)],
+        });
+      }
+
       // Particles
       particlesRef.current = particlesRef.current.filter((p) => {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.life -= 0.02;
-        if (p.life <= 0) return false;
-        ctx.fillStyle = p.color + Math.floor(p.life * 255).toString(16).padStart(2, "0");
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2); ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.kind === "money" || p.kind === "kanji") {
+          p.vy += 0.04; p.vx *= 0.995;
+          p.life -= 0.008;
+        } else if (p.kind === "fire") {
+          p.vy -= 0.08; p.vx *= 0.96;
+          p.life -= 0.025;
+        } else if (p.kind === "water") {
+          p.vy += 0.18; p.vx *= 0.97;
+          p.life -= 0.02;
+        } else {
+          p.vy += 0.15;
+          p.life -= 0.02;
+        }
+        if (p.life <= 0 || p.y > H + 40) return false;
+        const alpha = Math.max(0, Math.min(1, p.life));
+        if (p.kind === "kanji") {
+          ctx.fillStyle = `rgba(253,224,71,${alpha})`;
+          ctx.font = `bold ${Math.floor(p.size)}px serif`;
+          ctx.fillText(p.char ?? "音", p.x, p.y);
+          // glow
+          ctx.fillStyle = `rgba(244,114,182,${alpha * 0.4})`;
+          ctx.fillText(p.char ?? "音", p.x + 1, p.y + 1);
+        } else if (p.kind === "money") {
+          ctx.fillStyle = `rgba(250,204,21,${alpha})`;
+          ctx.font = `bold ${Math.floor(p.size)}px sans-serif`;
+          ctx.fillText("¥", p.x, p.y);
+        } else {
+          ctx.fillStyle = p.color + Math.floor(alpha * 255).toString(16).padStart(2, "0");
+          ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(1, p.size * alpha), 0, Math.PI * 2); ctx.fill();
+        }
         return true;
       });
 
@@ -334,7 +439,7 @@ function Radioneto() {
     rafRef.current = requestAnimationFrame(loop);
 
     return () => { running = false; cancelAnimationFrame(rafRef.current); };
-  }, [phase, song, role, endGame]);
+  }, [phase, song, role, endGame, isJP]);
 
   // Keyboard
   useEffect(() => {
@@ -361,10 +466,25 @@ function Radioneto() {
       <SiteHeader />
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-4">
-          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード</div>
-          <h1 className="font-display text-4xl neon-text">RADIONETO — BeatSync Studio</h1>
-          <p className="text-sm text-muted-foreground">Japanese visual-kei rhythm game. Tap on beat. Miss 5 in a row and the music stops.</p>
+          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード · RADIONETO</div>
+          <h1 className="font-display text-4xl neon-text">RADIONETO — BeatSync Studio 拍同期スタジオ</h1>
+          <p className="text-sm text-muted-foreground">ビジュアル系リズムゲーム · Tap on beat. Miss 5 in a row (連続ミス5回) and the music stops.</p>
         </div>
+
+        {/* RadioNerd channels moved here from Community — only one station can be ON at a time */}
+        <section className="mb-8">
+          <div className="mb-2 flex items-end justify-between gap-2">
+            <h2 className="font-display text-2xl neon-text">RadioNerd · チャンネル</h2>
+            <p className="hidden text-xs text-muted-foreground md:block">同時に再生できるのは1局のみ · Only one station plays at a time.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <RadioNerd genre="anime" label="Anime アニメ" ownsMusic />
+            <RadioNerd genre="game" label="Game ゲーム" ownsMusic />
+            <RadioNerd genre="visual_kei" label="Visual Kei ヴィジュアル系" ownsMusic />
+            <RadioNerd genre="jpop" label="JPop ジェイポップ" ownsMusic />
+            <RadioNerd genre="universal" label="Universal 全般" ownsMusic />
+          </div>
+        </section>
 
         {phase === "select" && (
           <div className="space-y-6">
@@ -373,41 +493,42 @@ function Radioneto() {
                 className={`panel scanlines group relative overflow-hidden rounded-xl border-2 p-2 text-left transition ${role === "drummer" ? "border-primary neon-glow" : "border-border hover:border-primary/60"}`}>
                 <img src={drumImg} alt="Drummer" className="h-64 w-full rounded-lg object-cover" />
                 <div className="mt-3 px-2 pb-2">
-                  <div className="font-display text-xl text-primary">🥁 Play as Drummer</div>
-                  <div className="text-xs text-muted-foreground">Smash the kick. Visual-kei thunder.</div>
+                  <div className="font-display text-xl text-primary">🥁 Play as Drummer · ドラマー</div>
+                  <div className="text-xs text-muted-foreground">太鼓を叩け · Smash the kick. Visual-kei thunder.</div>
                 </div>
               </button>
               <button onClick={() => setRole("bass")}
                 className={`panel scanlines group relative overflow-hidden rounded-xl border-2 p-2 text-left transition ${role === "bass" ? "border-accent neon-glow" : "border-border hover:border-accent/60"}`}>
                 <img src={bassImg} alt="Bass" className="h-64 w-full rounded-lg object-cover" />
                 <div className="mt-3 px-2 pb-2">
-                  <div className="font-display text-xl text-accent-foreground">🎸 Play as Bass Player</div>
-                  <div className="text-xs text-muted-foreground">Groove the low end. Trace the melody.</div>
+                  <div className="font-display text-xl text-accent-foreground">🎸 Play as Bass Player · ベース</div>
+                  <div className="text-xs text-muted-foreground">低音を響かせろ · Trace the melody.</div>
                 </div>
               </button>
             </div>
 
             <div className="panel scanlines flex flex-col items-start gap-3 p-5 md:flex-row md:items-center md:justify-between">
               <div className="flex flex-col gap-2">
-                <label className="font-display text-xs uppercase tracking-widest text-primary">Select Song</label>
+                <label className="font-display text-xs uppercase tracking-widest text-primary">Select Song · 曲を選ぶ</label>
                 <select
                   value={songIdx}
                   onChange={(e) => setSongIdx(parseInt(e.target.value))}
                   className="rounded-md border border-border bg-input px-3 py-2 text-sm"
                 >
-                  {SONGS.map((s, i) => (
-                    <option key={s.id} value={i}>{s.title} — {s.artist} · {s.bpm} BPM · {s.genre}</option>
+                  {songs.map((s, i) => (
+                    <option key={s.id} value={i}>{hasJapanese(s.title) || hasJapanese(s.artist) ? "🎌 " : ""}{s.title} — {s.artist} · {s.bpm} BPM · {s.genre}</option>
                   ))}
                 </select>
+                <p className="text-[10px] text-muted-foreground">管理者が追加した曲も自動で読み込まれます · Admin-added tracks load automatically.</p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="text-xs text-muted-foreground">Best: <span className="font-display text-primary">{bestScore}</span></div>
+                <div className="text-xs text-muted-foreground">Best · 最高: <span className="font-display text-primary">{bestScore}</span></div>
                 <button
                   onClick={startGame}
                   disabled={!role}
                   className="rounded-md bg-gradient-to-r from-primary to-accent px-6 py-3 font-display text-sm uppercase tracking-widest text-primary-foreground disabled:opacity-50"
                 >
-                  ▶ Start Song
+                  ▶ Start · 開始
                 </button>
               </div>
             </div>
@@ -420,11 +541,11 @@ function Radioneto() {
               {/* HUD */}
               <div className="pointer-events-none absolute left-0 right-0 top-0 z-20 flex items-start justify-between p-3 text-white">
                 <div className="rounded-md bg-black/50 px-3 py-2 font-display text-xs uppercase tracking-widest backdrop-blur">
-                  <div className="text-[10px] text-pink-300">Score</div>
+                  <div className="text-[10px] text-pink-300">Score · 点数</div>
                   <div className="text-2xl text-pink-200">{score}</div>
                 </div>
                 <div className="rounded-md bg-black/50 px-3 py-2 text-center font-display backdrop-blur">
-                  <div className="text-[10px] uppercase tracking-widest text-cyan-300">Combo</div>
+                  <div className="text-[10px] uppercase tracking-widest text-cyan-300">Combo · 連続</div>
                   <div className="text-3xl text-cyan-200">{combo}x</div>
                 </div>
                 <div className="rounded-md bg-black/50 px-3 py-2 font-display text-xs uppercase tracking-widest backdrop-blur">
@@ -508,10 +629,10 @@ function Radioneto() {
               </div>
 
               <div className="panel rounded-xl p-3 text-xs">
-                <div className="mb-1 font-display uppercase tracking-widest text-accent-foreground">Now Playing</div>
+                <div className="mb-1 font-display uppercase tracking-widest text-accent-foreground">Now Playing · 再生中</div>
                 <div className="text-sm text-foreground">{song.title}</div>
                 <div className="text-muted-foreground">{song.artist} · {song.bpm} BPM</div>
-                <div className="mt-2 text-[11px] text-muted-foreground">Miss streak: {missStreak}/5</div>
+                <div className="mt-2 text-[11px] text-muted-foreground">Miss streak · ミス連続: {missStreak}/5</div>
               </div>
 
               <img
@@ -521,7 +642,7 @@ function Radioneto() {
               />
 
               <div className="rounded-xl border border-border bg-background/40 p-3 text-[11px] text-muted-foreground">
-                <strong className="text-primary">How to play:</strong> Tap SPACE, click, or touch the target on each beat. Trace the wave on chorus for x2. Miss 5 in a row → game over.
+                <strong className="text-primary">How to play · 遊び方:</strong> Tap SPACE, click, or touch the target on each beat. Trace the wave on chorus for x2. Miss 5 in a row → game over.
               </div>
             </aside>
           </div>
