@@ -97,8 +97,9 @@ function Radioneto() {
           .from("radio_tracks")
           .select("id, title, artist_name, genre, youtube_id")
           .order("position", { ascending: true });
-        if (!active || !data || data.length === 0) return;
-        const dbSongs: Song[] = data.map((r: { id: string; title: string; artist_name: string | null; genre: string; youtube_id: string }) => ({
+        const rows = (data ?? []) as Array<{ id: string; title: string; artist_name: string | null; genre: string; youtube_id: string }>;
+        if (!active || rows.length === 0) return;
+        const dbSongs: Song[] = rows.map((r) => ({
           id: `db-${r.id}`,
           title: r.title,
           artist: r.artist_name || "RadioNerd",
