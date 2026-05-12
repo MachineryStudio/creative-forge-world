@@ -61,6 +61,7 @@ interface Particle {
 function Radioneto() {
   const [role, setRole] = useState<Role>(null);
   const [songIdx, setSongIdx] = useState(0);
+  const [songs, setSongs] = useState<Song[]>(DEFAULT_SONGS);
   const [phase, setPhase] = useState<"select" | "playing" | "win" | "fail">("select");
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -79,11 +80,37 @@ function Radioneto() {
   const ytRef = useRef<HTMLIFrameElement>(null);
   const lastBeatRef = useRef<number>(-1);
 
-  const song = SONGS[songIdx];
+  const song = songs[songIdx] ?? songs[0];
+  const isJP = !!song && (hasJapanese(song.title) || hasJapanese(song.artist));
 
   useEffect(() => {
     const s = localStorage.getItem("radioneto_best");
     if (s) setBestScore(parseInt(s));
+  }, []);
+
+  // Pull admin-fed tracks from radio_tracks DB and merge into the song list
+  useEffect(() => {
+    let active = true;
+    getSupabase()
+      .then(async (supabase) => {
+        const { data } = await supabase
+          .from("radio_tracks")
+          .select("id, title, artist_name, genre, youtube_id")
+          .order("position", { ascending: true });
+        if (!active || !data || data.length === 0) return;
+        const dbSongs: Song[] = data.map((r: { id: string; title: string; artist_name: string | null; genre: string; youtube_id: string }) => ({
+          id: `db-${r.id}`,
+          title: r.title,
+          artist: r.artist_name || "RadioNerd",
+          bpm: 120,
+          genre: r.genre,
+          duration: 45,
+          youtubeId: r.youtube_id,
+        }));
+        setSongs([...dbSongs, ...DEFAULT_SONGS]);
+      })
+      .catch((err) => console.warn(getSupabaseLoadMessage(err)));
+    return () => { active = false; };
   }, []);
 
   const showFloat = (text: string, color: string) => {
