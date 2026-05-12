@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RadionetoRouteImport } from './routes/radioneto'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -32,6 +33,11 @@ const RadionetoRoute = RadionetoRouteImport.update({
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityRoute = CommunityRouteImport.update({
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/games': typeof GamesRoute
   '/marketplace': typeof MarketplaceRoute
   '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/games': typeof GamesRoute
   '/marketplace': typeof MarketplaceRoute
   '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/games': typeof GamesRoute
   '/marketplace': typeof MarketplaceRoute
   '/radioneto': typeof RadionetoRoute
   '/hub/2d-conceptual': typeof Hub2dConceptualRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/community'
+    | '/games'
     | '/marketplace'
     | '/radioneto'
     | '/hub/2d-conceptual'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/community'
+    | '/games'
     | '/marketplace'
     | '/radioneto'
     | '/hub/2d-conceptual'
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/community'
+    | '/games'
     | '/marketplace'
     | '/radioneto'
     | '/hub/2d-conceptual'
@@ -200,6 +212,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   CommunityRoute: typeof CommunityRoute
+  GamesRoute: typeof GamesRoute
   MarketplaceRoute: typeof MarketplaceRoute
   RadionetoRoute: typeof RadionetoRoute
   Hub2dConceptualRoute: typeof Hub2dConceptualRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community': {
@@ -320,6 +340,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   CommunityRoute: CommunityRoute,
+  GamesRoute: GamesRoute,
   MarketplaceRoute: MarketplaceRoute,
   RadionetoRoute: RadionetoRoute,
   Hub2dConceptualRoute: Hub2dConceptualRoute,
