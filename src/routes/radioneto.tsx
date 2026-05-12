@@ -439,7 +439,7 @@ function Radioneto() {
     rafRef.current = requestAnimationFrame(loop);
 
     return () => { running = false; cancelAnimationFrame(rafRef.current); };
-  }, [phase, song, role, endGame]);
+  }, [phase, song, role, endGame, isJP]);
 
   // Keyboard
   useEffect(() => {
