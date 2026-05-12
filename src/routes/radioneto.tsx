@@ -514,7 +514,38 @@ function Radioneto() {
           </div>
         </section>
 
-        {phase === "select" && (
+        {/* Game selector */}
+        <section className="mb-6">
+          <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Select Game · ゲームを選ぶ</div>
+          <div className="flex flex-wrap gap-2">
+            {([
+              { id: "beatsync", label: "🎵 BeatSync", jp: "拍同期" },
+              { id: "invaders", label: "👾 Space Invaders", jp: "スペースインベーダー" },
+              { id: "tetris", label: "🧱 Tetris", jp: "テトリス" },
+              { id: "tabbird", label: "🐦 Tab Bird", jp: "タブバード" },
+              { id: "matching", label: "🎯 Input Matching", jp: "入力マッチング" },
+            ] as { id: GameMode; label: string; jp: string }[]).map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setGameMode(g.id)}
+                className={`rounded-md border-2 px-4 py-2 font-display text-xs uppercase tracking-widest transition ${
+                  gameMode === g.id
+                    ? "border-primary bg-primary/20 text-primary neon-glow"
+                    : "border-border bg-card/40 text-muted-foreground hover:border-primary/60"
+                }`}
+              >
+                {g.label} · <span className="text-[10px]">{g.jp}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {gameMode === "invaders" && <SpaceInvaders />}
+        {gameMode === "tetris" && <Tetris />}
+        {gameMode === "tabbird" && <TabBird />}
+        {gameMode === "matching" && <InputMatching />}
+
+        {gameMode === "beatsync" && phase === "select" && (
           <div className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2">
               <button onClick={() => setRole("drummer")}
