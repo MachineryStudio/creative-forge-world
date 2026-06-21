@@ -515,7 +515,7 @@ function Radioneto() {
           </div>
         </section>
 
-        <KumoroFeature />
+        <KumoruFeature />
 
         {/* Game selector */}
         <section className="mb-6">
