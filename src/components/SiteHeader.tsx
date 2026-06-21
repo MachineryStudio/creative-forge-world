@@ -89,15 +89,15 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2" aria-label="LIGHTHOUSE 橋 — Home">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4">
+        <Link to="/" className="flex items-center gap-3" aria-label="LIGHTHOUSE 橋 — Home">
           <span
-            className="flex h-10 w-10 items-center justify-center rounded-xl p-1 ring-2 ring-primary/50"
-            style={{ background: "var(--sakura-white)", boxShadow: "0 0 16px var(--sakura-white), 0 0 6px var(--sky-blue)" }}
+            className="flex h-20 w-20 items-center justify-center rounded-2xl p-2 ring-2 ring-primary/50"
+            style={{ background: "var(--sakura-white)", boxShadow: "0 0 24px var(--sakura-white), 0 0 8px var(--sky-blue)" }}
           >
             <img src={lighthouseLogo} alt="LIGHTHOUSE 橋" className="h-full w-full object-contain" />
           </span>
-          <span className="hidden font-display text-xs uppercase tracking-[0.3em] text-primary md:inline">
+          <span className="hidden font-display text-sm uppercase tracking-[0.3em] text-primary md:inline">
             LIGHTHOUSE <span className="text-accent">橋</span>
           </span>
         </Link>
