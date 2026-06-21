@@ -1,5 +1,5 @@
 import { useState } from "react";
-import kumoroMix from "@/assets/KUMORO.mp3.asset.json";
+import kumoruMix from "@/assets/KUMORU.mp3.asset.json";
 
 type Lang = "EN" | "JP";
 
@@ -30,7 +30,7 @@ const t = {
     mixBadge: "1:50 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending four KUMORO tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
+        A short preview blending four KUMORU tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
         <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
       </>
     ),
@@ -54,7 +54,7 @@ const t = {
   },
 } as const;
 
-export function KumoroFeature() {
+export function KumoruFeature() {
   const [lang, setLang] = useState<Lang>("EN");
   const L = t[lang];
   const toggle = () => setLang((l) => (l === "EN" ? "JP" : "EN"));
@@ -69,7 +69,7 @@ export function KumoroFeature() {
               {L.featured}
             </div>
             <h2 className="font-display text-3xl md:text-4xl neon-text">
-              「クモル」KUMORO
+              「クモル」KUMORU
             </h2>
             <p className="mt-1 font-display text-sm text-primary">
               {L.subtitle}
@@ -100,7 +100,7 @@ export function KumoroFeature() {
           <audio
             controls
             preload="metadata"
-            src={kumoroMix.url}
+            src={kumoruMix.url}
             className="w-full"
             style={{ colorScheme: "dark" }}
           />
