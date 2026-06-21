@@ -4,10 +4,10 @@ import kumoroMix from "@/assets/KUMORO.mp3.asset.json";
 type Lang = "EN" | "JP";
 
 const members = [
-  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", roleJp: "ボーカル / ギター", color: "from-pink-500 to-fuchsia-500" },
-  { name: "MARO", jp: "真人", role: "Bass Guitar", roleJp: "ベースギター", color: "from-sky-400 to-blue-600" },
-  { name: "REN", jp: "蓮", role: "Lead Guitar", roleJp: "リードギター", color: "from-amber-400 to-orange-500" },
-  { name: "YASU", jp: "安須", role: "Drums / Vocals", roleJp: "ドラム / ボーカル", color: "from-violet-500 to-indigo-600" },
+  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", roleJp: "ボーカル / ギター", color: "from-red-600 to-black" },
+  { name: "MARO", jp: "真人", role: "Bass Guitar", roleJp: "ベースギター", color: "from-blue-600 to-black" },
+  { name: "REN", jp: "蓮", role: "Lead Guitar", roleJp: "リードギター", color: "from-yellow-500 to-black" },
+  { name: "YASU", jp: "安須", role: "Drums / Vocals", roleJp: "ドラム / ボーカル", color: "from-purple-600 to-black" },
 ];
 
 const news = [
