@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
-const MOBILE_WEB_APPS = [
+const TECH_ITEMS = [
   "kumaGO 橋 (Japanese-English Interactive Tutor)",
   "engiGO 橋 (Engineering Learning)",
   "radio raiON 雷音 (Interactive Game Radio Station)",
@@ -17,7 +17,7 @@ const MOBILE_WEB_APPS = [
   "adminTA (Cost-Budget Management)",
 ];
 
-const LIGHTHOUSE_GAMES = [
+const GAMES_ITEMS = [
   "pacifiCA",
   "unidentiFIED",
   "planetUteUS",
@@ -27,8 +27,14 @@ const LIGHTHOUSE_GAMES = [
   "banditStudios",
 ];
 
+const ANIMATION_ITEMS = ["cloudHunters", "soraGomi 空ゴミ", "2D Conceptual", "Minitoires"];
+const TECH_ART_ITEMS = ["brushLabo 橋", "3D Mesh", "Rigging", "Scriptable", "Toolbox"];
+const MUSIC_ITEMS = ["RAION 雷音 Radio", "soraGomi (空ゴミ) Band JP-CAN", "BeatSync Studio"];
+const WORKSHOP_ITEMS = ["Community", "Comics", "2D Creatures", "Open Sessions"];
+const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "engiGO 橋"];
+
 const navBtn =
-  "rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_16px_var(--color-neon)] active:scale-95 active:bg-accent active:text-accent-foreground active:border-accent active:shadow-[0_0_24px_var(--neon-pink)]";
+  "rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-sky/20 hover:border-sky hover:text-sky hover:shadow-[0_0_18px_var(--sky-blue)] active:scale-95 active:bg-sky active:text-background active:border-sky active:shadow-[0_0_28px_var(--sky-blue-deep)]";
 
 function NavDropdown({ label, items, to }: { label: string; items: string[]; to?: string }) {
   const [open, setOpen] = useState(false);
@@ -54,13 +60,13 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
         </button>
       )}
       {open && (
-        <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-primary/40 bg-background/95 p-2 shadow-[0_0_24px_var(--color-neon)] backdrop-blur-md">
+        <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
           <ul className="space-y-1">
             {items.map((it) => (
               <li key={it}>
                 <button
                   type="button"
-                  className="block w-full rounded px-3 py-1.5 text-left text-xs font-display uppercase tracking-wider text-foreground transition hover:bg-primary/20 hover:text-primary active:bg-accent active:text-accent-foreground"
+                  className="block w-full rounded px-3 py-1.5 text-left text-xs font-display uppercase tracking-wider text-foreground transition hover:bg-sky/20 hover:text-sky active:bg-sky active:text-background"
                 >
                   {it}
                 </button>
@@ -87,7 +93,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-3" aria-label="LIGHTHOUSE 橋 — Home">
           <span
             className="flex h-20 w-20 items-center justify-center rounded-2xl p-2 ring-2 ring-primary/50"
-            style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--sakura-white), 0 0 12px var(--color-neon)" }}
+            style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--sakura-white), 0 0 12px var(--sky-blue)" }}
           >
             <img src={lighthouseLogo} alt="LIGHTHOUSE 橋" className="h-full w-full object-contain" />
           </span>
@@ -96,13 +102,18 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-3 md:flex">
-          <NavDropdown label="Mobile-Web Apps" items={MOBILE_WEB_APPS} to="/marketplace" />
-          <Link to="/community" className={navBtn}>{t("community").toUpperCase()}</Link>
-          <Link to="/radioneto" className={navBtn}>RAION 雷音</Link>
-          <NavDropdown label="LIGHTHOUSE 橋 GAMES" items={LIGHTHOUSE_GAMES} to="/games" />
+        <nav className="hidden items-center gap-2 md:flex">
+          <NavDropdown label="Tech" items={TECH_ITEMS} to="/marketplace" />
+          <NavDropdown label="Games" items={GAMES_ITEMS} to="/games" />
+          <NavDropdown label="Animation" items={ANIMATION_ITEMS} to="/hub/2d-conceptual" />
+          <NavDropdown label="Tech Art" items={TECH_ART_ITEMS} to="/hub/3d-mesh" />
+          <NavDropdown label="Music" items={MUSIC_ITEMS} to="/radioneto" />
+          <NavDropdown label="Workshop" items={WORKSHOP_ITEMS} to="/community" />
+          <NavDropdown label="Construction" items={CONSTRUCTION_ITEMS} to="/marketplace" />
           <Link to="/auth" className={navBtn}>{t("signIn").toUpperCase()}</Link>
         </nav>
+
+        <span className="sr-only">{t("community")}</span>
 
         <div className="flex items-center gap-4">
           <LampPanel />
