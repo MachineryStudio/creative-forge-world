@@ -4,7 +4,7 @@ const members = [
   { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", color: "from-pink-500 to-fuchsia-500" },
   { name: "MARO", jp: "真人", role: "Bass Guitar", color: "from-sky-400 to-blue-600" },
   { name: "REN", jp: "蓮", role: "Lead Guitar", color: "from-amber-400 to-orange-500" },
-  { name: "YASU", jp: "安須", role: "Drums", color: "from-violet-500 to-indigo-600" },
+  { name: "YASU", jp: "安須", role: "Drums / Vocals", color: "from-violet-500 to-indigo-600" },
 ];
 
 const news = [
