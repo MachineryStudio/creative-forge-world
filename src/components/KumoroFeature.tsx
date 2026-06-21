@@ -17,11 +17,6 @@ const news = [
     textJp: "「クモル」フォルトラインクラウド メガミックス — 4曲、60秒プレビュー公開。",
   },
   {
-    tag: "LIVE", tagJp: "ライブ",
-    text: "Underground show at Shinjuku basement — date TBA 近日発表.",
-    textJp: "新宿地下のアンダーグラウンドライブ — 日程は近日発表。",
-  },
-  {
     tag: "STUDIO", tagJp: "スタジオ",
     text: "Tracking 「曇りの断層」EP — REN laying down lead guitar this week.",
     textJp: "「曇りの断層」EPレコーディング中 — 今週は蓮がリードギターを録音。",
