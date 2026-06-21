@@ -33,10 +33,10 @@ const ACCENTS = [
 
 const FALLBACK: Record<Genre, Track[]> = {
   anime: [{ id: "fb-a", title: "Cruel Angel's Thesis", artist: "Yoko Takahashi", genre: "anime", youtubeId: "o6wtDPVkKqI", mood: "clouds" }],
-  game: [{ id: "fb-g", title: "Game Track", artist: "RadioNerd", genre: "game", youtubeId: "o6wtDPVkKqI", mood: "planets" }],
-  visual_kei: [{ id: "fb-v", title: "Visual Kei", artist: "RadioNerd", genre: "visual_kei", youtubeId: "o6wtDPVkKqI", mood: "rain" }],
-  jpop: [{ id: "fb-j", title: "JPop", artist: "RadioNerd", genre: "jpop", youtubeId: "o6wtDPVkKqI", mood: "clouds" }],
-  universal: [{ id: "fb-u", title: "Universal", artist: "RadioNerd", genre: "universal", youtubeId: "o6wtDPVkKqI", mood: "nature" }],
+  game: [{ id: "fb-g", title: "Game Track", artist: "RAION 雷音", genre: "game", youtubeId: "o6wtDPVkKqI", mood: "planets" }],
+  visual_kei: [{ id: "fb-v", title: "Visual Kei", artist: "RAION 雷音", genre: "visual_kei", youtubeId: "o6wtDPVkKqI", mood: "rain" }],
+  jpop: [{ id: "fb-j", title: "JPop", artist: "RAION 雷音", genre: "jpop", youtubeId: "o6wtDPVkKqI", mood: "clouds" }],
+  universal: [{ id: "fb-u", title: "Universal", artist: "RAION 雷音", genre: "universal", youtubeId: "o6wtDPVkKqI", mood: "nature" }],
 };
 
 export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
@@ -76,7 +76,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
           data.map((r: any) => ({
             id: r.id,
             title: r.title,
-            artist: r.artist_name || "RadioNerd",
+            artist: r.artist_name || "RAION 雷音",
             genre,
             youtubeId: r.youtube_id,
             mood: (r.mood as Mood) ?? "clouds",
@@ -117,7 +117,7 @@ export function RadioNerd({ genre, label, ownsMusic = false }: RadioNerdProps) {
       <div className="mb-4 flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">
           <Radio className={`h-5 w-5 shrink-0 ${on ? "text-primary animate-pulse-glow" : "text-muted-foreground"}`} />
-          <h3 className="truncate font-display text-sm uppercase tracking-[0.3em] neon-text">RadioNerd · {label}</h3>
+          <h3 className="truncate font-display text-sm uppercase tracking-[0.3em] neon-text">RAION 雷音 · {label}</h3>
         </div>
         <div className="flex items-center gap-2">
           <button

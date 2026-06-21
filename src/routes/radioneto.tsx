@@ -35,7 +35,7 @@ interface Song {
 
 const DEFAULT_SONGS: Song[] = [
   { id: "s1", title: "Neon Sakura 桜", artist: "MIYU", bpm: 128, genre: "Visual Kei", duration: 45, youtubeId: "o6wtDPVkKqI" },
-  { id: "s2", title: "Tokyo Rain 東京の雨", artist: "RadioNerd", bpm: 110, genre: "JPop", duration: 40 },
+  { id: "s2", title: "Tokyo Rain 東京の雨", artist: "RAION 雷音", bpm: 110, genre: "JPop", duration: 40 },
   { id: "s3", title: "Bullet Train 新幹線", artist: "Hanna", bpm: 160, genre: "Visual Kei", duration: 35 },
   { id: "s4", title: "Pixel Heart", artist: "8bit Idol", bpm: 140, genre: "Game", duration: 40 },
   { id: "s5", title: "Moonlight Solo 月光", artist: "Yuki", bpm: 90, genre: "Anime", duration: 50 },
@@ -107,7 +107,7 @@ function Radioneto() {
         const dbSongs: Song[] = rows.map((r) => ({
           id: `db-${r.id}`,
           title: r.title,
-          artist: r.artist_name || "RadioNerd",
+          artist: r.artist_name || "RAION 雷音",
           bpm: 120,
           genre: r.genre,
           duration: 45,
@@ -499,10 +499,10 @@ function Radioneto() {
           <p className="text-sm text-muted-foreground">ビジュアル系リズムゲーム · Tap on beat. Miss 5 in a row (連続ミス5回) and the music stops.</p>
         </div>
 
-        {/* RadioNerd channels moved here from Community — only one station can be ON at a time */}
+        {/* RAION 雷音 channels moved here from Community — only one station can be ON at a time */}
         <section className="mb-8">
           <div className="mb-2 flex items-end justify-between gap-2">
-            <h2 className="font-display text-2xl neon-text">RadioNerd · チャンネル</h2>
+            <h2 className="font-display text-2xl neon-text">RAION 雷音 · チャンネル</h2>
             <p className="hidden text-xs text-muted-foreground md:block">同時に再生できるのは1局のみ · Only one station plays at a time.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
