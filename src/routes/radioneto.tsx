@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { RadioNerd } from "@/components/RadioNerd";
 import { MiyuChat } from "@/components/MiyuChat";
 import { SpaceInvaders, Tetris, TabBird, InputMatching } from "@/components/RadionetoMiniGames";
+import { KumoroFeature } from "@/components/KumoroFeature";
 
 type GameMode = "beatsync" | "invaders" | "tetris" | "tabbird" | "matching";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
@@ -513,6 +514,8 @@ function Radioneto() {
             <RadioNerd genre="universal" label="Universal 全般" ownsMusic />
           </div>
         </section>
+
+        <KumoroFeature />
 
         {/* Game selector */}
         <section className="mb-6">
