@@ -46,7 +46,7 @@ export const STRINGS = {
   rigging: T("Rigging", "リギング", "Rigging", "绑定", "Rigging", "Rigging", "Риггинг"),
   artProjects: T("Art Projects", "アートプロジェクト", "Projets Artistiques", "艺术项目", "Proyectos de Arte", "Progetti d'Arte", "Арт-проекты"),
   enter: T("Enter", "入る", "Entrer", "进入", "Entrar", "Entra", "Войти"),
-  radio: T("RadioNerd", "ラジオナード", "RadioNerd", "电台 Nerd", "RadioNerd", "RadioNerd", "RadioNerd"),
+  radio: T("RadioNerd", "雷音", "RadioNerd", "电台 Nerd", "RadioNerd", "RadioNerd", "RadioNerd"),
   off: T("Off", "オフ", "Arrêt", "关", "Apagado", "Spento", "Выкл"),
   on: T("On", "オン", "Marche", "开", "Encendido", "Acceso", "Вкл"),
   community: T("Community", "コミュニティ", "Communauté", "社区", "Comunidad", "Comunità", "Сообщество"),

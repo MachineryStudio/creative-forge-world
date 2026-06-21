@@ -75,12 +75,12 @@ function Index() {
         </div>
       </section>
 
-      {/* RadioNerd moved to /community. RADIONETO game lives at /radioneto */}
+      {/* RadioNerd moved to /community. RAION game lives at /radioneto */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
         <div className="panel scanlines flex flex-col items-start gap-3 p-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード</div>
-            <h2 className="font-display text-2xl neon-text">RADIONETO — Rhythm Game</h2>
+            <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">雷音</div>
+            <h2 className="font-display text-2xl neon-text">RAION 雷音 — Rhythm Game</h2>
             <p className="mt-1 text-sm text-muted-foreground">Pick Drums or Bass. Tap the kick. Trace the melody. Survive the visual-kei concert.</p>
           </div>
           <a href="/radioneto" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary neon-glow hover:bg-primary/20">▶ Play</a>
