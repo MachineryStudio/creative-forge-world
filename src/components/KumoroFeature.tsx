@@ -36,7 +36,7 @@ export function KumoroFeature() {
         </div>
 
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          A short preview blending four KUMORO tracks — <em>2 Second Away</em>, <em>Falling Love</em>,{" "}
+          A short preview blending four KUMORO tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
           <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
         </p>
 
@@ -49,10 +49,10 @@ export function KumoroFeature() {
             style={{ colorScheme: "dark" }}
           />
           <div className="mt-2 flex flex-wrap gap-2 text-[10px] font-display uppercase tracking-widest text-muted-foreground">
-            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 Second Away</span>
-            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">Falling Love</span>
-            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">Justice</span>
-            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">Monster Loop</span>
+            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Falling Love</span>
+            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Second Away</span>
+            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · Justice</span>
+            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop</span>
           </div>
         </div>
 
