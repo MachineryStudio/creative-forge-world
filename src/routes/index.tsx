@@ -75,7 +75,7 @@ function Index() {
         </div>
       </section>
 
-      {/* RadioNerd moved to /community. RAION game lives at /radioneto */}
+      {/* RAION 雷音 moved to /community. RAION game lives at /radioneto */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
         <div className="panel scanlines flex flex-col items-start gap-3 p-6 md:flex-row md:items-center md:justify-between">
           <div>
