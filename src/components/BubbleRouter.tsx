@@ -544,7 +544,7 @@ export function BubbleRouter() {
       {/* Center label */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
         <div className="font-display text-xs uppercase tracking-[0.3em] text-white/80">Router · Switch</div>
-        <div className="font-display text-2xl text-white" style={{ textShadow: "0 0 18px rgba(255,255,255,0.7)" }}>RADIONERD</div>
+        <div className="font-display text-2xl text-white" style={{ textShadow: "0 0 18px rgba(255,255,255,0.7)" }}>RAION</div>
         <div className="mt-1 font-display text-[10px] uppercase tracking-[0.3em] text-white/60">[ Production ◆ Tools Prototype ]</div>
       </div>
     </div>

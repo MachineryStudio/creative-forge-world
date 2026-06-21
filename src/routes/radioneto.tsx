@@ -14,7 +14,7 @@ import drumImg2 from "@/assets/rocker-drummer-2.jpg";
 export const Route = createFileRoute("/radioneto")({
   head: () => ({
     meta: [
-      { title: "RADIONETO ラジオナード — Rhythm Game" },
+      { title: "RAION 雷音 — Rhythm Game" },
       { name: "description", content: "Japanese visual-kei rhythm game. Pick bass or drums and follow the beat." },
     ],
   }),
@@ -494,8 +494,8 @@ function Radioneto() {
       <SiteHeader />
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-4 text-center">
-          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">ラジオナード · RADIONETO</div>
-          <h1 className="font-display text-4xl neon-text">RADIONETO — BeatSync Studio 拍同期スタジオ</h1>
+          <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">雷音 · RAION</div>
+          <h1 className="font-display text-4xl neon-text">RAION 雷音 — BeatSync Studio 拍同期スタジオ</h1>
           <p className="text-sm text-muted-foreground">ビジュアル系リズムゲーム · Tap on beat. Miss 5 in a row (連続ミス5回) and the music stops.</p>
         </div>
 
