@@ -31,7 +31,7 @@ export function KumoroFeature() {
             </p>
           </div>
           <div className="rounded-md border border-sky-400/40 bg-sky-400/10 px-3 py-1 font-display text-[10px] uppercase tracking-widest text-sky-200">
-            60s Megamix · ミックス
+            1:50 Megamix · ミックス
           </div>
         </div>
 
