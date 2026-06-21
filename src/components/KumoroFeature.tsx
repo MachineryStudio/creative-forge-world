@@ -13,8 +13,8 @@ const members = [
 const news = [
   {
     tag: "NEW MIX", tagJp: "新ミックス",
-    text: "「クモル」FAULT LINE CLOUD megamix — 4 tracks, 60 sec preview drop.",
-    textJp: "「クモル」フォルトラインクラウド メガミックス — 4曲、60秒プレビュー公開。",
+    text: "「クモル」FAULT LINE CLOUD megamix — 12 tracks, 60 sec preview drop.",
+    textJp: "「クモル」フォルトラインクラウド メガミックス — 12曲、60秒プレビュー公開。",
   },
   {
     tag: "STUDIO", tagJp: "スタジオ",
