@@ -32,6 +32,7 @@
   --color-neon-pink: var(--neon-pink);
   --color-neon-cyan: var(--neon-cyan);
   --color-neon-amber: var(--neon-amber);
+  --color-sky: var(--sky-blue);
   --color-panel: var(--panel);
   --font-display: "Orbitron", "Rajdhani", sans-serif;
   --font-sans: "Rajdhani", "Inter", system-ui, sans-serif;
@@ -81,15 +82,19 @@
   --sakura-white: oklch(0.98 0.03 350);
   --color-sakura-white: var(--sakura-white);
 
+  /* Sky-blue accent — added to every page for a cool highlight */
+  --sky-blue: oklch(0.82 0.13 230);
+  --sky-blue-deep: oklch(0.7 0.16 235);
+
   --gradient-radial:
     radial-gradient(circle at 20% 15%, oklch(0.85 0.12 350 / 0.5), transparent 55%),
     radial-gradient(circle at 85% 25%, oklch(0.82 0.12 305 / 0.45), transparent 55%),
-    radial-gradient(circle at 50% 95%, oklch(0.88 0.1 215 / 0.45), transparent 60%);
+    radial-gradient(circle at 50% 95%, oklch(0.82 0.13 230 / 0.55), transparent 60%);
   --gradient-neon: linear-gradient(135deg,
     oklch(0.75 0.24 350) 0%,
-    oklch(0.65 0.22 305) 50%,
-    oklch(0.78 0.18 215) 100%);
-  --shadow-neon: 0 0 24px oklch(0.75 0.24 350 / 0.45), 0 0 60px oklch(0.65 0.22 305 / 0.25);
+    oklch(0.65 0.22 305) 45%,
+    oklch(0.82 0.13 230) 100%);
+  --shadow-neon: 0 0 24px oklch(0.75 0.24 350 / 0.45), 0 0 60px oklch(0.82 0.13 230 / 0.35);
   --shadow-panel: 0 8px 32px oklch(0.4 0.1 320 / 0.18), inset 0 1px 0 oklch(1 0 0 / 0.6);
 }
 
