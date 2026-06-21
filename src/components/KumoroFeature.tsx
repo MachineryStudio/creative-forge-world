@@ -1,19 +1,69 @@
+import { useState } from "react";
 import kumoroMix from "@/assets/KUMORO.mp3.asset.json";
 
+type Lang = "EN" | "JP";
+
 const members = [
-  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", color: "from-pink-500 to-fuchsia-500" },
-  { name: "MARO", jp: "真人", role: "Bass Guitar", color: "from-sky-400 to-blue-600" },
-  { name: "REN", jp: "蓮", role: "Lead Guitar", color: "from-amber-400 to-orange-500" },
-  { name: "YASU", jp: "安須", role: "Drums / Vocals", color: "from-violet-500 to-indigo-600" },
+  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", roleJp: "ボーカル / ギター", color: "from-pink-500 to-fuchsia-500" },
+  { name: "MARO", jp: "真人", role: "Bass Guitar", roleJp: "ベースギター", color: "from-sky-400 to-blue-600" },
+  { name: "REN", jp: "蓮", role: "Lead Guitar", roleJp: "リードギター", color: "from-amber-400 to-orange-500" },
+  { name: "YASU", jp: "安須", role: "Drums / Vocals", roleJp: "ドラム / ボーカル", color: "from-violet-500 to-indigo-600" },
 ];
 
 const news = [
-  { tag: "NEW MIX", text: "「クモル」FAULT LINE CLOUD megamix — 4 tracks, 60 sec preview drop." },
-  { tag: "LIVE", text: "Underground show at Shinjuku basement — date TBA 近日発表." },
-  { tag: "STUDIO", text: "Tracking 「曇りの断層」EP — REN laying down lead guitar this week." },
+  {
+    tag: "NEW MIX", tagJp: "新ミックス",
+    text: "「クモル」FAULT LINE CLOUD megamix — 4 tracks, 60 sec preview drop.",
+    textJp: "「クモル」フォルトラインクラウド メガミックス — 4曲、60秒プレビュー公開。",
+  },
+  {
+    tag: "LIVE", tagJp: "ライブ",
+    text: "Underground show at Shinjuku basement — date TBA 近日発表.",
+    textJp: "新宿地下のアンダーグラウンドライブ — 日程は近日発表。",
+  },
+  {
+    tag: "STUDIO", tagJp: "スタジオ",
+    text: "Tracking 「曇りの断層」EP — REN laying down lead guitar this week.",
+    textJp: "「曇りの断層」EPレコーディング中 — 今週は蓮がリードギターを録音。",
+  },
 ];
 
+const t = {
+  EN: {
+    featured: "Featured Band · 注目バンド",
+    subtitle: "— FAULT LINE CLOUD ·「曇りの断層」",
+    mixBadge: "1:50 Megamix · ミックス",
+    intro: (
+      <>
+        A short preview blending four KUMORO tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
+        <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
+      </>
+    ),
+    disclaimer: "Songs are in production — final tracks may vary.",
+    notes: "Band Notes · ニュース",
+    switchLabel: "JP",
+  },
+  JP: {
+    featured: "注目バンド · Featured Band",
+    subtitle: "—「曇りの断層」FAULT LINE CLOUD",
+    mixBadge: "1:50 メガミックス · Megamix",
+    intro: (
+      <>
+        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>{" "}
+        — をひとつの断層雷雨にまとめた短いプレビュー。
+      </>
+    ),
+    disclaimer: "楽曲は制作中です。最終版は変更となる場合があります。",
+    notes: "ニュース · Band Notes",
+    switchLabel: "EN",
+  },
+} as const;
+
 export function KumoroFeature() {
+  const [lang, setLang] = useState<Lang>("EN");
+  const L = t[lang];
+  const toggle = () => setLang((l) => (l === "EN" ? "JP" : "EN"));
+
   return (
     <section className="mb-8">
       <div className="panel scanlines rounded-2xl border-2 border-primary/40 p-5 md:p-7"
@@ -21,23 +71,34 @@ export function KumoroFeature() {
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="font-display text-[10px] uppercase tracking-[0.4em] text-sky-400">
-              Featured Band · 注目バンド
+              {L.featured}
             </div>
             <h2 className="font-display text-3xl md:text-4xl neon-text">
               「クモル」KUMORO
             </h2>
             <p className="mt-1 font-display text-sm text-primary">
-              — FAULT LINE CLOUD ·「曇りの断層」
+              {L.subtitle}
             </p>
           </div>
-          <div className="rounded-md border border-sky-400/40 bg-sky-400/10 px-3 py-1 font-display text-[10px] uppercase tracking-widest text-sky-200">
-            1:50 Megamix · ミックス
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label="Toggle language"
+              className="group relative inline-flex items-center gap-2 rounded-md border border-sky-400/50 bg-sky-400/10 px-3 py-1 font-display text-[10px] uppercase tracking-widest text-sky-200 transition hover:bg-sky-400/20"
+            >
+              <span className={lang === "EN" ? "text-sky-100" : "text-sky-200/40"}>EN</span>
+              <span className="text-sky-400">/</span>
+              <span className={lang === "JP" ? "text-sky-100" : "text-sky-200/40"}>日本語</span>
+            </button>
+            <div className="rounded-md border border-sky-400/40 bg-sky-400/10 px-3 py-1 font-display text-[10px] uppercase tracking-widest text-sky-200">
+              {L.mixBadge}
+            </div>
           </div>
         </div>
 
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          A short preview blending four KUMORO tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
-          <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
+          {L.intro}
         </p>
 
         <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
@@ -54,31 +115,34 @@ export function KumoroFeature() {
             <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · Justice</span>
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop</span>
           </div>
+          <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
+            ⚠ {L.disclaimer}
+          </p>
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((m) => (
             <div key={m.name} className="rounded-xl border border-border bg-card/40 p-3">
               <div className={`mb-2 inline-block rounded bg-gradient-to-r ${m.color} px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-white`}>
-                {m.role}
+                {lang === "EN" ? m.role : m.roleJp}
               </div>
-              <div className="font-display text-lg text-foreground">{m.name}</div>
-              <div className="font-display text-sm text-sky-300">{m.jp}</div>
+              <div className="font-display text-lg text-foreground">{lang === "EN" ? m.name : m.jp}</div>
+              <div className="font-display text-sm text-sky-300">{lang === "EN" ? m.jp : m.name}</div>
             </div>
           ))}
         </div>
 
         <div className="mt-5">
           <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-sky-400">
-            Band Notes · ニュース
+            {L.notes}
           </div>
           <ul className="space-y-2">
             {news.map((n) => (
               <li key={n.tag} className="flex gap-3 rounded-md border border-border/60 bg-background/40 p-2 text-xs">
                 <span className="shrink-0 rounded bg-primary/20 px-2 py-0.5 font-display uppercase tracking-widest text-primary">
-                  {n.tag}
+                  {lang === "EN" ? n.tag : n.tagJp}
                 </span>
-                <span className="text-muted-foreground">{n.text}</span>
+                <span className="text-muted-foreground">{lang === "EN" ? n.text : n.textJp}</span>
               </li>
             ))}
           </ul>
