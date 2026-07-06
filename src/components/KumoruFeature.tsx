@@ -27,7 +27,7 @@ const t = {
   EN: {
     featured: "Featured Band · 注目バンド",
     subtitle: "— FAULT LINE CLOUD ·「曇りの断層」",
-    mixBadge: "1:50 Megamix · ミックス",
+    mixBadge: "2:43 Megamix · ミックス",
     intro: (
       <>
         A short preview blending four KUMORU tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
@@ -41,7 +41,7 @@ const t = {
   JP: {
     featured: "注目バンド · Featured Band",
     subtitle: "—「曇りの断層」FAULT LINE CLOUD",
-    mixBadge: "1:50 メガミックス · Megamix",
+    mixBadge: "2:43 メガミックス · Megamix",
     intro: (
       <>
         クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>{" "}
@@ -109,6 +109,7 @@ export function KumoruFeature() {
             <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Second Away</span>
             <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · Justice</span>
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop</span>
+            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Yūyami 「夕闇」</span>
           </div>
           <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
             ⚠ {L.disclaimer}
