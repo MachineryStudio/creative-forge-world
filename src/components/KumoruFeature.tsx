@@ -129,6 +129,9 @@ export function KumoruFeature() {
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           {L.intro}
         </p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sky-200/80">
+          {L.lighthouse}
+        </p>
 
         <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
           <audio
