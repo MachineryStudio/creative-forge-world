@@ -31,7 +31,24 @@ const t = {
     intro: (
       <>
         A short preview blending four KUMORU tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
-        <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
+        <em>Justice</em>, <em>Monster Loop</em> and <em>Yūyami 「夕闇」</em> — into a single fault-line cloudburst.
+      </>
+    ),
+    lighthouse: (
+      <>
+        <strong>LIGHTHOUSE 橋 —</strong>
+        <br />
+        a bridge of light, built from games, animation, and the pulse of technology.
+        <br />
+        This is only a demo. A beginning. Not the arrival.
+        <br />
+        Many paths lead forward, and we are walking each one.
+        <br />
+        With patience and persistence,
+        <br />
+        we hope to guide this project from the edge of shadow
+        <br />
+        into the full embrace of light.
       </>
     ),
     disclaimer: "Songs are in production — final tracks may vary.",
@@ -44,8 +61,25 @@ const t = {
     mixBadge: "2:43 メガミックス · Megamix",
     intro: (
       <>
-        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>{" "}
+        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>、<em>「夕闇」</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
+      </>
+    ),
+    lighthouse: (
+      <>
+        <strong>LIGHTHOUSE 橋 —</strong>
+        <br />
+        光の橋。ゲーム、アニメ、そしてテクノロジーの鼓動から生まれる。
+        <br />
+        これはデモにすぎない。始まり。到達ではない。
+        <br />
+        前に進む道は数多くあり、私たちは一つ一つを歩んでいる。
+        <br />
+        忍耐と粘り強さをもって、
+        <br />
+        このプロジェクトを影の端から
+        <br />
+        光の満ちる抱擁へと導きたいと願っている。
       </>
     ),
     disclaimer: "楽曲は制作中です。最終版は変更となる場合があります。",
@@ -94,6 +128,9 @@ export function KumoruFeature() {
 
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           {L.intro}
+        </p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sky-200/80">
+          {L.lighthouse}
         </p>
 
         <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
