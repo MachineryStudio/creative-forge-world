@@ -31,7 +31,24 @@ const t = {
     intro: (
       <>
         A short preview blending four KUMORU tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
-        <em>Justice</em>, and <em>Monster Loop</em> — into a single fault-line cloudburst.
+        <em>Justice</em>, <em>Monster Loop</em> and <em>Yūyami 「夕闇」</em> — into a single fault-line cloudburst.
+      </>
+    ),
+    lighthouse: (
+      <>
+        <strong>LIGHTHOUSE 橋 —</strong>
+        <br />
+        a bridge of light, built from games, animation, and the pulse of technology.
+        <br />
+        This is only a demo. A beginning. Not the arrival.
+        <br />
+        Many paths lead forward, and we are walking each one.
+        <br />
+        With patience and persistence,
+        <br />
+        we hope to guide this project from the edge of shadow
+        <br />
+        into the full embrace of light.
       </>
     ),
     disclaimer: "Songs are in production — final tracks may vary.",
