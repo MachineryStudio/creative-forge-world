@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "014b1821-cbc3-4152-bc34-031b9d94e89b",
+  "asset_id": "1b695ab7-44e6-4f92-bea0-f0a682cd3c47",
   "project_id": "ae9f45d8-7a91-4623-8285-0e45bc2f5f92",
-  "url": "/__l5e/assets-v1/014b1821-cbc3-4152-bc34-031b9d94e89b/KUMORO.mp3",
-  "r2_key": "a/v1/ae9f45d8-7a91-4623-8285-0e45bc2f5f92/014b1821-cbc3-4152-bc34-031b9d94e89b/KUMORO.mp3",
-  "original_filename": "KUMORO.mp3",
-  "size": 2570790,
+  "url": "/__l5e/assets-v1/1b695ab7-44e6-4f92-bea0-f0a682cd3c47/KUMORU_YUUYAMI.mp3",
+  "r2_key": "a/v1/ae9f45d8-7a91-4623-8285-0e45bc2f5f92/1b695ab7-44e6-4f92-bea0-f0a682cd3c47/KUMORU_YUUYAMI.mp3",
+  "original_filename": "KUMORU_YUUYAMI.mp3",
+  "size": 3914319,
   "content_type": "audio/mpeg",
-  "created_at": "2026-06-21T03:00:00Z"
+  "created_at": "2026-07-06T01:31:28Z"
 }
