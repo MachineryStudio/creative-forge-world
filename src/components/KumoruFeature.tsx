@@ -61,8 +61,25 @@ const t = {
     mixBadge: "2:43 メガミックス · Megamix",
     intro: (
       <>
-        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>{" "}
+        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>、<em>「夕闇」</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
+      </>
+    ),
+    lighthouse: (
+      <>
+        <strong>LIGHTHOUSE 橋 —</strong>
+        <br />
+        光の橋。ゲーム、アニメ、そしてテクノロジーの鼓動から生まれる。
+        <br />
+        これはデモにすぎない。始まり。到達ではない。
+        <br />
+        前に進む道は数多くあり、私たちは一つ一つを歩んでいる。
+        <br />
+        忍耐と粘り強さをもって、
+        <br />
+        このプロジェクトを影の端から
+        <br />
+        光の満ちる抱擁へと導きたいと願っている。
       </>
     ),
     disclaimer: "楽曲は制作中です。最終版は変更となる場合があります。",
