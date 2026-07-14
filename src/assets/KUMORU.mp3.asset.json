@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "b9191b3d-a9ec-4eff-857a-a03abd6d7087",
+  "asset_id": "da3e0c4f-5b58-497d-8b33-1ccf01d7f4a0",
   "project_id": "ae9f45d8-7a91-4623-8285-0e45bc2f5f92",
-  "url": "/__l5e/assets-v1/b9191b3d-a9ec-4eff-857a-a03abd6d7087/KUMORU_LTW.mp3",
-  "r2_key": "a/v1/ae9f45d8-7a91-4623-8285-0e45bc2f5f92/b9191b3d-a9ec-4eff-857a-a03abd6d7087/KUMORU_LTW.mp3",
-  "original_filename": "KUMORU_LTW.mp3",
-  "size": 5615831,
+  "url": "/__l5e/assets-v1/da3e0c4f-5b58-497d-8b33-1ccf01d7f4a0/KUMORU_V3.mp3",
+  "r2_key": "a/v1/ae9f45d8-7a91-4623-8285-0e45bc2f5f92/da3e0c4f-5b58-497d-8b33-1ccf01d7f4a0/KUMORU_V3.mp3",
+  "original_filename": "KUMORU_V3.mp3",
+  "size": 8601314,
   "content_type": "audio/mpeg",
-  "created_at": "2026-07-14T03:59:35Z"
+  "created_at": "2026-07-14T04:06:07Z"
 }
