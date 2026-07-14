@@ -13,8 +13,8 @@ const members = [
 const news = [
   {
     tag: "NEW MIX", tagJp: "新ミックス",
-    text: "「クモル」FAULT LINE CLOUD megamix — 6 tracks, 5:58 preview drop.",
-    textJp: "「クモル」フォルトラインクラウド メガミックス — 6曲、5:58プレビュー公開。",
+    text: "「クモル」FAULT LINE CLOUD megamix — 6 tracks, 4:12 preview drop.",
+    textJp: "「クモル」フォルトラインクラウド メガミックス — 6曲、4:12プレビュー公開。",
   },
   {
     tag: "STUDIO", tagJp: "スタジオ",
@@ -27,7 +27,7 @@ const t = {
   EN: {
     featured: "Featured Band · 注目バンド",
     subtitle: "— FAULT LINE CLOUD ·「曇りの断層」",
-    mixBadge: "5:58 Megamix · ミックス",
+    mixBadge: "4:12 Megamix · ミックス",
     intro: (
       <>
         A short preview blending six KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
@@ -59,7 +59,7 @@ const t = {
   JP: {
     featured: "注目バンド · Featured Band",
     subtitle: "—「曇りの断層」FAULT LINE CLOUD",
-    mixBadge: "5:58 メガミックス · Megamix",
+    mixBadge: "4:12 メガミックス · Megamix",
     intro: (
       <>
         クモルの6曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>{" "}
