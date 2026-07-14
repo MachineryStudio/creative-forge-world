@@ -13,8 +13,8 @@ const members = [
 const news = [
   {
     tag: "NEW MIX", tagJp: "新ミックス",
-    text: "「クモル」FAULT LINE CLOUD megamix — 12 tracks, 60 sec preview drop.",
-    textJp: "「クモル」フォルトラインクラウド メガミックス — 12曲、60秒プレビュー公開。",
+    text: "「クモル」FAULT LINE CLOUD megamix — 6 tracks, 3:54 preview drop.",
+    textJp: "「クモル」フォルトラインクラウド メガミックス — 6曲、3:54プレビュー公開。",
   },
   {
     tag: "STUDIO", tagJp: "スタジオ",
@@ -27,11 +27,12 @@ const t = {
   EN: {
     featured: "Featured Band · 注目バンド",
     subtitle: "— FAULT LINE CLOUD ·「曇りの断層」",
-    mixBadge: "2:43 Megamix · ミックス",
+    mixBadge: "3:54 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending four KUMORU tracks — <em>Falling Love</em>, <em>2 Second Away</em>,{" "}
-        <em>Justice</em>, <em>Monster Loop</em> and <em>Yūyami 「夕闇」</em> — into a single fault-line cloudburst.
+        A short preview blending six KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
+        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em> and{" "}
+        <em>Last Train Wolf 「終電ウルフ」</em> — into a single fault-line cloudburst.
       </>
     ),
     lighthouse: (
@@ -58,10 +59,10 @@ const t = {
   JP: {
     featured: "注目バンド · Featured Band",
     subtitle: "—「曇りの断層」FAULT LINE CLOUD",
-    mixBadge: "2:43 メガミックス · Megamix",
+    mixBadge: "3:54 メガミックス · Megamix",
     intro: (
       <>
-        クモルの4曲 —<em>「Falling Love」</em>、<em>「2 Second Away」</em>、<em>「Justice」</em>、<em>「Monster Loop」</em>、<em>「夕闇」</em>{" "}
+        クモルの6曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
       </>
     ),
@@ -142,11 +143,12 @@ export function KumoruFeature() {
             style={{ colorScheme: "dark" }}
           />
           <div className="mt-2 flex flex-wrap gap-2 text-[10px] font-display uppercase tracking-widest text-muted-foreground">
-            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Falling Love</span>
-            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Second Away</span>
-            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · Justice</span>
-            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop</span>
-            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Yūyami 「夕闇」</span>
+            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Descending Love 「落下する恋」</span>
+            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Seconds Away 「2秒先」</span>
+            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · JUSTICE DAY 「ジャスティス・デイ」</span>
+            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
+            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Twilight gloom 「夕闇」</span>
+            <span className="rounded bg-rose-500/15 px-2 py-0.5 text-rose-300">6 · Last Train Wolf 「終電ウルフ」</span>
           </div>
           <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
             ⚠ {L.disclaimer}
