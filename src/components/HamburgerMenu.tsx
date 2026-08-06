@@ -76,8 +76,35 @@ export function HamburgerMenu() {
               </button>
             </div>
 
+            {/* Main navigation — primary way to navigate on mobile */}
+            <nav className="mb-8 md:hidden">
+              <h3 className="mb-3 font-display text-xs uppercase tracking-[0.3em] text-primary">Navigation</h3>
+              <ul className="grid grid-cols-2 gap-2">
+                {NAV_GROUPS.map((g) => (
+                  <li key={g.label}>
+                    <Link
+                      to={g.to}
+                      onClick={() => { sfx.blip(); setOpen(false); }}
+                      className="block rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-center font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 active:scale-95"
+                    >
+                      {g.label}
+                    </Link>
+                  </li>
+                ))}
+                <li className="col-span-2">
+                  <Link
+                    to="/auth"
+                    onClick={() => { sfx.blip(); setOpen(false); }}
+                    className="block rounded-md border border-accent/50 bg-accent/10 px-3 py-2 text-center font-display text-xs uppercase tracking-widest text-accent-foreground transition hover:bg-accent/20 active:scale-95"
+                  >
+                    {t("signIn").toUpperCase()}
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+
             <div className="space-y-8">
-              {SECTIONS.map((s, i) => (
+
                 <div key={s.titleKey}>
                   <div className="mb-3 flex items-center gap-3">
                     <span className="grid h-8 w-8 place-items-center rounded-md border border-primary/60 bg-primary/10 font-display text-sm text-primary neon-glow">
