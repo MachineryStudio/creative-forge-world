@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { sfx } from "@/lib/sfx";
+import { NAV_GROUPS } from "@/lib/nav";
+
 
 const SECTIONS = [
   {
