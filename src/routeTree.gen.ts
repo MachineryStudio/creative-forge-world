@@ -9,45 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RadionetoRouteImport } from './routes/radioneto'
-import { Route as MarketplaceRouteImport } from './routes/marketplace'
-import { Route as GamesRouteImport } from './routes/games'
-import { Route as CommunityRouteImport } from './routes/community'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as HubToolboxRouteImport } from './routes/hub.toolbox'
-import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
-import { Route as HubRiggingRouteImport } from './routes/hub.rigging'
-import { Route as HubMinitoiresRouteImport } from './routes/hub.minitoires'
-import { Route as HubComicsRouteImport } from './routes/hub.comics'
-import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
-import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as GamesRouteImport } from './routes/games'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as RadionetoRouteImport } from './routes/radioneto'
 import { Route as Hub2dConceptualRouteImport } from './routes/hub.2d-conceptual'
+import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
+import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
+import { Route as HubComicsRouteImport } from './routes/hub.comics'
+import { Route as HubMinitoiresRouteImport } from './routes/hub.minitoires'
+import { Route as HubRiggingRouteImport } from './routes/hub.rigging'
+import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
+import { Route as HubToolboxRouteImport } from './routes/hub.toolbox'
 
-const RadionetoRoute = RadionetoRouteImport.update({
-  id: '/radioneto',
-  path: '/radioneto',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MarketplaceRoute = MarketplaceRouteImport.update({
-  id: '/marketplace',
-  path: '/marketplace',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GamesRoute = GamesRouteImport.update({
-  id: '/games',
-  path: '/games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CommunityRoute = CommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -55,39 +35,34 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubToolboxRoute = HubToolboxRouteImport.update({
-  id: '/hub/toolbox',
-  path: '/hub/toolbox',
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubScriptableRoute = HubScriptableRouteImport.update({
-  id: '/hub/scriptable',
-  path: '/hub/scriptable',
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubRiggingRoute = HubRiggingRouteImport.update({
-  id: '/hub/rigging',
-  path: '/hub/rigging',
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubMinitoiresRoute = HubMinitoiresRouteImport.update({
-  id: '/hub/minitoires',
-  path: '/hub/minitoires',
+const RadionetoRoute = RadionetoRouteImport.update({
+  id: '/radioneto',
+  path: '/radioneto',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubComicsRoute = HubComicsRouteImport.update({
-  id: '/hub/comics',
-  path: '/hub/comics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Hub3dMeshRoute = Hub3dMeshRouteImport.update({
-  id: '/hub/3d-mesh',
-  path: '/hub/3d-mesh',
+const Hub2dConceptualRoute = Hub2dConceptualRouteImport.update({
+  id: '/hub/2d-conceptual',
+  path: '/hub/2d-conceptual',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Hub2dCreaturesRoute = Hub2dCreaturesRouteImport.update({
@@ -95,9 +70,34 @@ const Hub2dCreaturesRoute = Hub2dCreaturesRouteImport.update({
   path: '/hub/2d-creatures',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Hub2dConceptualRoute = Hub2dConceptualRouteImport.update({
-  id: '/hub/2d-conceptual',
-  path: '/hub/2d-conceptual',
+const Hub3dMeshRoute = Hub3dMeshRouteImport.update({
+  id: '/hub/3d-mesh',
+  path: '/hub/3d-mesh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubComicsRoute = HubComicsRouteImport.update({
+  id: '/hub/comics',
+  path: '/hub/comics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubMinitoiresRoute = HubMinitoiresRouteImport.update({
+  id: '/hub/minitoires',
+  path: '/hub/minitoires',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubRiggingRoute = HubRiggingRouteImport.update({
+  id: '/hub/rigging',
+  path: '/hub/rigging',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubScriptableRoute = HubScriptableRouteImport.update({
+  id: '/hub/scriptable',
+  path: '/hub/scriptable',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubToolboxRoute = HubToolboxRouteImport.update({
+  id: '/hub/toolbox',
+  path: '/hub/toolbox',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -227,39 +227,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/radioneto': {
-      id: '/radioneto'
-      path: '/radioneto'
-      fullPath: '/radioneto'
-      preLoaderRoute: typeof RadionetoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/marketplace': {
-      id: '/marketplace'
-      path: '/marketplace'
-      fullPath: '/marketplace'
-      preLoaderRoute: typeof MarketplaceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/games': {
-      id: '/games'
-      path: '/games'
-      fullPath: '/games'
-      preLoaderRoute: typeof GamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/community': {
-      id: '/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof CommunityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -269,53 +241,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/toolbox': {
-      id: '/hub/toolbox'
-      path: '/hub/toolbox'
-      fullPath: '/hub/toolbox'
-      preLoaderRoute: typeof HubToolboxRouteImport
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/scriptable': {
-      id: '/hub/scriptable'
-      path: '/hub/scriptable'
-      fullPath: '/hub/scriptable'
-      preLoaderRoute: typeof HubScriptableRouteImport
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/rigging': {
-      id: '/hub/rigging'
-      path: '/hub/rigging'
-      fullPath: '/hub/rigging'
-      preLoaderRoute: typeof HubRiggingRouteImport
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/minitoires': {
-      id: '/hub/minitoires'
-      path: '/hub/minitoires'
-      fullPath: '/hub/minitoires'
-      preLoaderRoute: typeof HubMinitoiresRouteImport
+    '/radioneto': {
+      id: '/radioneto'
+      path: '/radioneto'
+      fullPath: '/radioneto'
+      preLoaderRoute: typeof RadionetoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/comics': {
-      id: '/hub/comics'
-      path: '/hub/comics'
-      fullPath: '/hub/comics'
-      preLoaderRoute: typeof HubComicsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hub/3d-mesh': {
-      id: '/hub/3d-mesh'
-      path: '/hub/3d-mesh'
-      fullPath: '/hub/3d-mesh'
-      preLoaderRoute: typeof Hub3dMeshRouteImport
+    '/hub/2d-conceptual': {
+      id: '/hub/2d-conceptual'
+      path: '/hub/2d-conceptual'
+      fullPath: '/hub/2d-conceptual'
+      preLoaderRoute: typeof Hub2dConceptualRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hub/2d-creatures': {
@@ -325,11 +290,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Hub2dCreaturesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/2d-conceptual': {
-      id: '/hub/2d-conceptual'
-      path: '/hub/2d-conceptual'
-      fullPath: '/hub/2d-conceptual'
-      preLoaderRoute: typeof Hub2dConceptualRouteImport
+    '/hub/3d-mesh': {
+      id: '/hub/3d-mesh'
+      path: '/hub/3d-mesh'
+      fullPath: '/hub/3d-mesh'
+      preLoaderRoute: typeof Hub3dMeshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/comics': {
+      id: '/hub/comics'
+      path: '/hub/comics'
+      fullPath: '/hub/comics'
+      preLoaderRoute: typeof HubComicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/minitoires': {
+      id: '/hub/minitoires'
+      path: '/hub/minitoires'
+      fullPath: '/hub/minitoires'
+      preLoaderRoute: typeof HubMinitoiresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/rigging': {
+      id: '/hub/rigging'
+      path: '/hub/rigging'
+      fullPath: '/hub/rigging'
+      preLoaderRoute: typeof HubRiggingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/scriptable': {
+      id: '/hub/scriptable'
+      path: '/hub/scriptable'
+      fullPath: '/hub/scriptable'
+      preLoaderRoute: typeof HubScriptableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/toolbox': {
+      id: '/hub/toolbox'
+      path: '/hub/toolbox'
+      fullPath: '/hub/toolbox'
+      preLoaderRoute: typeof HubToolboxRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
