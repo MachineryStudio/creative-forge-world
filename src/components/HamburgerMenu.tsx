@@ -157,7 +157,19 @@ export function HamburgerMenu() {
             </div>
           </aside>
         </div>
-      )}
+  );
+
+  return (
+    <>
+      <button
+        onClick={() => { sfx.click(); setOpen(true); }}
+        className="grid h-11 w-11 place-items-center rounded-md border border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10 text-primary transition hover:scale-105 hover:from-primary/20 hover:to-accent/20 hover:shadow-[0_0_20px_var(--color-neon)]"
+        aria-label="Menu"
+      >
+        <Menu className="h-6 w-6" />
+      </button>
+      {open && mounted && createPortal(drawer, document.body)}
     </>
   );
 }
+
