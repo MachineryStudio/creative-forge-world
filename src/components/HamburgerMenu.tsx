@@ -77,20 +77,34 @@ export function HamburgerMenu() {
             </div>
 
             {/* Main navigation — primary way to navigate on mobile */}
-            <nav className="mb-8 md:hidden">
+            <nav className="mb-8">
               <h3 className="mb-3 font-display text-xs uppercase tracking-[0.3em] text-primary">Navigation</h3>
-              <ul className="grid grid-cols-2 gap-2">
+              <ul className="space-y-3">
                 {NAV_GROUPS.map((g) => (
                   <li key={g.label}>
                     <Link
                       to={g.to}
                       onClick={() => { sfx.blip(); setOpen(false); }}
-                      className="block rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-center font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 active:scale-95"
+                      className="block rounded-md border border-primary/40 bg-primary/10 px-3 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 active:scale-95"
                     >
                       {g.label}
                     </Link>
+                    <ul className="mt-1.5 ml-3 space-y-1 border-l border-border/40 pl-3">
+                      {g.items.map((it) => (
+                        <li key={it}>
+                          <Link
+                            to={g.to}
+                            onClick={() => { sfx.blip(); setOpen(false); }}
+                            className="block rounded px-2 py-1 text-xs text-muted-foreground transition hover:text-primary"
+                          >
+                            › {it}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
+
                 <li className="col-span-2">
                   <Link
                     to="/auth"
