@@ -77,7 +77,7 @@ export function HamburgerMenu() {
             </div>
 
             {/* Main navigation — primary way to navigate on mobile */}
-            <nav className="mb-8 md:hidden">
+            <nav className="mb-8">
               <h3 className="mb-3 font-display text-xs uppercase tracking-[0.3em] text-primary">Navigation</h3>
               <ul className="grid grid-cols-2 gap-2">
                 {NAV_GROUPS.map((g) => (
