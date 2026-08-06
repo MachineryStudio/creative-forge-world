@@ -140,6 +140,8 @@ export function HamburgerMenu() {
                         <Link
                           to={it.to}
                           onClick={() => { sfx.blip(); setOpen(false); }}
+                          activeOptions={{ exact: true }}
+                          activeProps={{ className: "bg-primary/15 pl-5 text-primary" }}
                           className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-primary/10 hover:pl-5 hover:text-primary"
                         >
                           › {it.label}
