@@ -70,8 +70,6 @@ export function HamburgerMenu() {
           <div className="flex-1 bg-background/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <aside className="relative h-full w-[min(520px,92vw)] overflow-y-auto panel scanlines border-l-2 border-primary/40 p-8">
 
-          <div className="flex-1 bg-background/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <aside className="relative h-full w-[min(520px,92vw)] overflow-y-auto panel scanlines border-l-2 border-primary/40 p-8">
             <div className="mb-8 flex items-center justify-between border-b border-border/60 pb-4">
               <span className="font-display text-2xl neon-text">{t("menu")}</span>
               <button onClick={() => { sfx.click(); setOpen(false); }} className="rounded-md border border-border p-2 text-muted-foreground hover:border-primary hover:text-primary">
