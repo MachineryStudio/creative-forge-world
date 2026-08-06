@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { sfx } from "@/lib/sfx";
@@ -53,22 +54,22 @@ const SECTIONS = [
 
 export function HamburgerMenu() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const t = useT();
 
-  return (
-    <>
-      <button
-        onClick={() => { sfx.click(); setOpen(true); }}
-        className="grid h-11 w-11 place-items-center rounded-md border border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10 text-primary transition hover:scale-105 hover:from-primary/20 hover:to-accent/20 hover:shadow-[0_0_20px_var(--color-neon)]"
-        aria-label="Menu"
-      >
-        <Menu className="h-6 w-6" />
-      </button>
+  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
 
-      {open && (
+  const drawer = (
         <div className="fixed inset-0 z-[100] flex">
           <div className="flex-1 bg-background/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <aside className="relative h-full w-[min(520px,92vw)] overflow-y-auto panel scanlines border-l-2 border-primary/40 p-8">
+
             <div className="mb-8 flex items-center justify-between border-b border-border/60 pb-4">
               <span className="font-display text-2xl neon-text">{t("menu")}</span>
               <button onClick={() => { sfx.click(); setOpen(false); }} className="rounded-md border border-border p-2 text-muted-foreground hover:border-primary hover:text-primary">
@@ -154,7 +155,19 @@ export function HamburgerMenu() {
             </div>
           </aside>
         </div>
-      )}
+  );
+
+  return (
+    <>
+      <button
+        onClick={() => { sfx.click(); setOpen(true); }}
+        className="grid h-11 w-11 place-items-center rounded-md border border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10 text-primary transition hover:scale-105 hover:from-primary/20 hover:to-accent/20 hover:shadow-[0_0_20px_var(--color-neon)]"
+        aria-label="Menu"
+      >
+        <Menu className="h-6 w-6" />
+      </button>
+      {open && mounted && createPortal(drawer, document.body)}
     </>
   );
 }
+
