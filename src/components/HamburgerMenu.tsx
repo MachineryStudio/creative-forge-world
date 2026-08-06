@@ -85,7 +85,9 @@ export function HamburgerMenu() {
                     <Link
                       to={g.to}
                       onClick={() => { sfx.blip(); setOpen(false); }}
-                      className="block rounded-md border border-primary/40 bg-primary/10 px-3 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 active:scale-95"
+                      activeOptions={{ exact: true }}
+                      activeProps={{ className: "border-primary bg-primary/25 text-primary shadow-[0_0_18px_var(--color-neon)]" }}
+                      className="relative block rounded-md border border-primary/40 bg-primary/10 px-3 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 active:scale-95 data-[status=active]:before:absolute data-[status=active]:before:left-0 data-[status=active]:before:top-1/2 data-[status=active]:before:h-5 data-[status=active]:before:w-1 data-[status=active]:before:-translate-y-1/2 data-[status=active]:before:rounded-r data-[status=active]:before:bg-primary"
                     >
                       {g.label}
                     </Link>
@@ -95,6 +97,8 @@ export function HamburgerMenu() {
                           <Link
                             to={g.to}
                             onClick={() => { sfx.blip(); setOpen(false); }}
+                            activeOptions={{ exact: true }}
+                            activeProps={{ className: "bg-primary/10 text-primary" }}
                             className="block rounded px-2 py-1 text-xs text-muted-foreground transition hover:text-primary"
                           >
                             › {it}
@@ -105,15 +109,18 @@ export function HamburgerMenu() {
                   </li>
                 ))}
 
-                <li className="col-span-2">
+                <li>
                   <Link
                     to="/auth"
                     onClick={() => { sfx.blip(); setOpen(false); }}
+                    activeOptions={{ exact: true }}
+                    activeProps={{ className: "border-accent bg-accent/25 shadow-[0_0_18px_var(--color-accent)]" }}
                     className="block rounded-md border border-accent/50 bg-accent/10 px-3 py-2 text-center font-display text-xs uppercase tracking-widest text-accent-foreground transition hover:bg-accent/20 active:scale-95"
                   >
                     {t("signIn").toUpperCase()}
                   </Link>
                 </li>
+
               </ul>
             </nav>
 
@@ -133,6 +140,8 @@ export function HamburgerMenu() {
                         <Link
                           to={it.to}
                           onClick={() => { sfx.blip(); setOpen(false); }}
+                          activeOptions={{ exact: true }}
+                          activeProps={{ className: "bg-primary/15 pl-5 text-primary" }}
                           className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-primary/10 hover:pl-5 hover:text-primary"
                         >
                           › {it.label}
