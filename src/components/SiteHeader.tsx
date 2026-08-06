@@ -6,32 +6,16 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
-const TECH_ITEMS = [
-  "kumaGO 橋 (Japanese-English Interactive Tutor)",
-  "engiGO 橋 (Engineering Learning)",
-  "radio raiON 雷音 (Interactive Game Radio Station)",
-  "brushLabo 橋 Technical Arts",
-  "cloudHunters (Animation)",
-  "soraGomi (空ゴミ) Band JP-CAN",
-  "construcTA 橋 (Civil Engineer Management)",
-  "adminTA (Cost-Budget Management)",
-];
+import {
+  TECH_ITEMS,
+  GAMES_ITEMS,
+  ANIMATION_ITEMS,
+  TECH_ART_ITEMS,
+  MUSIC_ITEMS,
+  WORKSHOP_ITEMS,
+  CONSTRUCTION_ITEMS,
+} from "@/lib/nav";
 
-const GAMES_ITEMS = [
-  "pacifiCA",
-  "unidentiFIED",
-  "planetUteUS",
-  "fistchapterZ",
-  "cloudHunters",
-  "bananaRain",
-  "banditStudios",
-];
-
-const ANIMATION_ITEMS = ["cloudHunters", "soraGomi 空ゴミ", "2D Conceptual", "Minitoires"];
-const TECH_ART_ITEMS = ["brushLabo 橋", "3D Mesh", "Rigging", "Scriptable", "Toolbox"];
-const MUSIC_ITEMS = ["RAION 雷音 Radio", "soraGomi (空ゴミ) Band JP-CAN", "BeatSync Studio"];
-const WORKSHOP_ITEMS = ["Community", "Comics", "2D Creatures", "Open Sessions"];
-const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "engiGO 橋"];
 
 const navBtn =
   "rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-display uppercase tracking-widest text-primary transition hover:bg-sky/20 hover:border-sky hover:text-sky hover:shadow-[0_0_18px_var(--sky-blue)] active:scale-95 active:bg-sky active:text-background active:border-sky active:shadow-[0_0_28px_var(--sky-blue-deep)]";
