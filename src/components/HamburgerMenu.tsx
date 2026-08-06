@@ -104,8 +104,9 @@ export function HamburgerMenu() {
             </nav>
 
             <div className="space-y-8">
-
+              {SECTIONS.map((s, i) => (
                 <div key={s.titleKey}>
+
                   <div className="mb-3 flex items-center gap-3">
                     <span className="grid h-8 w-8 place-items-center rounded-md border border-primary/60 bg-primary/10 font-display text-sm text-primary neon-glow">
                       {i + 1}
