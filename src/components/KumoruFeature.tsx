@@ -30,9 +30,9 @@ const t = {
     mixBadge: "5:17 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending six KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
-        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em> and{" "}
-        <em>Last Train Wolf 「終電ウルフ」</em> — into a single fault-line cloudburst.
+        A short preview blending seven KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
+        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em>,{" "}
+        <em>Last Train Wolf 「終電ウルフ」</em> and <em>Wandering Poem 「ヒョウハクシ」</em> — into a single fault-line cloudburst.
       </>
     ),
     lighthouse: (
