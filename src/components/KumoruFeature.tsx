@@ -159,7 +159,7 @@ export function KumoruFeature() {
           {members.map((m) => (
             <div key={m.name} className="rounded-xl border border-border bg-card/40 p-3">
               <div className={`mb-2 inline-block rounded bg-gradient-to-r ${m.color} px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-white`}>
-                {lang === "EN" ? m.role : m.roleJp}
+                {lang === "EN" ? `${m.name} · ${m.role}` : `${m.jp} · ${m.roleJp}`}
               </div>
               <div className="font-display text-lg text-foreground">{lang === "EN" ? m.name : m.jp}</div>
               <div className="font-display text-sm text-sky-300">{lang === "EN" ? m.jp : m.name}</div>
