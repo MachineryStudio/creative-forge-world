@@ -13,8 +13,8 @@ const members = [
 const news = [
   {
     tag: "NEW MIX", tagJp: "新ミックス",
-    text: "「クモル」FAULT LINE CLOUD megamix — 6 tracks, 4:12 preview drop.",
-    textJp: "「クモル」フォルトラインクラウド メガミックス — 6曲、4:12プレビュー公開。",
+    text: "「クモル」FAULT LINE CLOUD megamix — 7 tracks, 5:17 preview drop.",
+    textJp: "「クモル」フォルトラインクラウド メガミックス — 7曲、5:17プレビュー公開。",
   },
   {
     tag: "STUDIO", tagJp: "スタジオ",
@@ -27,12 +27,12 @@ const t = {
   EN: {
     featured: "Featured Band · 注目バンド",
     subtitle: "— FAULT LINE CLOUD ·「曇りの断層」",
-    mixBadge: "4:12 Megamix · ミックス",
+    mixBadge: "5:17 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending six KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
-        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em> and{" "}
-        <em>Last Train Wolf 「終電ウルフ」</em> — into a single fault-line cloudburst.
+        A short preview blending seven KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
+        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em>,{" "}
+        <em>Last Train Wolf 「終電ウルフ」</em> and <em>Wandering Poem 「ヒョウハクシ」</em> — into a single fault-line cloudburst.
       </>
     ),
     lighthouse: (
@@ -59,10 +59,10 @@ const t = {
   JP: {
     featured: "注目バンド · Featured Band",
     subtitle: "—「曇りの断層」FAULT LINE CLOUD",
-    mixBadge: "4:12 メガミックス · Megamix",
+    mixBadge: "5:17 メガミックス · Megamix",
     intro: (
       <>
-        クモルの6曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>{" "}
+        クモルの7曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
       </>
     ),
@@ -149,6 +149,7 @@ export function KumoruFeature() {
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
             <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Twilight gloom 「夕闇」</span>
             <span className="rounded bg-rose-500/15 px-2 py-0.5 text-rose-300">6 · Last Train Wolf 「終電ウルフ」</span>
+            <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-indigo-300">7 · Wandering Poem 「ヒョウハクシ」</span>
           </div>
           <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
             ⚠ {L.disclaimer}
