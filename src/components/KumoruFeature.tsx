@@ -149,6 +149,7 @@ export function KumoruFeature() {
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
             <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Twilight gloom 「夕闇」</span>
             <span className="rounded bg-rose-500/15 px-2 py-0.5 text-rose-300">6 · Last Train Wolf 「終電ウルフ」</span>
+            <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-indigo-300">7 · Wandering Poem 「ヒョウハクシ」</span>
           </div>
           <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
             ⚠ {L.disclaimer}
