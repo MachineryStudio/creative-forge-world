@@ -20,7 +20,7 @@ export function ContactForm() {
     setBusy(true); setMsg(null);
     try {
       const supabase = await getSupabase();
-      const { error } = await supabase.from("contact_messages").insert({
+      const { error } = await (supabase as any).from("contact_messages").insert({
         sender_name: name.trim(),
         sender_email: email.trim(),
         subject: `Application · ${role}`,

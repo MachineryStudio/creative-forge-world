@@ -26,7 +26,7 @@ export function AdminInbox() {
     setLoading(true);
     try {
       const supabase = await getSupabase();
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("contact_messages")
         .select("*")
         .eq("is_archived", false)
@@ -46,7 +46,7 @@ export function AdminInbox() {
   const setRead = async (id: string, value: boolean) => {
     try {
       const supabase = await getSupabase();
-      const { error } = await supabase.from("contact_messages").update({ is_read: value }).eq("id", id);
+      const { error } = await (supabase as any).from("contact_messages").update({ is_read: value }).eq("id", id);
       if (error) throw error;
       sfx.blip();
       setMessages((m) => m.map((x) => (x.id === id ? { ...x, is_read: value } : x)));
@@ -56,7 +56,7 @@ export function AdminInbox() {
   const remove = async (id: string) => {
     try {
       const supabase = await getSupabase();
-      const { error } = await supabase.from("contact_messages").delete().eq("id", id);
+      const { error } = await (supabase as any).from("contact_messages").delete().eq("id", id);
       if (error) throw error;
       sfx.blip();
       setMessages((m) => m.filter((x) => x.id !== id));
