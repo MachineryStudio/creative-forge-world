@@ -74,6 +74,42 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_archived: boolean
+          is_read: boolean
+          role_applied: string | null
+          sender_email: string
+          sender_name: string
+          subject: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_archived?: boolean
+          is_read?: boolean
+          role_applied?: string | null
+          sender_email: string
+          sender_name: string
+          subject?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_archived?: boolean
+          is_read?: boolean
+          role_applied?: string | null
+          sender_email?: string
+          sender_name?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string
