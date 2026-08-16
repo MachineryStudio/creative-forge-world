@@ -9,6 +9,8 @@ import { CubeCarousel } from "@/components/CubeCarousel";
 import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { CreatureAttack } from "@/components/CreatureAttack";
 import { MiyuChat } from "@/components/MiyuChat";
+import { ContactForm } from "@/components/ContactForm";
+
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit, Briefcase, Mail } from "lucide-react";
 import { useState } from "react";
@@ -124,6 +126,11 @@ function Index() {
             </div>
             <a href="mailto:andre@lighthashi.dev" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]">{t("apply")}</a>
           </div>
+
+          <div className="mt-4">
+            <ContactForm />
+          </div>
+
         </div>
       </section>
 

@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
+import { AdminInbox } from "@/components/AdminInbox";
 import { Trash2, Plus, LogOut, Music, Megaphone } from "lucide-react";
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -306,7 +308,10 @@ function AdminPage() {
           </button>
         </div>
 
+        <AdminInbox />
+
         {/* Add track */}
+
         <form onSubmit={addTrack} className="panel scanlines grid gap-3 p-5 md:grid-cols-2">
           <h2 className="md:col-span-2 font-display text-sm uppercase tracking-[0.3em] text-primary">Add Track</h2>
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Track title"
