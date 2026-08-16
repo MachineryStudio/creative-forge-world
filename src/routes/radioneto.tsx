@@ -697,7 +697,7 @@ function Radioneto() {
                 <div className="mt-2 text-[11px] text-muted-foreground">Miss streak · ミス連続: {missStreak}/5</div>
               </div>
 
-              <img
+              <img loading="lazy" decoding="async"
                 src={drumImg2}
                 alt="Stage performer"
                 className="rounded-xl border border-border opacity-80"

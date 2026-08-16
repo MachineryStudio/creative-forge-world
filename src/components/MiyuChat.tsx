@@ -91,7 +91,7 @@ export function MiyuChat() {
         style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--neon-pink)" }}
         aria-label="Open MIYU chat"
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={miyuWave}
           alt="MIYU"
           className="h-14 w-14 object-contain animate-float"
@@ -148,7 +148,7 @@ export function MiyuChat() {
                 <div className="text-[10px] italic text-muted-foreground">MIYU is typing…</div>
               )}
             </div>
-            <img
+            <img loading="lazy" decoding="async"
               src={sprite}
               alt="MIYU"
               className="pointer-events-none absolute bottom-0 right-0 h-32 w-auto object-contain transition-all duration-300"

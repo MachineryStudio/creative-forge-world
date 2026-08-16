@@ -52,7 +52,7 @@ function GamesHub() {
 
         {/* MIYU greeting */}
         <div className="relative mx-auto mt-10 flex max-w-3xl flex-col items-center gap-6 md:flex-row md:items-end md:justify-center md:text-left">
-          <img
+          <img loading="lazy" decoding="async"
             src={miyuWave}
             alt="MIYU waving"
             className="h-56 w-auto shrink-0 animate-float object-contain"

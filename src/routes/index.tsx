@@ -169,7 +169,7 @@ function Index() {
               className="panel relative overflow-hidden rounded-2xl border border-primary/30"
               style={{ boxShadow: "0 20px 60px oklch(0.1 0.05 220 / 0.6)" }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={andreePortrait}
                 alt="Andree — portrait in the rain, with guitar vibes"
                 className="block h-full w-full object-cover"

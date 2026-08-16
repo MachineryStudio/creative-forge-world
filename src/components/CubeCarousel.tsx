@@ -82,7 +82,7 @@ export function CubeCarousel() {
                   boxShadow: `0 14px 30px oklch(0.1 0.05 ${s.hue} / 0.6), inset 0 0 30px oklch(0.7 0.2 ${s.hue} / 0.15)`,
                 }}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={s.image}
                   alt={s.title}
                   loading="lazy"
