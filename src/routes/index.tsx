@@ -120,9 +120,9 @@ function Index() {
             <div className="flex items-center gap-2 text-sm text-foreground">
               <Mail className="h-4 w-4 text-primary" />
               <span className="font-display uppercase tracking-widest">{t("contact")}:</span>
-              <a href="mailto:projects@lighthashi.dev" className="text-primary hover:text-neon-pink hover:underline">projects@lighthashi.dev</a>
+              <a href="mailto:andre@lighthashi.dev" className="text-primary hover:text-neon-pink hover:underline">andre@lighthashi.dev</a>
             </div>
-            <a href="mailto:projects@lighthashi.dev" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]">{t("apply")}</a>
+            <a href="mailto:andre@lighthashi.dev" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]">{t("apply")}</a>
           </div>
         </div>
       </section>
