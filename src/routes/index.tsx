@@ -10,7 +10,7 @@ import { AngelsFateGame } from "@/components/AngelsFateGame";
 import { CreatureAttack } from "@/components/CreatureAttack";
 import { MiyuChat } from "@/components/MiyuChat";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
-import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit } from "lucide-react";
+import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit, Briefcase, Mail } from "lucide-react";
 import { useState } from "react";
 import andreePortrait from "@/assets/andree-portrait.png";
 
