@@ -94,6 +94,7 @@ export function SiteHeader() {
           <NavDropdown label="Music" items={MUSIC_ITEMS} to="/radioneto" />
           <NavDropdown label="Workshop" items={WORKSHOP_ITEMS} to="/community" />
           <NavDropdown label="Construction" items={CONSTRUCTION_ITEMS} to="/marketplace" />
+          <Link to="/contact" className={navBtn}>{t("contact").toUpperCase()}</Link>
           <Link to="/auth" className={navBtn}>{t("signIn").toUpperCase()}</Link>
         </nav>
 

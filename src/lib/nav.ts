@@ -39,4 +39,5 @@ export const NAV_GROUPS: NavGroup[] = [
   { label: "Music", to: "/radioneto", items: MUSIC_ITEMS },
   { label: "Workshop", to: "/community", items: WORKSHOP_ITEMS },
   { label: "Construction", to: "/marketplace", items: CONSTRUCTION_ITEMS },
+  { label: "Contact", to: "/contact", items: ["andre@lighthashi.dev", "Open Roles", "Collaboration"] },
 ];
