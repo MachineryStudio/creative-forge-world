@@ -59,6 +59,10 @@ export const STRINGS = {
   hubToolbox: T("Technical Toolbox", "ツールボックス", "Boîte à Outils", "技术工具箱", "Caja de Herramientas", "Cassetta degli Strumenti", "Тех. Набор"),
   hubMini: T("3D Minitoires", "3Dミニチュア", "Miniatures 3D", "3D 微缩模型", "Miniaturas 3D", "Miniature 3D", "3D Миниатюры"),
   hubScript: T("Scriptable Game", "スクリプトゲーム", "Jeu Scriptable", "可编程游戏", "Juego Scriptable", "Gioco Scriptable", "Скриптовая игра"),
+  hiredProjects: T("Hired Projects", "募集プロジェクト", "Projets Recrutement", "招聘项目", "Proyectos de Contratación", "Progetti di Assunzione", "Проекты найма"),
+  openRoles: T("Open Roles", "募集中の役割", "Postes Ouverts", "开放职位", "Roles Abiertos", "Ruoli Aperti", "Открытые роли"),
+  apply: T("Apply", "応募する", "Postuler", "申请", "Aplicar", "Candidarsi", "Подать заявку"),
+  contact: T("Contact", "お問い合わせ", "Contact", "联系", "Contacto", "Contatto", "Контакты"),
 } as const;
 
 export type StringKey = keyof typeof STRINGS;
