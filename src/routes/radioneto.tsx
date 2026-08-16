@@ -8,9 +8,9 @@ import { KumoruFeature } from "@/components/KumoruFeature";
 
 type GameMode = "beatsync" | "invaders" | "tetris" | "tabbird" | "matching";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
-import bassImg from "@/assets/rocker-bass.jpg";
-import drumImg from "@/assets/rocker-drummer.jpg";
-import drumImg2 from "@/assets/rocker-drummer-2.jpg";
+import bassImg from "@/assets/rocker-bass.webp";
+import drumImg from "@/assets/rocker-drummer.webp";
+import drumImg2 from "@/assets/rocker-drummer-2.webp";
 
 export const Route = createFileRoute("/radioneto")({
   head: () => ({
@@ -553,7 +553,7 @@ function Radioneto() {
             <div className="grid gap-4 md:grid-cols-2">
               <button onClick={() => setRole("drummer")}
                 className={`panel scanlines group relative overflow-hidden rounded-xl border-2 p-2 text-left transition ${role === "drummer" ? "border-primary neon-glow" : "border-border hover:border-primary/60"}`}>
-                <img src={drumImg} alt="Drummer" className="h-64 w-full rounded-lg object-cover" />
+                <img loading="lazy" decoding="async" src={drumImg} alt="Drummer" className="h-64 w-full rounded-lg object-cover" />
                 <div className="mt-3 px-2 pb-2">
                   <div className="font-display text-xl text-primary">🥁 Play as Drummer · ドラマー</div>
                   <div className="text-xs text-muted-foreground">太鼓を叩け · Smash the kick. Visual-kei thunder.</div>
@@ -561,7 +561,7 @@ function Radioneto() {
               </button>
               <button onClick={() => setRole("bass")}
                 className={`panel scanlines group relative overflow-hidden rounded-xl border-2 p-2 text-left transition ${role === "bass" ? "border-accent neon-glow" : "border-border hover:border-accent/60"}`}>
-                <img src={bassImg} alt="Bass" className="h-64 w-full rounded-lg object-cover" />
+                <img loading="lazy" decoding="async" src={bassImg} alt="Bass" className="h-64 w-full rounded-lg object-cover" />
                 <div className="mt-3 px-2 pb-2">
                   <div className="font-display text-xl text-accent-foreground">🎸 Play as Bass Player · ベース</div>
                   <div className="text-xs text-muted-foreground">低音を響かせろ · Trace the melody.</div>
@@ -697,7 +697,7 @@ function Radioneto() {
                 <div className="mt-2 text-[11px] text-muted-foreground">Miss streak · ミス連続: {missStreak}/5</div>
               </div>
 
-              <img
+              <img loading="lazy" decoding="async"
                 src={drumImg2}
                 alt="Stage performer"
                 className="rounded-xl border border-border opacity-80"

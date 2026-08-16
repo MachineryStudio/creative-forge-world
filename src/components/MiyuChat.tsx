@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Globe } from "lucide-react";
-import miyuIdle from "@/assets/miyu-idle.png";
-import miyuWave from "@/assets/miyu-wave.png";
-import miyuTalk from "@/assets/miyu-talk.png";
+import miyuIdle from "@/assets/miyu-idle.webp";
+import miyuWave from "@/assets/miyu-wave.webp";
+import miyuTalk from "@/assets/miyu-talk.webp";
 
 type Lang = "en" | "jp" | "es" | "fr" | "zh" | "ko" | "it";
 const LANGS: { code: Lang; label: string; flag: string }[] = [
@@ -91,7 +91,7 @@ export function MiyuChat() {
         style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--neon-pink)" }}
         aria-label="Open MIYU chat"
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={miyuWave}
           alt="MIYU"
           className="h-14 w-14 object-contain animate-float"
@@ -104,7 +104,7 @@ export function MiyuChat() {
           <div className="flex items-center justify-between gap-2 border-b border-border bg-background/60 p-3">
             <div className="flex items-center gap-2">
               <span className="flex h-9 w-9 items-center justify-center rounded-full" style={{ background: "var(--sakura-white)" }}>
-                <img src={miyuIdle} alt="" className="h-8 w-8 object-contain" />
+                <img loading="lazy" decoding="async" src={miyuIdle} alt="" className="h-8 w-8 object-contain" />
               </span>
               <div>
                 <div className="font-display text-sm neon-text">MIYU</div>
@@ -148,7 +148,7 @@ export function MiyuChat() {
                 <div className="text-[10px] italic text-muted-foreground">MIYU is typing…</div>
               )}
             </div>
-            <img
+            <img loading="lazy" decoding="async"
               src={sprite}
               alt="MIYU"
               className="pointer-events-none absolute bottom-0 right-0 h-32 w-auto object-contain transition-all duration-300"

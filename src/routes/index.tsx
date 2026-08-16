@@ -14,7 +14,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit, Briefcase, Mail } from "lucide-react";
 import { useState } from "react";
-import andreePortrait from "@/assets/andree-portrait.png";
+import andreePortrait from "@/assets/andree-portrait.webp";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -169,11 +169,10 @@ function Index() {
               className="panel relative overflow-hidden rounded-2xl border border-primary/30"
               style={{ boxShadow: "0 20px 60px oklch(0.1 0.05 220 / 0.6)" }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={andreePortrait}
                 alt="Andree — portrait in the rain, with guitar vibes"
                 className="block h-full w-full object-cover"
-                loading="lazy"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/sfx";
 import { X } from "lucide-react";
-import imgCreatureToolbox from "@/assets/carousel-creature-toolbox.png";
-import imgFutureland from "@/assets/carousel-futureland.png";
-import imgKanji from "@/assets/carousel-kanji-dungeon.png";
-import imgMinis from "@/assets/carousel-3d-minis.png";
-import imgPipeline from "@/assets/carousel-3d-pipeline.png";
+import imgCreatureToolbox from "@/assets/carousel-creature-toolbox.webp";
+import imgFutureland from "@/assets/carousel-futureland.webp";
+import imgKanji from "@/assets/carousel-kanji-dungeon.webp";
+import imgMinis from "@/assets/carousel-3d-minis.webp";
+import imgPipeline from "@/assets/carousel-3d-pipeline.webp";
 
 interface Slide {
   title: string;
@@ -82,10 +82,9 @@ export function CubeCarousel() {
                   boxShadow: `0 14px 30px oklch(0.1 0.05 ${s.hue} / 0.6), inset 0 0 30px oklch(0.7 0.2 ${s.hue} / 0.15)`,
                 }}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={s.image}
                   alt={s.title}
-                  loading="lazy"
                   className="h-full w-full object-cover"
                 />
                 <div
@@ -119,7 +118,7 @@ export function CubeCarousel() {
             style={{ borderColor: `oklch(0.7 0.2 ${expanded.hue})`, boxShadow: `0 30px 80px oklch(0.1 0.05 ${expanded.hue} / 0.8)` }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={expanded.image} alt={expanded.title} className="block max-h-[80vh] w-auto object-contain" />
+            <img loading="lazy" decoding="async" src={expanded.image} alt={expanded.title} className="block max-h-[80vh] w-auto object-contain" />
             <div
               className="absolute inset-x-0 bottom-0 p-4"
               style={{ background: `linear-gradient(0deg, oklch(0.1 0.05 ${expanded.hue} / 0.95), transparent)` }}
