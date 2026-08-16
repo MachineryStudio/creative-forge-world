@@ -8,9 +8,9 @@ import { KumoruFeature } from "@/components/KumoruFeature";
 
 type GameMode = "beatsync" | "invaders" | "tetris" | "tabbird" | "matching";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
-import bassImg from "@/assets/rocker-bass.jpg";
-import drumImg from "@/assets/rocker-drummer.jpg";
-import drumImg2 from "@/assets/rocker-drummer-2.jpg";
+import bassImg from "@/assets/rocker-bass.webp";
+import drumImg from "@/assets/rocker-drummer.webp";
+import drumImg2 from "@/assets/rocker-drummer-2.webp";
 
 export const Route = createFileRoute("/radioneto")({
   head: () => ({

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/sfx";
 import { X } from "lucide-react";
-import imgCreatureToolbox from "@/assets/carousel-creature-toolbox.png";
-import imgFutureland from "@/assets/carousel-futureland.png";
-import imgKanji from "@/assets/carousel-kanji-dungeon.png";
-import imgMinis from "@/assets/carousel-3d-minis.png";
-import imgPipeline from "@/assets/carousel-3d-pipeline.png";
+import imgCreatureToolbox from "@/assets/carousel-creature-toolbox.webp";
+import imgFutureland from "@/assets/carousel-futureland.webp";
+import imgKanji from "@/assets/carousel-kanji-dungeon.webp";
+import imgMinis from "@/assets/carousel-3d-minis.webp";
+import imgPipeline from "@/assets/carousel-3d-pipeline.webp";
 
 interface Slide {
   title: string;

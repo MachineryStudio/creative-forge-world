@@ -14,7 +14,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { useT, useI18n, STRINGS } from "@/lib/i18n";
 import { Twitter, Github, Globe, Gamepad2, Box, Boxes, Joystick, Terminal, BrainCircuit, Briefcase, Mail } from "lucide-react";
 import { useState } from "react";
-import andreePortrait from "@/assets/andree-portrait.png";
+import andreePortrait from "@/assets/andree-portrait.webp";
 
 export const Route = createFileRoute("/")({
   component: Index,

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import hero from "@/assets/game-hero.png";
-import pet from "@/assets/game-pet.jpg";
-import enemy1 from "@/assets/game-enemy1.png";
-import enemy2 from "@/assets/game-enemy2.png";
+import hero from "@/assets/game-hero.webp";
+import pet from "@/assets/game-pet.webp";
+import enemy1 from "@/assets/game-enemy1.webp";
+import enemy2 from "@/assets/game-enemy2.webp";
 
 const WORLD_W = 720;
 const WORLD_H = 240;

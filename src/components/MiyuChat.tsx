@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Globe } from "lucide-react";
-import miyuIdle from "@/assets/miyu-idle.png";
-import miyuWave from "@/assets/miyu-wave.png";
-import miyuTalk from "@/assets/miyu-talk.png";
+import miyuIdle from "@/assets/miyu-idle.webp";
+import miyuWave from "@/assets/miyu-wave.webp";
+import miyuTalk from "@/assets/miyu-talk.webp";
 
 type Lang = "en" | "jp" | "es" | "fr" | "zh" | "ko" | "it";
 const LANGS: { code: Lang; label: string; flag: string }[] = [

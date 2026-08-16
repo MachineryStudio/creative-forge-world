@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import miyuWave from "@/assets/miyu-wave.png";
+import miyuWave from "@/assets/miyu-wave.webp";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
