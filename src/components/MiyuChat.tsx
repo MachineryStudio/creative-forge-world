@@ -104,7 +104,7 @@ export function MiyuChat() {
           <div className="flex items-center justify-between gap-2 border-b border-border bg-background/60 p-3">
             <div className="flex items-center gap-2">
               <span className="flex h-9 w-9 items-center justify-center rounded-full" style={{ background: "var(--sakura-white)" }}>
-                <img src={miyuIdle} alt="" className="h-8 w-8 object-contain" />
+                <img loading="lazy" decoding="async" src={miyuIdle} alt="" className="h-8 w-8 object-contain" />
               </span>
               <div>
                 <div className="font-display text-sm neon-text">MIYU</div>

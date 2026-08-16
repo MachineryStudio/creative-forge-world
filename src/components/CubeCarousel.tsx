@@ -119,7 +119,7 @@ export function CubeCarousel() {
             style={{ borderColor: `oklch(0.7 0.2 ${expanded.hue})`, boxShadow: `0 30px 80px oklch(0.1 0.05 ${expanded.hue} / 0.8)` }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={expanded.image} alt={expanded.title} className="block max-h-[80vh] w-auto object-contain" />
+            <img loading="lazy" decoding="async" src={expanded.image} alt={expanded.title} className="block max-h-[80vh] w-auto object-contain" />
             <div
               className="absolute inset-x-0 bottom-0 p-4"
               style={{ background: `linear-gradient(0deg, oklch(0.1 0.05 ${expanded.hue} / 0.95), transparent)` }}
