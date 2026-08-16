@@ -173,7 +173,6 @@ function Index() {
                 src={andreePortrait}
                 alt="Andree — portrait in the rain, with guitar vibes"
                 className="block h-full w-full object-cover"
-                loading="lazy"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">

@@ -85,7 +85,6 @@ export function CubeCarousel() {
                 <img loading="lazy" decoding="async"
                   src={s.image}
                   alt={s.title}
-                  loading="lazy"
                   className="h-full w-full object-cover"
                 />
                 <div
