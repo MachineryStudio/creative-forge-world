@@ -75,6 +75,58 @@ function Index() {
         </div>
       </section>
 
+      {/* HIRED PROJECTS — open roles for collaborators */}
+      <section className="mx-auto max-w-7xl px-4 pb-10">
+        <div className="panel scanlines relative p-6">
+          <div className="mb-4 flex items-center gap-3">
+            <Briefcase className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">{t("hiredProjects")}</div>
+              <h2 className="font-display text-2xl neon-text">{t("openRoles")}</h2>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {/* Role 1 */}
+            <div className="rounded-lg border border-border bg-card/60 p-4 transition hover:border-primary/50 hover:bg-card/80">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="rounded-full bg-primary/10 px-2 py-1 font-display text-[10px] uppercase tracking-widest text-primary">#1</span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Remote</span>
+              </div>
+              <h3 className="font-display text-lg text-foreground">3D ANIME ARTIST</h3>
+              <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li><span className="text-primary">Language:</span> Any</li>
+                <li><span className="text-primary">Location:</span> Everywhere · Remote</li>
+                <li><span className="text-primary">Reason:</span> Indie Animation and Game</li>
+              </ul>
+            </div>
+
+            {/* Role 2 */}
+            <div className="rounded-lg border border-border bg-card/60 p-4 transition hover:border-primary/50 hover:bg-card/80">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="rounded-full bg-accent/10 px-2 py-1 font-display text-[10px] uppercase tracking-widest text-accent-foreground">#2</span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Remote</span>
+              </div>
+              <h3 className="font-display text-lg text-foreground">Lead Guitarist</h3>
+              <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li><span className="text-primary">Language:</span> English, Japanese, French, Spanish, Korean</li>
+                <li><span className="text-primary">Location:</span> Everywhere</li>
+                <li><span className="text-primary">Reason:</span> Animation · Video Game · J-Rock Music</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-col items-start gap-3 rounded-lg border border-primary/30 bg-primary/5 p-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-2 text-sm text-foreground">
+              <Mail className="h-4 w-4 text-primary" />
+              <span className="font-display uppercase tracking-widest">{t("contact")}:</span>
+              <a href="mailto:projects@lighthashi.dev" className="text-primary hover:text-neon-pink hover:underline">projects@lighthashi.dev</a>
+            </div>
+            <a href="mailto:projects@lighthashi.dev" className="rounded-md border border-primary bg-primary/10 px-4 py-2 font-display text-xs uppercase tracking-widest text-primary transition hover:bg-primary/20 hover:shadow-[0_0_20px_var(--color-neon)]">{t("apply")}</a>
+          </div>
+        </div>
+      </section>
+
       {/* RAION 雷音 moved to /community. RAION game lives at /radioneto */}
       <section className="mx-auto max-w-7xl px-4 pb-10">
         <div className="panel scanlines flex flex-col items-start gap-3 p-6 md:flex-row md:items-center md:justify-between">
