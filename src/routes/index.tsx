@@ -222,6 +222,15 @@ function Index() {
                   Bluesky
                 </a>
                 <a
+                  href="https://lighthashi.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-xs font-display uppercase tracking-widest text-primary transition hover:bg-primary/20"
+                >
+                  <Globe className="h-4 w-4" />
+                  LIGHTHOUSE 橋
+                </a>
+                <a
                   href="https://andreremi.artstation.com"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -65,6 +65,11 @@ function ContactPage() {
                   </a>
                 </li>
                 <li>
+                  <a href="https://lighthashi.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary">
+                    <Globe className="h-4 w-4" /> LIGHTHOUSE 橋 · lighthashi.com
+                  </a>
+                </li>
+                <li>
                   <a href="https://andreremi.artstation.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary">
                     <Globe className="h-4 w-4" /> ArtStation
                   </a>
