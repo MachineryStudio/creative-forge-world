@@ -211,6 +211,17 @@ function Index() {
                   @9THE_BRIDGE
                 </a>
                 <a
+                  href="https://andreremi.bsky.social"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-sky-400/40 bg-sky-400/10 px-3 py-2 text-xs font-display uppercase tracking-widest text-sky-300 transition hover:bg-sky-400/20"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                    <path d="M12 10.5c-1.1-2-4.2-5.9-7-7.8C2.6 1.1 1.7 1.9 1.8 3.3c.1 1.4 1 4 1.8 5.3.6 1 2.2 2.7 3.7 2.3 1.9-.5 2.5-2.2 2.5-2.2s.6 1.7 2.5 2.2c1.5.4 3.1-1.3 3.7-2.3.8-1.3 1.7-3.9 1.8-5.3.1-1.4-.8-2.2-2.7-2-2.8 1.9-5.9 5.8-7 7.8Z" />
+                  </svg>
+                  Bluesky
+                </a>
+                <a
                   href="https://andreremi.artstation.com"
                   target="_blank"
                   rel="noopener noreferrer"
