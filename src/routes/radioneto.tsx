@@ -517,6 +517,22 @@ function Radioneto() {
 
         <KumoruFeature />
 
+        {/* KUMORU credits / project attribution */}
+        <section className="mb-8">
+          <div className="panel rounded-2xl border border-sky-400/30 bg-sky-950/20 p-6 text-center md:p-8">
+            <div className="font-display text-2xl md:text-3xl neon-text">「クモル」 KUMORU</div>
+            <p className="mt-1 font-display text-sm text-primary">— FAULT LINE CLOUD ·「曇りの断層」</p>
+            <div className="mx-auto my-4 h-px w-24 bg-gradient-to-r from-transparent via-sky-400 to-transparent" />
+            <p className="text-sm text-muted-foreground">
+              Composition, Lyrics, Bridges & Solos by <span className="text-sky-300">Andree アンドレ</span>
+            </p>
+            <p className="mt-3 text-[11px] uppercase tracking-widest text-amber-300/80">
+              Final songs may vary. Created for Video Games & Animation.
+            </p>
+          </div>
+        </section>
+
+
         {/* Game selector */}
         <section className="mb-6">
           <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Select Game · ゲームを選ぶ</div>
