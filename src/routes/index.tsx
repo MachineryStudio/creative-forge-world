@@ -88,7 +88,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-3">
             {/* Role 1 */}
             <div className="rounded-lg border border-border bg-card/60 p-4 transition hover:border-primary/50 hover:bg-card/80">
               <div className="mb-2 flex items-center justify-between">
@@ -109,11 +109,25 @@ function Index() {
                 <span className="rounded-full bg-accent/10 px-2 py-1 font-display text-[10px] uppercase tracking-widest text-accent-foreground">#2</span>
                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Remote</span>
               </div>
-              <h3 className="font-display text-lg text-foreground">Lead Guitarist</h3>
+              <h3 className="font-display text-lg text-foreground">LEAD GUITAR</h3>
               <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
                 <li><span className="text-primary">Language:</span> English, Japanese, French, Spanish, Korean</li>
                 <li><span className="text-primary">Location:</span> Everywhere</li>
                 <li><span className="text-primary">Reason:</span> Animation · Video Game · J-Rock Music</li>
+              </ul>
+            </div>
+
+            {/* Role 3 */}
+            <div className="rounded-lg border border-border bg-card/60 p-4 transition hover:border-primary/50 hover:bg-card/80">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="rounded-full bg-primary/10 px-2 py-1 font-display text-[10px] uppercase tracking-widest text-primary">#3</span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Remote</span>
+              </div>
+              <h3 className="font-display text-lg text-foreground">GAME PLAY PROGRAMMER-LEVEL DESIGNER</h3>
+              <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li><span className="text-primary">Language:</span> English, Japanese</li>
+                <li><span className="text-primary">Location:</span> Remote</li>
+                <li><span className="text-primary">Reason:</span> Indie Games</li>
               </ul>
             </div>
           </div>
