@@ -3,7 +3,7 @@ import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { sfx } from "@/lib/sfx";
 import { Send } from "lucide-react";
 
-const ROLES = ["3D Anime Artist", "Lead Guitarist", "Other / General"];
+const ROLES = ["3D Anime Artist", "Lead Guitar", "Gameplay Programmer-Level Designer", "Other / General"];
 
 export type ContactFormMode = "application" | "general";
 
