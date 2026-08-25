@@ -71,17 +71,19 @@ function Index() {
             <AnnouncementsPanel />
             <VisitorMap />
             <div className="panel scanlines relative p-5">
-              <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Intro</div>
+              <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Personal Observations · 個人的な観察</div>
               {bilingual ? (
-                <div className="space-y-3">
-                  <p className="text-sm leading-relaxed text-foreground" lang="ja">{introJp}</p>
+                <div className="max-h-96 space-y-3 overflow-y-auto pr-2">
+                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground" lang="ja">{introJp}</p>
                   <hr className="border-border" />
-                  <p className="text-sm leading-relaxed text-muted-foreground">{introEn}</p>
+                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">{introEn}</p>
                 </div>
               ) : (
-                <p className="text-sm leading-relaxed text-foreground" lang={jpOnly ? "ja" : lang}>
-                  {introCurrent}
-                </p>
+                <div className="max-h-96 overflow-y-auto pr-2">
+                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground" lang={jpOnly ? "ja" : lang}>
+                    {introCurrent}
+                  </p>
+                </div>
               )}
             </div>
           </div>

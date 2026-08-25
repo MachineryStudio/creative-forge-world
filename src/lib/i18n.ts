@@ -19,7 +19,40 @@ const T = (en: string, jp: string, fr: string, zh: string, es: string, it: strin
   en, jp, fr, zh, es, it, ru,
 });
 
+const INTRO_EN = `Following people who deeply understand video games—whether in technical arts, gameplay mechanics, or character design—has become a cherished hobby of mine.
+
+My life is dedicated to creating: developing my own games, designing levels, crafting animations, building software, and refining technical pipelines and blueprints for construction. This is what fuels me. I’m deeply grateful to all my professors from various universities and countries, whose teachings I continue to explore across languages and cultures.
+
+What I love most, however, is the act of creation itself—including writing my own songs and music. My guitars have been my ears since I was 13 years old. Thank you, Mom, for my first Gibson guitar. And thanks to my childhood drummer and my Canadian Indigenous teacher from Saskatoon. Composing can be painfully beautiful.
+
+As for friends—I have few, but they are deep. Chinese, Korean, French, Japanese, Canadian, American, and my beloved South American friends—you all inspire me. Thank you for fueling the growth of my company and for standing with me as I continue my family’s construction business.
+
+A special thanks to my Japanese Angel’s band—I love you all.
+
+Thank you, everyone, for inspiring my work, my inner world, and my evolution.
+
+Onward—working, fighting, creating, learning, memorizing, and diving deeper.
+
+No judgment. Just help, support, and presence.`;
+
+const INTRO_JP = `ビデオゲームについて深く理解している人々——テクニカルアート、ゲームプレイ、キャラクターデザインなど——を追いかけることは、私の趣味の一つです。
+
+私はゲーム開発、レベルデザイン、アニメーション、ソフトウェア、テクニカルパイプライン、そして建築用のブループリントを作り続けています。それが私の人生そのものです。さまざまな大学や国、言語の教授たちには心から感謝しています。今もなお、その教えに深く潜り続けています。
+
+何より私が愛しているのは、創ることそのものです。そこには自分の歌や音楽も含まれます。13歳の頃から、ギターは私の耳そのものでした。初めてのギブソン・ギターをくれた母に、ありがとう。子供の頃のドラマーの友人、そしてカナダ・サスカトゥーンの先住民族の先生にも感謝しています。曲を作ることは、時にどれほど苦しいか——でもそれもまた美しい。
+
+親友はもちろん少ないけれど、深い絆で結ばれています。中国人、韓国人、フランス人、日本人、カナダ人、アメリカ人、そして愛すべき南米の人々——みんな、ありがとう。あなたたちが私の会社の発展を後押しし、家族経営の建設事業を続ける力を与えてくれています。
+
+特に、私の大好きなJapanese Angel's band——本当に愛しています。
+
+皆さん、私の仕事と内面世界、そして成長を刺激してくれてありがとう。
+
+これからも——働き、戦い、創り、学び、記憶し、そして深く潜り続けます。
+
+判断はしない。ただ助けて、支えて、そばにいるだけ。`;
+
 export const STRINGS = {
+
   brand: T("CreatureToolBox", "クリーチャーツールボックス", "CreatureToolBox", "生物工具箱", "CreatureToolBox", "CreatureToolBox", "CreatureToolBox"),
   bridge: T("BRIDGE2 · 3D Meshes · Pipeline · Code", "BRIDGE2 · 3Dメッシュ · パイプライン · コード", "BRIDGE2 · Maillages 3D · Pipeline · Code", "BRIDGE2 · 3D网格 · 流水线 · 代码", "BRIDGE2 · Mallas 3D · Pipeline · Código", "BRIDGE2 · Mesh 3D · Pipeline · Codice", "BRIDGE2 · 3D-меши · Пайплайн · Код"),
   tagline: T(
@@ -32,14 +65,15 @@ export const STRINGS = {
     "Алгоритмы и пайплайны для персонажей и существ в играх."
   ),
   intro: T(
-    "World Space — I focus on algorithms and pipelines to create characters and creatures for video game development. Conceptually, I strive to understand Geometry, Form, Shape, Silhouette, Morphology, Phylogeny, Textures, and more properties of common and uncharted new life in video game prototyping including AI tools.",
-    "ワールドスペース ― ビデオゲーム開発のためのキャラクターとクリーチャーを生み出すアルゴリズムとパイプラインに注力しています。概念的には、ジオメトリ、フォルム、シェイプ、シルエット、形態、系統発生、テクスチャなど、ゲームプロトタイピングにおける既知と未知の生命の特性を、AIツールも含めて理解することを目指しています。",
-    "World Space — Je me concentre sur les algorithmes et les pipelines pour créer des personnages et créatures pour le développement de jeux vidéo. Je cherche à comprendre la géométrie, la forme, la silhouette, la morphologie, la phylogénie, les textures et d'autres propriétés du vivant connu et inconnu, outils d'IA inclus.",
-    "World Space — 我专注于为电子游戏开发角色和生物的算法与流水线。 概念上,我努力理解几何、形态、轮廓、形貌、系统发育、纹理,以及在游戏原型设计(包括 AI 工具)中熟悉与未知生命的更多属性。",
-    "World Space — Me dedico a algoritmos y pipelines para crear personajes y criaturas para el desarrollo de videojuegos. Busco entender geometría, forma, silueta, morfología, filogenia, texturas y más propiedades de la vida conocida y desconocida en el prototipado de videojuegos, incluidas herramientas de IA.",
-    "World Space — Mi occupo di algoritmi e pipeline per creare personaggi e creature per lo sviluppo di videogiochi. Cerco di comprendere geometria, forma, silhouette, morfologia, filogenesi, texture e altre proprietà della vita nota e sconosciuta nel prototipazione di videogiochi, inclusi gli strumenti di IA.",
-    "World Space — Я занимаюсь алгоритмами и пайплайнами для создания персонажей и существ в разработке видеоигр. Стремлюсь понять геометрию, форму, силуэт, морфологию, филогенез, текстуры и другие свойства известной и неизведанной жизни в прототипировании игр, включая ИИ-инструменты."
+    INTRO_EN,
+    INTRO_JP,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN
   ),
+
   menu: T("Menu", "メニュー", "Menu", "菜单", "Menú", "Menu", "Меню"),
   pipeline: T("Pipeline", "パイプライン", "Pipeline", "流水线", "Pipeline", "Pipeline", "Пайплайн"),
   tools: T("Tools", "ツール", "Outils", "工具", "Herramientas", "Strumenti", "Инструменты"),
