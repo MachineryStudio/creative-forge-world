@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { sfx } from "@/lib/sfx";
 import { getSupabase, getSupabaseLoadMessage } from "@/lib/lazySupabase";
 import { AdminInbox } from "@/components/AdminInbox";
+import { VisitorMap } from "@/components/VisitorMap";
 import { Trash2, Plus, LogOut, Music, Megaphone } from "lucide-react";
 
 
@@ -309,6 +310,8 @@ function AdminPage() {
         </div>
 
         <AdminInbox />
+
+        <VisitorMap />
 
         {/* Add track */}
 

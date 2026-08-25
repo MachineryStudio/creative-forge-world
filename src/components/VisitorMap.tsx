@@ -23,7 +23,7 @@ function project(lat: number, lng: number, w: number, h: number) {
   return { x, y };
 }
 
-export function VisitorMap() {
+export function VisitorMap({ headless = false }: { headless?: boolean } = {}) {
   const [visitors, setVisitors] = useState<Record<string, Visitor>>({});
   const [me, setMe] = useState<Visitor | null>(null);
 
@@ -87,6 +87,8 @@ export function VisitorMap() {
       }
     };
   }, []);
+
+  if (headless) return null;
 
   const W = 360;
   const H = 180;

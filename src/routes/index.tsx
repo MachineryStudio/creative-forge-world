@@ -69,7 +69,7 @@ function Index() {
 
           <div className="space-y-6">
             <AnnouncementsPanel />
-            <VisitorMap />
+            <VisitorMap headless />
             <div className="panel scanlines relative p-5">
               <div className="mb-2 font-display text-xs uppercase tracking-[0.3em] text-primary">Personal Observations · 個人的な観察</div>
               {bilingual ? (
