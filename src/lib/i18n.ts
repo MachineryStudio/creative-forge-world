@@ -65,14 +65,15 @@ export const STRINGS = {
     "Алгоритмы и пайплайны для персонажей и существ в играх."
   ),
   intro: T(
-    "World Space — I focus on algorithms and pipelines to create characters and creatures for video game development. Conceptually, I strive to understand Geometry, Form, Shape, Silhouette, Morphology, Phylogeny, Textures, and more properties of common and uncharted new life in video game prototyping including AI tools.",
-    "ワールドスペース ― ビデオゲーム開発のためのキャラクターとクリーチャーを生み出すアルゴリズムとパイプラインに注力しています。概念的には、ジオメトリ、フォルム、シェイプ、シルエット、形態、系統発生、テクスチャなど、ゲームプロトタイピングにおける既知と未知の生命の特性を、AIツールも含めて理解することを目指しています。",
-    "World Space — Je me concentre sur les algorithmes et les pipelines pour créer des personnages et créatures pour le développement de jeux vidéo. Je cherche à comprendre la géométrie, la forme, la silhouette, la morphologie, la phylogénie, les textures et d'autres propriétés du vivant connu et inconnu, outils d'IA inclus.",
-    "World Space — 我专注于为电子游戏开发角色和生物的算法与流水线。 概念上,我努力理解几何、形态、轮廓、形貌、系统发育、纹理,以及在游戏原型设计(包括 AI 工具)中熟悉与未知生命的更多属性。",
-    "World Space — Me dedico a algoritmos y pipelines para crear personajes y criaturas para el desarrollo de videojuegos. Busco entender geometría, forma, silueta, morfología, filogenia, texturas y más propiedades de la vida conocida y desconocida en el prototipado de videojuegos, incluidas herramientas de IA.",
-    "World Space — Mi occupo di algoritmi e pipeline per creare personaggi e creature per lo sviluppo di videogiochi. Cerco di comprendere geometria, forma, silhouette, morfologia, filogenesi, texture e altre proprietà della vita nota e sconosciuta nel prototipazione di videogiochi, inclusi gli strumenti di IA.",
-    "World Space — Я занимаюсь алгоритмами и пайплайнами для создания персонажей и существ в разработке видеоигр. Стремлюсь понять геометрию, форму, силуэт, морфологию, филогенез, текстуры и другие свойства известной и неизведанной жизни в прототипировании игр, включая ИИ-инструменты."
+    INTRO_EN,
+    INTRO_JP,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN,
+    INTRO_EN
   ),
+
   menu: T("Menu", "メニュー", "Menu", "菜单", "Menú", "Menu", "Меню"),
   pipeline: T("Pipeline", "パイプライン", "Pipeline", "流水线", "Pipeline", "Pipeline", "Пайплайн"),
   tools: T("Tools", "ツール", "Outils", "工具", "Herramientas", "Strumenti", "Инструменты"),
