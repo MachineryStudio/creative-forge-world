@@ -34,7 +34,18 @@ function Index() {
       <SiteHeader />
       <CreatureAttack trigger={attackTrigger} />
 
-      {/* HERO — centered like a lighthouse beam */}
+      {/* PRESENCE NOTE */}
+      <section className="mx-auto max-w-7xl px-4 pt-6 text-center">
+        <div className="panel scanlines relative p-4">
+          <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            No judgment. Just help, support, and presence.
+          </p>
+          <p className="mt-1 text-xs text-foreground/80" lang="ja">
+            判断はしない。ただ助けて、支えて、そばにいるだけ。
+          </p>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-10 text-center">
         <button
           type="button"
