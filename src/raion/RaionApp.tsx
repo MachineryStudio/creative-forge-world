@@ -110,6 +110,17 @@ function MainLayout() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [songs, setSongs] = useState<Song[]>([]);
+  const [listenUnlocked, setListenUnlocked] = useState(false);
+  const [showPassGate, setShowPassGate] = useState(false);
+  const [passInput, setPassInput] = useState('');
+  const [passError, setPassError] = useState(false);
+  const [pendingSong, setPendingSong] = useState<Song | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('raion_listen_pass') === 'ok') {
+      setListenUnlocked(true);
+    }
+  }, []);
 
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
@@ -293,10 +304,34 @@ function MainLayout() {
     navItems.push({ id: 'admin', icon: UserIcon, label: 'Admin' });
   }
 
-  const handlePlaySong = (song: Song) => {
+  const playNow = (song: Song) => {
     setCurrentSong(song);
     setIsPlaying(true);
     dbService.incrementPlayCount(song.id);
+  };
+
+  const handlePlaySong = (song: Song) => {
+    if (!listenUnlocked) {
+      setPendingSong(song);
+      setPassInput('');
+      setPassError(false);
+      setShowPassGate(true);
+      return;
+    }
+    playNow(song);
+  };
+
+  const submitPass = () => {
+    if (passInput.trim() === 'cloudandre') {
+      setListenUnlocked(true);
+      if (typeof window !== 'undefined') sessionStorage.setItem('raion_listen_pass', 'ok');
+      setShowPassGate(false);
+      if (pendingSong) playNow(pendingSong);
+      setPendingSong(null);
+      setPassInput('');
+    } else {
+      setPassError(true);
+    }
   };
 
   if (loading) {
@@ -390,7 +425,16 @@ function MainLayout() {
               </p>
             </div>
             <button
-               onClick={() => setIsPlaying(!isPlaying)}
+               onClick={() => {
+                 if (!listenUnlocked) {
+                   setPendingSong(currentSong);
+                   setPassInput('');
+                   setPassError(false);
+                   setShowPassGate(true);
+                   return;
+                 }
+                 setIsPlaying(!isPlaying);
+               }}
                className="w-14 h-14 bg-[#293556] text-white rounded-[20px] flex items-center justify-center hover:scale-105 active:scale-95 transition-all soft-shadow cursor-pointer"
              >
                 {isPlaying ? <div className="w-5 h-6 flex gap-1.5 justify-center"><div className="w-2 h-full bg-white rounded-full" /><div className="w-2 h-full bg-white rounded-full" /></div> : <Play size={26} fill="white" className="ml-1" />}
@@ -865,6 +909,63 @@ function MainLayout() {
           );
         })}
       </nav>
+
+      {/* Listening Pass Gate */}
+      <AnimatePresence>
+        {showPassGate && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowPassGate(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-[#FDFBF0] rounded-[32px] max-w-xs w-full p-6 relative z-10 soft-shadow border border-zinc-200 text-center"
+            >
+              <h3 className="text-lg font-black italic uppercase tracking-tighter">Listening Pass</h3>
+              <p className="text-[11px] font-bold text-cyan-600 uppercase tracking-widest mt-1">
+                視聴パスキーが必要です
+              </p>
+              <p className="text-xs text-zinc-500 font-medium mt-2">
+                Songs are visible to everyone, but playback requires a passkey.
+              </p>
+              <input
+                type="password"
+                autoFocus
+                value={passInput}
+                onChange={(e) => { setPassInput(e.target.value); setPassError(false); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') submitPass(); }}
+                placeholder="PASSKEY"
+                className="w-full mt-4 px-4 py-3 rounded-2xl bg-white border border-zinc-300 text-sm font-mono tracking-widest text-center outline-none focus:border-cyan-500"
+              />
+              {passError && (
+                <p className="text-[11px] font-black uppercase text-red-500 mt-2 tracking-wider">
+                  Incorrect passkey · パスキーが違います
+                </p>
+              )}
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => setShowPassGate(false)}
+                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-200 text-zinc-700 font-black text-xs uppercase tracking-wider cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={submitPass}
+                  className="flex-1 px-4 py-3 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-black text-xs uppercase tracking-wider cursor-pointer transition-colors"
+                >
+                  Unlock
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Auth Control Modal for dynamic access selection */}
       <AnimatePresence>
