@@ -117,10 +117,14 @@ function MainLayout() {
   const [pendingSong, setPendingSong] = useState<Song | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('raion_listen_pass') === 'ok') {
-      setListenUnlocked(true);
-    }
+    let alive = true;
+    import('@/lib/listenGate.functions')
+      .then(({ listeningStatus }) => listeningStatus())
+      .then((r) => { if (alive && r?.unlocked) setListenUnlocked(true); })
+      .catch(() => {});
+    return () => { alive = false; };
   }, []);
+
 
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
