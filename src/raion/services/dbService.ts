@@ -521,7 +521,7 @@ export const dbService = {
             cleanedSinger[lang] = val.replace(/\s*\(Suno AI\)/g, '').replace(/\bAI\b/gi, '').trim();
             changed = true;
           } else {
-            cleanedSinger[lang] = val;
+            cleanedSinger[lang] = val ?? '';
           }
         });
         if (changed) {
