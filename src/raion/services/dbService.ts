@@ -26,7 +26,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/b72b4894-7c2f-48ed-828b-999d08f6dc53.mp3',
+    streamUrl: '/api/audio/suno-justine',
     artistOfficialUrl: 'https://suno.com/song/b72b4894-7c2f-48ed-828b-999d08f6dc53?sh=9bwZHiPh0Pcfu0hU',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -54,7 +54,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/94207216-99ab-48b2-be63-c504379cc6a6.mp3',
+    streamUrl: '/api/audio/suno-invisible',
     artistOfficialUrl: 'https://suno.com/song/94207216-99ab-48b2-be63-c504379cc6a6?sh=AyHw3E16bPnEcvaO',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -82,7 +82,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/5883a32a-9654-47a5-aec7-30c905774bfe.mp3',
+    streamUrl: '/api/audio/suno-monster',
     artistOfficialUrl: 'https://suno.com/song/5883a32a-9654-47a5-aec7-30c905774bfe?sh=pLjzt3FzRoVKwnon',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -110,7 +110,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/b1cf5c8a-31c3-4db0-9d4a-2cb5b759001b.mp3',
+    streamUrl: '/api/audio/suno-two-seconds-left',
     artistOfficialUrl: 'https://suno.com/song/b1cf5c8a-31c3-4db0-9d4a-2cb5b759001b?sh=Z7TYCrZb5eJF1UmN',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -147,7 +147,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/38fbf3c2-9200-4108-83b7-e7699f5e6f27.mp3',
+    streamUrl: '/api/audio/suno-hyohakushi',
     artistOfficialUrl: 'https://suno.com/song/38fbf3c2-9200-4108-83b7-e7699f5e6f27?sh=e7nPgsi65JF7MZMd',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -175,7 +175,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/94207216-99ab-48b2-be63-c504379cc6a6.mp3',
+    streamUrl: '/api/audio/suno-twilight-gloom',
     artistOfficialUrl: 'https://suno.com/song/94207216-99ab-48b2-be63-c504379cc6a6?sh=AyHw3E16bPnEcvaO',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -203,7 +203,7 @@ const SEED_SONGS: Song[] = [
       it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
     },
-    streamUrl: 'https://cdn1.suno.ai/5883a32a-9654-47a5-aec7-30c905774bfe.mp3',
+    streamUrl: '/api/audio/suno-last-train-wolf',
     artistOfficialUrl: 'https://suno.com/song/5883a32a-9654-47a5-aec7-30c905774bfe?sh=pLjzt3FzRoVKwnon',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
@@ -235,7 +235,7 @@ const CLOUD_TEARS_SEED_SONGS: Song[] = [
       ru: 'Слеза в неоновом свете' 
     },
     singerName: { en: 'CLOUD-TEARS', ja: 'CLOUD-TEARS', fr: 'CLOUD-TEARS', es: 'CLOUD-TEARS', zh: 'CLOUD-TEARS', ko: 'CLOUD-TEARS', it: 'CLOUD-TEARS', ru: 'CLOUD-TEARS' },
-    streamUrl: 'https://cdn1.suno.ai/94207216-99ab-48b2-be63-c504379cc6a6.mp3', // Stream actual high quality mp3
+    streamUrl: '/api/audio/suno-ct-neon-cry', // Stream actual high quality mp3
     artistOfficialUrl: 'https://suno.com/song/94207216-99ab-48b2-be63-c504379cc6a6?sh=AyHw3E16bPnEcvaO',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: 'Acoustic Horizon', ja: '音響の地平線' },
@@ -263,7 +263,7 @@ const CLOUD_TEARS_SEED_SONGS: Song[] = [
       ru: 'Штормовой горизонт' 
     },
     singerName: { en: 'CLOUD-TEARS', ja: 'CLOUD-TEARS', fr: 'CLOUD-TEARS', es: 'CLOUD-TEARS', zh: 'CLOUD-TEARS', ko: 'CLOUD-TEARS', it: 'CLOUD-TEARS', ru: 'CLOUD-TEARS' },
-    streamUrl: 'https://cdn1.suno.ai/38fbf3c2-9200-4108-83b7-e7699f5e6f27.mp3', // Stream actual high quality mp3
+    streamUrl: '/api/audio/suno-ct-storm', // Stream actual high quality mp3
     artistOfficialUrl: 'https://suno.com/song/38fbf3c2-9200-4108-83b7-e7699f5e6f27?sh=e7nPgsi65JF7MZMd',
     albumArtUrl: '/images/album_cover_kumoru.jpg',
     albumName: { en: 'Acoustic Horizon', ja: '音響の地平線' },

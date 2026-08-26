@@ -25,6 +25,7 @@ import { Route as HubMinitoiresRouteImport } from './routes/hub.minitoires'
 import { Route as HubRiggingRouteImport } from './routes/hub.rigging'
 import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
 import { Route as HubToolboxRouteImport } from './routes/hub.toolbox'
+import { Route as ApiAudioSongIdRouteImport } from './routes/api/audio.$songId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -106,6 +107,11 @@ const HubToolboxRoute = HubToolboxRouteImport.update({
   path: '/hub/toolbox',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAudioSongIdRoute = ApiAudioSongIdRouteImport.update({
+  id: '/api/audio/$songId',
+  path: '/api/audio/$songId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
   '/hub/toolbox': typeof HubToolboxRoute
+  '/api/audio/$songId': typeof ApiAudioSongIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
   '/hub/toolbox': typeof HubToolboxRoute
+  '/api/audio/$songId': typeof ApiAudioSongIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
   '/hub/toolbox': typeof HubToolboxRoute
+  '/api/audio/$songId': typeof ApiAudioSongIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/hub/rigging'
     | '/hub/scriptable'
     | '/hub/toolbox'
+    | '/api/audio/$songId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/hub/rigging'
     | '/hub/scriptable'
     | '/hub/toolbox'
+    | '/api/audio/$songId'
   id:
     | '__root__'
     | '/'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/hub/rigging'
     | '/hub/scriptable'
     | '/hub/toolbox'
+    | '/api/audio/$songId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +248,7 @@ export interface RootRouteChildren {
   HubRiggingRoute: typeof HubRiggingRoute
   HubScriptableRoute: typeof HubScriptableRoute
   HubToolboxRoute: typeof HubToolboxRoute
+  ApiAudioSongIdRoute: typeof ApiAudioSongIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -352,6 +365,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubToolboxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/audio/$songId': {
+      id: '/api/audio/$songId'
+      path: '/api/audio/$songId'
+      fullPath: '/api/audio/$songId'
+      preLoaderRoute: typeof ApiAudioSongIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -372,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   HubRiggingRoute: HubRiggingRoute,
   HubScriptableRoute: HubScriptableRoute,
   HubToolboxRoute: HubToolboxRoute,
+  ApiAudioSongIdRoute: ApiAudioSongIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
