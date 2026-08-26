@@ -325,18 +325,24 @@ function MainLayout() {
     playNow(song);
   };
 
-  const submitPass = () => {
-    if (passInput.trim() === 'cloudandre') {
-      setListenUnlocked(true);
-      if (typeof window !== 'undefined') sessionStorage.setItem('raion_listen_pass', 'ok');
-      setShowPassGate(false);
-      if (pendingSong) playNow(pendingSong);
-      setPendingSong(null);
-      setPassInput('');
-    } else {
+  const submitPass = async () => {
+    try {
+      const { unlockListening } = await import('@/lib/listenGate.functions');
+      const res = await unlockListening({ data: { passkey: passInput.trim() } });
+      if (res?.ok) {
+        setListenUnlocked(true);
+        setShowPassGate(false);
+        if (pendingSong) playNow(pendingSong);
+        setPendingSong(null);
+        setPassInput('');
+      } else {
+        setPassError(true);
+      }
+    } catch {
       setPassError(true);
     }
   };
+
 
   if (loading) {
     return (
