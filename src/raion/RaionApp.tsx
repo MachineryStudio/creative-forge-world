@@ -411,6 +411,23 @@ function MainLayout() {
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto pb-28 px-6">
+        {/* Development notice — top of RAION */}
+        <div className="mb-6 bg-[#FFF9E8] border border-[#FDE68A] rounded-[28px] p-4 soft-shadow">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-[#F59E0B]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-xs">🚧</span>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[11px] sm:text-xs font-bold text-[#78350F] leading-relaxed">
+                The music is currently under development (scheduled for 2027), and the murumuru rhythm has been established, but the lyrics, bass guitar, and lead guitar are still unfinished, and the vocals have yet to be worked on.
+              </p>
+              <p className="text-[11px] sm:text-xs font-bold text-[#92400E] leading-relaxed font-sans">
+                音楽は現在開発中（2027年予定）で、ミュルムル・リズムは確立済みですが、歌詞・ベースギター・リードギターは未完成、ボーカルは未着手の状態です。
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Persistent Stream Player (Moved from bottom overlay to prevent blocking interactive controls in workspace) */}
         <div className="mb-6">
           <motion.div
