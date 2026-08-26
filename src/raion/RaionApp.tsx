@@ -37,6 +37,7 @@ import RaionRadioView from './components/RaionRadioView';
 import MusicAnalysisView from './components/MusicAnalysisView';
 import AnimeGameMovieGenreAnalysisView from './components/AnimeGameMovieGenreAnalysisView';
 import SongForm from './components/SongForm';
+import { listeningStatus, unlockListening } from '@/lib/listenGate.functions';
 
 type View = 'home' | 'search' | 'radio' | 'library' | 'games' | 'settings' | 'admin' | 'workspace' | 'raion_fm' | 'analysis' | 'genre_analysis';
 
@@ -118,8 +119,7 @@ function MainLayout() {
 
   useEffect(() => {
     let alive = true;
-    import('@/lib/listenGate.functions')
-      .then(({ listeningStatus }) => listeningStatus())
+    listeningStatus()
       .then((r) => { if (alive && r?.unlocked) setListenUnlocked(true); })
       .catch(() => {});
     return () => { alive = false; };
@@ -327,7 +327,6 @@ function MainLayout() {
 
   const submitPass = async () => {
     try {
-      const { unlockListening } = await import('@/lib/listenGate.functions');
       const res = await unlockListening({ data: { passkey: passInput.trim() } });
       if (res?.ok) {
         setListenUnlocked(true);
