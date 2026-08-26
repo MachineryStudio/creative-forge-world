@@ -110,6 +110,17 @@ function MainLayout() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [songs, setSongs] = useState<Song[]>([]);
+  const [listenUnlocked, setListenUnlocked] = useState(false);
+  const [showPassGate, setShowPassGate] = useState(false);
+  const [passInput, setPassInput] = useState('');
+  const [passError, setPassError] = useState(false);
+  const [pendingSong, setPendingSong] = useState<Song | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('raion_listen_pass') === 'ok') {
+      setListenUnlocked(true);
+    }
+  }, []);
 
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
