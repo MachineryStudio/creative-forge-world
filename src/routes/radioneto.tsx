@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { createFileRoute, ClientOnly } from "@tanstack/react-router";
+import { useEffect, useRef, useState, useCallback, lazy, Suspense } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { RadioNerd } from "@/components/RadioNerd";
 import { MiyuChat } from "@/components/MiyuChat";
@@ -63,7 +63,7 @@ interface Particle {
   char?: string;
 }
 
-function Radioneto() {
+function BeatSyncStudio() {
   const [gameMode, setGameMode] = useState<GameMode>("beatsync");
   const [role, setRole] = useState<Role>(null);
   const [songIdx, setSongIdx] = useState(0);
@@ -491,8 +491,7 @@ function Radioneto() {
   };
 
   return (
-    <div className="min-h-screen">
-      <SiteHeader />
+    <div>
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-4 text-center">
           <div className="font-display text-[10px] uppercase tracking-[0.4em] text-primary">雷音 · RAION</div>
@@ -727,6 +726,51 @@ function Radioneto() {
         )}
       </div>
       <MiyuChat />
+    </div>
+  );
+}
+
+const RaionApp = lazy(() => import("@/raion/RaionApp"));
+
+function Radioneto() {
+  const [tab, setTab] = useState<"raion" | "beatsync">("raion");
+
+  return (
+    <div className="min-h-screen">
+      <SiteHeader />
+      <div className="mx-auto max-w-7xl px-4 pt-6">
+        <div className="flex flex-wrap justify-center gap-2">
+          {([
+            { id: "raion", label: "RAION 雷音 · Radio" },
+            { id: "beatsync", label: "BeatSync Studio · 拍同期" },
+          ] as const).map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={`rounded-md border px-4 py-2 font-display text-xs uppercase tracking-widest transition ${
+                tab === t.id
+                  ? "border-sky-400 bg-sky-400/20 text-sky-200 shadow-[0_0_20px_var(--sky-blue)]"
+                  : "border-border text-muted-foreground hover:border-sky-400/60 hover:text-sky-300"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {tab === "beatsync" ? (
+        <BeatSyncStudio />
+      ) : (
+        <ClientOnly fallback={<div className="p-10 text-center text-sm text-muted-foreground">Loading RAION 雷音…</div>}>
+          <Suspense fallback={<div className="p-10 text-center text-sm text-muted-foreground">Loading RAION 雷音…</div>}>
+            <div className="mt-6 raion-scope">
+              <RaionApp />
+            </div>
+          </Suspense>
+        </ClientOnly>
+      )}
     </div>
   );
 }

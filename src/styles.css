@@ -211,3 +211,11 @@
     100% { opacity: 0; transform: scale(0.9) rotate(0deg); }
   }
 }
+
+/* ===== RAION 雷音 app utilities (ported) ===== */
+.neon-blue { text-shadow: 0 0 5px rgba(0,191,255,0.8), 0 0 10px rgba(0,191,255,0.5), 0 0 15px rgba(0,191,255,0.3); }
+.neon-red { text-shadow: 0 0 5px rgba(255,0,50,0.8), 0 0 10px rgba(255,0,50,0.5), 0 0 15px rgba(255,0,50,0.3); }
+.soft-shadow { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.15); }
+.no-scrollbar::-webkit-scrollbar, .scrollbar-none::-webkit-scrollbar { display: none; }
+.no-scrollbar, .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.raion-scope { color: #1a1a1a; }
