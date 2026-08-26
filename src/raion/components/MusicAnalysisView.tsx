@@ -212,7 +212,7 @@ ${analysis.against.map(a => `- ${a}`).join('\n')}`;
             onClick={() => setActiveTab('genre_ai')}
             className={`px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'genre_ai' ? 'bg-cyan-600 text-white shadow-md' : 'text-zinc-600 hover:text-cyan-700 font-black'}`}
           >
-            <Sparkles size={14} /> Anime-Game-Movie AI Analysis
+            <Sparkles size={14} /> Anime-Game-Movie Analysis
           </button>
         </div>
 
