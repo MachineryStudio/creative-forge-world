@@ -425,7 +425,16 @@ function MainLayout() {
               </p>
             </div>
             <button
-               onClick={() => setIsPlaying(!isPlaying)}
+               onClick={() => {
+                 if (!listenUnlocked) {
+                   setPendingSong(currentSong);
+                   setPassInput('');
+                   setPassError(false);
+                   setShowPassGate(true);
+                   return;
+                 }
+                 setIsPlaying(!isPlaying);
+               }}
                className="w-14 h-14 bg-[#293556] text-white rounded-[20px] flex items-center justify-center hover:scale-105 active:scale-95 transition-all soft-shadow cursor-pointer"
              >
                 {isPlaying ? <div className="w-5 h-6 flex gap-1.5 justify-center"><div className="w-2 h-full bg-white rounded-full" /><div className="w-2 h-full bg-white rounded-full" /></div> : <Play size={26} fill="white" className="ml-1" />}
