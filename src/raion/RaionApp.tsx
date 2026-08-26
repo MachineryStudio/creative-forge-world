@@ -280,7 +280,7 @@ function MainLayout() {
   const navItems = [
     { id: 'home', icon: Home, label: t('home', 'Home') },
     { id: 'workspace', icon: Database, label: 'Workspace' },
-    { id: 'genre_analysis', icon: Sparkles, label: 'Genre AI' },
+    { id: 'genre_analysis', icon: Sparkles, label: 'Genre' },
     { id: 'analysis', icon: BarChart3, label: 'Analysis' },
     { id: 'raion_fm', icon: Waves, label: 'RAION 雷音' },
     { id: 'radio', icon: Radio, label: t('radio', 'Radio') },
@@ -442,7 +442,7 @@ function MainLayout() {
                         onClick={() => setCurrentView('genre_analysis')}
                         className="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3 rounded-full font-black text-xs uppercase tracking-wider flex items-center gap-2 transition-colors shadow-md cursor-pointer"
                       >
-                        <Sparkles size={14} /> Genre AI Analysis
+                        <Sparkles size={14} /> Genre Analysis
                       </button>
                       <button
                         onClick={() => setCurrentView('analysis')}
@@ -642,7 +642,7 @@ function MainLayout() {
                       onClick={() => setCurrentView('genre_analysis')}
                       className="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3 rounded-2xl font-black text-xs uppercase tracking-wider flex items-center gap-2 transition-colors shadow-md cursor-pointer"
                     >
-                      <Sparkles size={15} /> Genre AI Analysis
+                      <Sparkles size={15} /> Genre Analysis
                     </button>
                     <button
                       onClick={() => setCurrentView('analysis')}
