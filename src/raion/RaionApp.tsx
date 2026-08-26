@@ -304,10 +304,34 @@ function MainLayout() {
     navItems.push({ id: 'admin', icon: UserIcon, label: 'Admin' });
   }
 
-  const handlePlaySong = (song: Song) => {
+  const playNow = (song: Song) => {
     setCurrentSong(song);
     setIsPlaying(true);
     dbService.incrementPlayCount(song.id);
+  };
+
+  const handlePlaySong = (song: Song) => {
+    if (!listenUnlocked) {
+      setPendingSong(song);
+      setPassInput('');
+      setPassError(false);
+      setShowPassGate(true);
+      return;
+    }
+    playNow(song);
+  };
+
+  const submitPass = () => {
+    if (passInput.trim() === 'cloudandre') {
+      setListenUnlocked(true);
+      if (typeof window !== 'undefined') sessionStorage.setItem('raion_listen_pass', 'ok');
+      setShowPassGate(false);
+      if (pendingSong) playNow(pendingSong);
+      setPendingSong(null);
+      setPassInput('');
+    } else {
+      setPassError(true);
+    }
   };
 
   if (loading) {
