@@ -910,6 +910,63 @@ function MainLayout() {
         })}
       </nav>
 
+      {/* Listening Pass Gate */}
+      <AnimatePresence>
+        {showPassGate && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowPassGate(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-[#FDFBF0] rounded-[32px] max-w-xs w-full p-6 relative z-10 soft-shadow border border-zinc-200 text-center"
+            >
+              <h3 className="text-lg font-black italic uppercase tracking-tighter">Listening Pass</h3>
+              <p className="text-[11px] font-bold text-cyan-600 uppercase tracking-widest mt-1">
+                視聴パスキーが必要です
+              </p>
+              <p className="text-xs text-zinc-500 font-medium mt-2">
+                Songs are visible to everyone, but playback requires a passkey.
+              </p>
+              <input
+                type="password"
+                autoFocus
+                value={passInput}
+                onChange={(e) => { setPassInput(e.target.value); setPassError(false); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') submitPass(); }}
+                placeholder="PASSKEY"
+                className="w-full mt-4 px-4 py-3 rounded-2xl bg-white border border-zinc-300 text-sm font-mono tracking-widest text-center outline-none focus:border-cyan-500"
+              />
+              {passError && (
+                <p className="text-[11px] font-black uppercase text-red-500 mt-2 tracking-wider">
+                  Incorrect passkey · パスキーが違います
+                </p>
+              )}
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => setShowPassGate(false)}
+                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-200 text-zinc-700 font-black text-xs uppercase tracking-wider cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={submitPass}
+                  className="flex-1 px-4 py-3 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-black text-xs uppercase tracking-wider cursor-pointer transition-colors"
+                >
+                  Unlock
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Auth Control Modal for dynamic access selection */}
       <AnimatePresence>
         {showLoginModal && (
