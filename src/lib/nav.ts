@@ -4,8 +4,12 @@ export type NavGroup = {
   items: string[];
 };
 
-export const TECH_ITEMS = [
+export const EDUCATION_ITEMS = [
   "kumaGO くまご (Japanese-English Interactive Tutor)",
+  "engiGO 橋 (Engineering Learning)",
+];
+
+export const TECH_ITEMS = [
   "engiGO 橋 (Engineering Learning)",
   "radio raiON 雷音 (Interactive Game Radio Station)",
   "brushLabo 橋 Technical Arts",
@@ -38,12 +42,10 @@ export const GAMES_ITEMS = [
 export const ANIMATION_ITEMS = ["RUSTED SKY", "2D Conceptual", "Minitoires"];
 export const TECH_ART_ITEMS = ["brushLabo 橋", "3D Mesh", "Rigging", "Scriptable", "Toolbox"];
 export const MUSIC_ITEMS = ["RAION 雷音 Radio", "KUMORU 「クモル」", "BeatSync Studio", "ONREI 音霊 Virtual Audio Studio"];
-export const WORKSHOP_ITEMS = ["Community", "Comics", "2D Creatures", "Open Sessions"];
 export const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "engiGO 橋"];
 
 /** Optional routes for dropdown items that have a dedicated page. */
 export const ITEM_LINKS: Record<string, string> = {
-  "kumaGO くまご (Japanese-English Interactive Tutor)": "/hub/kumago",
   "radio raiON 雷音 (Interactive Game Radio Station)": "/radioneto",
   "RAION 雷音 Radio": "/radioneto",
   "KUMORU 「クモル」": "/radioneto",
@@ -62,11 +64,11 @@ export const ITEM_LINKS: Record<string, string> = {
 
 export const NAV_GROUPS: NavGroup[] = [
   { label: "Tech", to: "/marketplace", items: TECH_ITEMS },
+  { label: "Education", to: "/marketplace", items: EDUCATION_ITEMS },
   { label: "Games", to: "/games", items: GAMES_ITEMS },
   { label: "Animation", to: "/hub/2d-conceptual", items: ANIMATION_ITEMS },
   { label: "Tech Art", to: "/hub/3d-mesh", items: TECH_ART_ITEMS },
   { label: "Music", to: "/radioneto", items: MUSIC_ITEMS },
-  { label: "Workshop", to: "/community", items: WORKSHOP_ITEMS },
   { label: "Construction", to: "/marketplace", items: CONSTRUCTION_ITEMS },
   { label: "Contact", to: "/contact", items: ["andre@lighthashi.dev", "Open Roles", "Collaboration"] },
 ];
