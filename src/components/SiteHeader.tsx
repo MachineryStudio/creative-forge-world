@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LampPanel } from "./LampPanel";
 import { HamburgerMenu } from "./HamburgerMenu";
 import { useT, useI18n } from "@/lib/i18n";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
@@ -57,7 +57,8 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
         </button>
       )}
       {open && (
-        <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
+        <div className="absolute left-0 top-full z-50 w-72 pt-1">
+          <div className="rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
           <ul className="space-y-1">
             {items.map((it) => {
               const href = ITEM_LINKS[it];
