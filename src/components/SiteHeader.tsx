@@ -8,11 +8,11 @@ import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
 import {
   TECH_ITEMS,
+  EDUCATION_ITEMS,
   GAMES_ITEMS,
   ANIMATION_ITEMS,
   TECH_ART_ITEMS,
   MUSIC_ITEMS,
-  WORKSHOP_ITEMS,
   CONSTRUCTION_ITEMS,
   ITEM_LINKS,
 } from "@/lib/nav";
@@ -111,11 +111,11 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-2 md:flex">
           <NavDropdown label="Tech" items={TECH_ITEMS} to="/marketplace" />
+          <NavDropdown label="Education" items={EDUCATION_ITEMS} to="/marketplace" />
           <NavDropdown label="Games" items={GAMES_ITEMS} to="/games" />
           <NavDropdown label="Animation" items={ANIMATION_ITEMS} to="/hub/2d-conceptual" />
           <NavDropdown label="Tech Art" items={TECH_ART_ITEMS} to="/hub/3d-mesh" />
           <NavDropdown label="Music" items={MUSIC_ITEMS} to="/radioneto" />
-          <NavDropdown label="Workshop" items={WORKSHOP_ITEMS} to="/community" />
           <NavDropdown label="Construction" items={CONSTRUCTION_ITEMS} to="/marketplace" />
           <Link to="/contact" className={navBtn}>{t("contact").toUpperCase()}</Link>
           <Link to="/auth" className={navBtn}>{t("signIn").toUpperCase()}</Link>
