@@ -21,7 +21,6 @@ import { Route as Hub2dConceptualRouteImport } from './routes/hub.2d-conceptual'
 import { Route as Hub2dCreaturesRouteImport } from './routes/hub.2d-creatures'
 import { Route as Hub3dMeshRouteImport } from './routes/hub.3d-mesh'
 import { Route as HubComicsRouteImport } from './routes/hub.comics'
-import { Route as HubKumagoRouteImport } from './routes/hub.kumago'
 import { Route as HubMinitoiresRouteImport } from './routes/hub.minitoires'
 import { Route as HubRiggingRouteImport } from './routes/hub.rigging'
 import { Route as HubScriptableRouteImport } from './routes/hub.scriptable'
@@ -88,11 +87,6 @@ const HubComicsRoute = HubComicsRouteImport.update({
   path: '/hub/comics',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HubKumagoRoute = HubKumagoRouteImport.update({
-  id: '/hub/kumago',
-  path: '/hub/kumago',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HubMinitoiresRoute = HubMinitoiresRouteImport.update({
   id: '/hub/minitoires',
   path: '/hub/minitoires',
@@ -132,7 +126,6 @@ export interface FileRoutesByFullPath {
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
   '/hub/comics': typeof HubComicsRoute
-  '/hub/kumago': typeof HubKumagoRoute
   '/hub/minitoires': typeof HubMinitoiresRoute
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
@@ -152,7 +145,6 @@ export interface FileRoutesByTo {
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
   '/hub/comics': typeof HubComicsRoute
-  '/hub/kumago': typeof HubKumagoRoute
   '/hub/minitoires': typeof HubMinitoiresRoute
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
@@ -173,7 +165,6 @@ export interface FileRoutesById {
   '/hub/2d-creatures': typeof Hub2dCreaturesRoute
   '/hub/3d-mesh': typeof Hub3dMeshRoute
   '/hub/comics': typeof HubComicsRoute
-  '/hub/kumago': typeof HubKumagoRoute
   '/hub/minitoires': typeof HubMinitoiresRoute
   '/hub/rigging': typeof HubRiggingRoute
   '/hub/scriptable': typeof HubScriptableRoute
@@ -195,7 +186,6 @@ export interface FileRouteTypes {
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
     | '/hub/comics'
-    | '/hub/kumago'
     | '/hub/minitoires'
     | '/hub/rigging'
     | '/hub/scriptable'
@@ -215,7 +205,6 @@ export interface FileRouteTypes {
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
     | '/hub/comics'
-    | '/hub/kumago'
     | '/hub/minitoires'
     | '/hub/rigging'
     | '/hub/scriptable'
@@ -235,7 +224,6 @@ export interface FileRouteTypes {
     | '/hub/2d-creatures'
     | '/hub/3d-mesh'
     | '/hub/comics'
-    | '/hub/kumago'
     | '/hub/minitoires'
     | '/hub/rigging'
     | '/hub/scriptable'
@@ -256,7 +244,6 @@ export interface RootRouteChildren {
   Hub2dCreaturesRoute: typeof Hub2dCreaturesRoute
   Hub3dMeshRoute: typeof Hub3dMeshRoute
   HubComicsRoute: typeof HubComicsRoute
-  HubKumagoRoute: typeof HubKumagoRoute
   HubMinitoiresRoute: typeof HubMinitoiresRoute
   HubRiggingRoute: typeof HubRiggingRoute
   HubScriptableRoute: typeof HubScriptableRoute
@@ -350,13 +337,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubComicsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hub/kumago': {
-      id: '/hub/kumago'
-      path: '/hub/kumago'
-      fullPath: '/hub/kumago'
-      preLoaderRoute: typeof HubKumagoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/hub/minitoires': {
       id: '/hub/minitoires'
       path: '/hub/minitoires'
@@ -408,7 +388,6 @@ const rootRouteChildren: RootRouteChildren = {
   Hub2dCreaturesRoute: Hub2dCreaturesRoute,
   Hub3dMeshRoute: Hub3dMeshRoute,
   HubComicsRoute: HubComicsRoute,
-  HubKumagoRoute: HubKumagoRoute,
   HubMinitoiresRoute: HubMinitoiresRoute,
   HubRiggingRoute: HubRiggingRoute,
   HubScriptableRoute: HubScriptableRoute,
