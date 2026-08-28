@@ -64,11 +64,11 @@ export const ITEM_LINKS: Record<string, string> = {
 
 export const NAV_GROUPS: NavGroup[] = [
   { label: "Tech", to: "/marketplace", items: TECH_ITEMS },
+  { label: "Education", to: "/marketplace", items: EDUCATION_ITEMS },
   { label: "Games", to: "/games", items: GAMES_ITEMS },
   { label: "Animation", to: "/hub/2d-conceptual", items: ANIMATION_ITEMS },
   { label: "Tech Art", to: "/hub/3d-mesh", items: TECH_ART_ITEMS },
   { label: "Music", to: "/radioneto", items: MUSIC_ITEMS },
-  { label: "Workshop", to: "/community", items: WORKSHOP_ITEMS },
   { label: "Construction", to: "/marketplace", items: CONSTRUCTION_ITEMS },
   { label: "Contact", to: "/contact", items: ["andre@lighthashi.dev", "Open Roles", "Collaboration"] },
 ];
