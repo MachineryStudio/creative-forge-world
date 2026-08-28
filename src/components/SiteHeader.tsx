@@ -79,6 +79,7 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
               );
             })}
           </ul>
+          </div>
         </div>
       )}
     </div>
