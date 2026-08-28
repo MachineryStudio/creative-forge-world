@@ -4,8 +4,12 @@ export type NavGroup = {
   items: string[];
 };
 
-export const TECH_ITEMS = [
+export const EDUCATION_ITEMS = [
   "kumaGO くまご (Japanese-English Interactive Tutor)",
+  "engiGO 橋 (Engineering Learning)",
+];
+
+export const TECH_ITEMS = [
   "engiGO 橋 (Engineering Learning)",
   "radio raiON 雷音 (Interactive Game Radio Station)",
   "brushLabo 橋 Technical Arts",
