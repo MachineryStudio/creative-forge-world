@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LampPanel } from "./LampPanel";
 import { HamburgerMenu } from "./HamburgerMenu";
 import { useT, useI18n } from "@/lib/i18n";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import lighthouseLogo from "@/assets/lighthouse-logo.png";
 
@@ -23,11 +23,23 @@ const navBtn =
 
 function NavDropdown({ label, items, to }: { label: string; items: string[]; to?: string }) {
   const [open, setOpen] = useState(false);
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), 150);
+  };
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+
   return (
     <div
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={openMenu}
+      onMouseLeave={scheduleClose}
     >
       {to ? (
         <Link to={to} className={`${navBtn} inline-flex items-center gap-1`} onClick={() => setOpen(false)}>
@@ -45,7 +57,8 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
         </button>
       )}
       {open && (
-        <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
+        <div className="absolute left-0 top-full z-50 w-72 pt-1">
+          <div className="rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
           <ul className="space-y-1">
             {items.map((it) => {
               const href = ITEM_LINKS[it];
@@ -66,6 +79,7 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
               );
             })}
           </ul>
+          </div>
         </div>
       )}
     </div>
