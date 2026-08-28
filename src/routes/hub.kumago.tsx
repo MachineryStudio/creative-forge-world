@@ -153,7 +153,7 @@ function KumaGoPage() {
                 <span className="text-sm text-muted-foreground">{selected.hiragana}</span>
                 <span className="text-sm text-sky">{selected.romaji}</span>
                 <button
-                  onClick={() => speakJapanese(selected.dictionary)}
+                  onClick={() => speakJapanese(selected.dictionary, () => {})}
                   className="ml-auto inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-display uppercase tracking-widest text-primary transition hover:bg-sky/20 hover:text-sky"
                 >
                   <Volume2 className="h-3 w-3" /> Listen · 聞く
