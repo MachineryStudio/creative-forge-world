@@ -5,31 +5,55 @@ export type NavGroup = {
 };
 
 export const TECH_ITEMS = [
-  "kumaGO 橋 (Japanese-English Interactive Tutor)",
+  "kumaGO くまご (Japanese-English Interactive Tutor)",
   "engiGO 橋 (Engineering Learning)",
   "radio raiON 雷音 (Interactive Game Radio Station)",
   "brushLabo 橋 Technical Arts",
-  "cloudHunters (Animation)",
-  "soraGomi (空ゴミ) Band JP-CAN",
+  "Voice-Operated SQL (おんせいそうさがた えすきゅーえる)",
+  "RAPUSO ラポス",
+  "SHISEI PIVOT しせい ぴぼっと",
   "construcTA 橋 (Civil Engineer Management)",
   "adminTA (Cost-Budget Management)",
 ];
 
 export const GAMES_ITEMS = [
-  "pacifiCA",
-  "unidentiFIED",
-  "planetUteUS",
-  "fistchapterZ",
-  "cloudHunters",
-  "bananaRain",
-  "banditStudios",
+  "SUPERMETROID TOOL",
+  "SUPERUNKNOWN",
+  "PACIFICA",
+  "PLANET UTERUS",
+  "BANANA RAIN",
+  "FIRST CHAPTER ZERO",
+  "IRON QUEEN CHESS",
+  "HARBOR 橋",
+  "RUSTED SKY",
+  "BANDIT STUDIOS",
+  "11 BIT STUDIOS",
 ];
 
-export const ANIMATION_ITEMS = ["cloudHunters", "soraGomi 空ゴミ", "2D Conceptual", "Minitoires"];
+export const ANIMATION_ITEMS = ["RUSTED SKY", "2D Conceptual", "Minitoires"];
 export const TECH_ART_ITEMS = ["brushLabo 橋", "3D Mesh", "Rigging", "Scriptable", "Toolbox"];
-export const MUSIC_ITEMS = ["RAION 雷音 Radio", "soraGomi (空ゴミ) Band JP-CAN", "BeatSync Studio"];
+export const MUSIC_ITEMS = ["RAION 雷音 Radio", "KUMORU 「クモル」", "BeatSync Studio"];
 export const WORKSHOP_ITEMS = ["Community", "Comics", "2D Creatures", "Open Sessions"];
 export const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "engiGO 橋"];
+
+/** Optional routes for dropdown items that have a dedicated page. */
+export const ITEM_LINKS: Record<string, string> = {
+  "kumaGO くまご (Japanese-English Interactive Tutor)": "/hub/kumago",
+  "radio raiON 雷音 (Interactive Game Radio Station)": "/radioneto",
+  "RAION 雷音 Radio": "/radioneto",
+  "KUMORU 「クモル」": "/radioneto",
+  "BeatSync Studio": "/radioneto",
+  "brushLabo 橋": "/hub/3d-mesh",
+  "3D Mesh": "/hub/3d-mesh",
+  Rigging: "/hub/rigging",
+  Scriptable: "/hub/scriptable",
+  Toolbox: "/hub/toolbox",
+  "2D Conceptual": "/hub/2d-conceptual",
+  Minitoires: "/hub/minitoires",
+  Comics: "/hub/comics",
+  "2D Creatures": "/hub/2d-creatures",
+  Community: "/community",
+};
 
 export const NAV_GROUPS: NavGroup[] = [
   { label: "Tech", to: "/marketplace", items: TECH_ITEMS },

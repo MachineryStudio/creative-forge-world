@@ -14,6 +14,7 @@ import {
   MUSIC_ITEMS,
   WORKSHOP_ITEMS,
   CONSTRUCTION_ITEMS,
+  ITEM_LINKS,
 } from "@/lib/nav";
 
 
@@ -46,16 +47,24 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
       {open && (
         <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-sky/50 bg-background/95 p-2 shadow-[0_0_24px_var(--sky-blue)] backdrop-blur-md">
           <ul className="space-y-1">
-            {items.map((it) => (
-              <li key={it}>
-                <button
-                  type="button"
-                  className="block w-full rounded px-3 py-1.5 text-left text-xs font-display uppercase tracking-wider text-foreground transition hover:bg-sky/20 hover:text-sky active:bg-sky active:text-background"
-                >
-                  {it}
-                </button>
-              </li>
-            ))}
+            {items.map((it) => {
+              const href = ITEM_LINKS[it];
+              const cls =
+                "block w-full rounded px-3 py-1.5 text-left text-xs font-display uppercase tracking-wider text-foreground transition hover:bg-sky/20 hover:text-sky active:bg-sky active:text-background";
+              return (
+                <li key={it}>
+                  {href ? (
+                    <Link to={href} className={cls} onClick={() => setOpen(false)}>
+                      {it}
+                    </Link>
+                  ) : (
+                    <button type="button" className={cls}>
+                      {it}
+                    </button>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
