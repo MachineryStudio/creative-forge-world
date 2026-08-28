@@ -14,6 +14,11 @@ export const TECH_ITEMS = [
   "SHISEI PIVOT しせい ぴぼっと",
   "construcTA 橋 (Civil Engineer Management)",
   "adminTA (Cost-Budget Management)",
+  "KAWAII TASKU かわいいタスク — LIGHTHOUSE (光塔) Bluetooth Intelligence",
+  "REF|FUSE | 概創タンク — Reference Pipeline",
+  "NET大創生成器 (NET Daizō Seiseiki)",
+  "PromptBridge プロンプトブリッジ",
+  "KeiriKanri Studio",
 ];
 
 export const GAMES_ITEMS = [
