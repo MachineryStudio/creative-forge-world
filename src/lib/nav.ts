@@ -46,7 +46,7 @@ export const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "e
 
 /** Optional routes for dropdown items that have a dedicated page (external URLs allowed). */
 export const ITEM_LINKS: Record<string, string> = {
-  "kumaGO くまご (Japanese-English Interactive Tutor)": "/kumago",
+  "kumaGO くまご (Japanese-English Interactive Tutor)": "https://kumago.lighthashi.dev",
   "radio raiON 雷音 (Interactive Game Radio Station)": "/radioneto",
   "RAION 雷音 Radio": "/radioneto",
   "KUMORU 「クモル」": "/radioneto",
