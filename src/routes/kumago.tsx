@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const KUMAGO_URL = "https://project--4b7e6e4f-1199-46fe-8f74-024df5dcb0aa.lovable.app";
+const KUMAGO_URL = "https://kumago.lighthashi.dev";
 
 export const Route = createFileRoute("/kumago")({
   beforeLoad: () => {
