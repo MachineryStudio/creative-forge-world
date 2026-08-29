@@ -14,19 +14,18 @@ export const Route = createFileRoute('/api/audio/$songId')({
         const src = AUDIO_SOURCES[params.songId];
         if (!src) return new Response('Not found', { status: 404 });
 
+        // The browser's <audio> element routinely cancels range requests when
+        // seeking or switching tracks. Buffering the upstream body (instead of
+        // piping a long-lived stream) keeps those cancellations from surfacing
+        // as "Error: aborted" on the server.
         const range = request.headers.get('range');
-        const upstreamController = new AbortController();
-        const abortUpstream = () => upstreamController.abort();
-        request.signal.addEventListener('abort', abortUpstream, { once: true });
 
         let upstream: Response;
+        let buffer: ArrayBuffer;
         try {
-          upstream = await fetch(src, {
-            headers: range ? { Range: range } : {},
-            signal: upstreamController.signal,
-          });
+          upstream = await fetch(src, { headers: range ? { Range: range } : {} });
+          buffer = await upstream.arrayBuffer();
         } catch (error) {
-          request.signal.removeEventListener('abort', abortUpstream);
           if (request.signal.aborted || (error instanceof Error && error.name === 'AbortError')) {
             return new Response(null, { status: 499 });
           }
@@ -34,52 +33,19 @@ export const Route = createFileRoute('/api/audio/$songId')({
           return new Response('Audio temporarily unavailable', { status: 502 });
         }
 
+        if (request.signal.aborted) {
+          return new Response(null, { status: 499 });
+        }
+
         const headers = new Headers();
         headers.set('Content-Type', upstream.headers.get('content-type') ?? 'audio/mpeg');
-        for (const h of ['content-length', 'content-range', 'accept-ranges']) {
-          const v = upstream.headers.get(h);
-          if (v) headers.set(h, v);
-        }
+        const contentRange = upstream.headers.get('content-range');
+        if (contentRange) headers.set('Content-Range', contentRange);
+        headers.set('Accept-Ranges', 'bytes');
+        headers.set('Content-Length', String(buffer.byteLength));
         headers.set('Cache-Control', 'private, no-store');
 
-        if (!upstream.body) {
-          request.signal.removeEventListener('abort', abortUpstream);
-          return new Response(null, { status: upstream.status, headers });
-        }
-
-        const reader = upstream.body.getReader();
-        const body = new ReadableStream<Uint8Array>({
-          async pull(controller) {
-            try {
-              const chunk = await reader.read();
-              if (chunk.done) {
-                request.signal.removeEventListener('abort', abortUpstream);
-                controller.close();
-                return;
-              }
-              controller.enqueue(chunk.value);
-            } catch (error) {
-              request.signal.removeEventListener('abort', abortUpstream);
-              if (upstreamController.signal.aborted || (error instanceof Error && error.name === 'AbortError')) {
-                controller.close();
-                return;
-              }
-              console.error('RAION audio stream failed', error);
-              controller.close();
-            }
-          },
-          async cancel() {
-            request.signal.removeEventListener('abort', abortUpstream);
-            upstreamController.abort();
-            try {
-              await reader.cancel();
-            } catch {
-              // Browser navigation and changing tracks cancel audio reads normally.
-            }
-          },
-        });
-
-        return new Response(body, { status: upstream.status, headers });
+        return new Response(buffer, { status: upstream.status, headers });
       },
     },
   },
