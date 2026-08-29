@@ -64,9 +64,14 @@ function NavDropdown({ label, items, to }: { label: string; items: string[]; to?
               const href = ITEM_LINKS[it];
               const cls =
                 "block w-full rounded px-3 py-1.5 text-left text-xs font-display uppercase tracking-wider text-foreground transition hover:bg-sky/20 hover:text-sky active:bg-sky active:text-background";
+              const isExternal = href?.startsWith("http");
               return (
                 <li key={it}>
-                  {href ? (
+                  {href && isExternal ? (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className={cls} onClick={() => setOpen(false)}>
+                      {it} ↗
+                    </a>
+                  ) : href ? (
                     <Link to={href} className={cls} onClick={() => setOpen(false)}>
                       {it}
                     </Link>

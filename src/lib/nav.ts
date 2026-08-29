@@ -44,8 +44,9 @@ export const TECH_ART_ITEMS = ["brushLabo 橋", "3D Mesh", "Rigging", "Scriptabl
 export const MUSIC_ITEMS = ["RAION 雷音 Radio", "KUMORU 「クモル」", "BeatSync Studio", "ONREI 音霊 Virtual Audio Studio"];
 export const CONSTRUCTION_ITEMS = ["construcTA 橋", "adminTA (Cost-Budget)", "engiGO 橋"];
 
-/** Optional routes for dropdown items that have a dedicated page. */
+/** Optional routes for dropdown items that have a dedicated page (external URLs allowed). */
 export const ITEM_LINKS: Record<string, string> = {
+  "kumaGO くまご (Japanese-English Interactive Tutor)": "https://lighthashi.dev/kumago",
   "radio raiON 雷音 (Interactive Game Radio Station)": "/radioneto",
   "RAION 雷音 Radio": "/radioneto",
   "KUMORU 「クモル」": "/radioneto",
