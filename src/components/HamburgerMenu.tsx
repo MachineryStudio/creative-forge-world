@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { sfx } from "@/lib/sfx";
-import { NAV_GROUPS } from "@/lib/nav";
+import { NAV_GROUPS, ITEM_LINKS } from "@/lib/nav";
 
 
 const SECTIONS = [
@@ -93,19 +93,35 @@ export function HamburgerMenu() {
                       {g.label}
                     </Link>
                     <ul className="mt-1.5 ml-3 space-y-1 border-l border-border/40 pl-3">
-                      {g.items.map((it) => (
-                        <li key={it}>
-                          <Link
-                            to={g.to}
-                            onClick={() => { sfx.blip(); setOpen(false); }}
-                            activeOptions={{ exact: true }}
-                            activeProps={{ className: "bg-primary/10 text-primary" }}
-                            className="block rounded px-2 py-1 text-xs text-muted-foreground transition hover:text-primary"
-                          >
-                            › {it}
-                          </Link>
-                        </li>
-                      ))}
+                      {g.items.map((it) => {
+                        const href = ITEM_LINKS[it];
+                        const isExternal = href?.startsWith("http");
+                        return (
+                          <li key={it}>
+                            {href && isExternal ? (
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => { sfx.blip(); setOpen(false); }}
+                                className="block rounded px-2 py-1 text-xs text-muted-foreground transition hover:text-primary"
+                              >
+                                › {it} ↗
+                              </a>
+                            ) : (
+                              <Link
+                                to={href ?? g.to}
+                                onClick={() => { sfx.blip(); setOpen(false); }}
+                                activeOptions={{ exact: true }}
+                                activeProps={{ className: "bg-primary/10 text-primary" }}
+                                className="block rounded px-2 py-1 text-xs text-muted-foreground transition hover:text-primary"
+                              >
+                                › {it}
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </li>
                 ))}
