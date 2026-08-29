@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { sfx } from "@/lib/sfx";
-import { NAV_GROUPS } from "@/lib/nav";
+import { NAV_GROUPS, ITEM_LINKS } from "@/lib/nav";
 
 
 const SECTIONS = [
