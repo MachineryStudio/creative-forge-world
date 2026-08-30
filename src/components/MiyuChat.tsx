@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, X, Send, Globe } from "lucide-react";
+import { MessageCircle, X, Send, Globe, Volume2, VolumeX } from "lucide-react";
+import { speakMood, setMiyuMuted, type MiyuWord } from "@/lib/miyuVoice";
 import miyuIdle from "@/assets/miyu-idle.webp";
 import miyuWave from "@/assets/miyu-wave.webp";
 import miyuTalk from "@/assets/miyu-talk.webp";
@@ -34,7 +35,20 @@ export function MiyuChat() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [pose, setPose] = useState<"idle" | "wave" | "talk">("wave");
+  const [voiceWord, setVoiceWord] = useState<MiyuWord | null>(null);
+  const [voiceOff, setVoiceOff] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const wordTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Speak one short Japanese word and show it in a bubble
+  const say = (mood: Parameters<typeof speakMood>[0]) => {
+    const w = speakMood(mood);
+    setVoiceWord(w);
+    if (wordTimer.current) clearTimeout(wordTimer.current);
+    wordTimer.current = setTimeout(() => setVoiceWord(null), 2200);
+  };
+
+  useEffect(() => () => { if (wordTimer.current) clearTimeout(wordTimer.current); }, []);
 
   // Idle animation: cycle wave → idle every 6s when not talking
   useEffect(() => {
@@ -46,6 +60,7 @@ export function MiyuChat() {
   useEffect(() => {
     if (open && messages.length === 0) {
       setMessages([{ role: "assistant", content: GREETING[lang] }]);
+      say("greet");
     }
   }, [open, lang, messages.length]);
 
@@ -75,6 +90,7 @@ export function MiyuChat() {
       const data = await r.json();
       if (!r.ok) throw new Error(data.error ?? "Chat error");
       setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
+      say(["praise", "curious", "cheer"][Math.floor(Math.random() * 3)] as "praise");
     } catch (e: any) {
       setMessages((m) => [...m, { role: "assistant", content: `Nyaa~ I had trouble: ${e.message}` }]);
     } finally {
@@ -86,7 +102,7 @@ export function MiyuChat() {
     <>
       {/* Floating button */}
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => { const n = !open; setOpen(n); if (!n) say("bye"); }}
         className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full ring-2 ring-primary/60 transition hover:scale-110"
         style={{ background: "var(--sakura-white)", boxShadow: "0 0 32px var(--neon-pink)" }}
         aria-label="Open MIYU chat"
@@ -113,9 +129,18 @@ export function MiyuChat() {
                 </div>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="rounded-md p-1 text-muted-foreground hover:text-primary">
-              <X className="h-4 w-4" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => { const n = !voiceOff; setVoiceOff(n); setMiyuMuted(n); if (!n) say("greet"); }}
+                className="rounded-md p-1 text-muted-foreground hover:text-primary"
+                aria-label={voiceOff ? "Unmute MIYU voice" : "Mute MIYU voice"}
+              >
+                {voiceOff ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+              </button>
+              <button onClick={() => { setOpen(false); say("bye"); }} className="rounded-md p-1 text-muted-foreground hover:text-primary">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           {/* Language picker */}
@@ -148,6 +173,12 @@ export function MiyuChat() {
                 <div className="text-[10px] italic text-muted-foreground">MIYU is typing…</div>
               )}
             </div>
+            {voiceWord && (
+              <div className="pointer-events-none absolute bottom-28 right-2 max-w-[9rem] animate-scale-in rounded-2xl border border-primary/50 bg-card/90 px-3 py-1.5 text-center shadow-[0_0_18px_var(--neon-pink)] backdrop-blur-sm">
+                <div className="font-display text-sm text-primary" lang="ja">{voiceWord.text}</div>
+                <div className="text-[9px] uppercase tracking-widest text-muted-foreground">{voiceWord.en}</div>
+              </div>
+            )}
             <img loading="lazy" decoding="async"
               src={sprite}
               alt="MIYU"
