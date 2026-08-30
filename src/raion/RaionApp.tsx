@@ -510,7 +510,11 @@ function MainLayout() {
               <p className="text-[11px] font-bold text-cyan-600 truncate uppercase mt-0.5 tracking-widest">
                 {currentSong ? (currentSong.singerName[i18n.language as Language] || Object.values(currentSong.singerName)[0]) : 'STORM PULSE'}
               </p>
+              {isBuffering && !audioError && (
+                <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-1">Buffering… / 読み込み中…</p>
+              )}
             </div>
+
             <button
                onClick={() => {
                  if (!listenUnlocked) {
