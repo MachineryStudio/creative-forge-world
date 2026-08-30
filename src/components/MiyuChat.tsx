@@ -35,7 +35,20 @@ export function MiyuChat() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [pose, setPose] = useState<"idle" | "wave" | "talk">("wave");
+  const [voiceWord, setVoiceWord] = useState<MiyuWord | null>(null);
+  const [voiceOff, setVoiceOff] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const wordTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Speak one short Japanese word and show it in a bubble
+  const say = (mood: Parameters<typeof speakMood>[0]) => {
+    const w = speakMood(mood);
+    setVoiceWord(w);
+    if (wordTimer.current) clearTimeout(wordTimer.current);
+    wordTimer.current = setTimeout(() => setVoiceWord(null), 2200);
+  };
+
+  useEffect(() => () => { if (wordTimer.current) clearTimeout(wordTimer.current); }, []);
 
   // Idle animation: cycle wave → idle every 6s when not talking
   useEffect(() => {
