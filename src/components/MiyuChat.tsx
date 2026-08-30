@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Globe, Volume2, VolumeX } from "lucide-react";
-import { speakMood, setMiyuMuted, type MiyuWord } from "@/lib/miyuVoice";
+import { speakMood, setMiyuMuted, onMiyuWord, type MiyuWord } from "@/lib/miyuVoice";
 import miyuIdle from "@/assets/miyu-idle.webp";
 import miyuWave from "@/assets/miyu-wave.webp";
 import miyuTalk from "@/assets/miyu-talk.webp";
