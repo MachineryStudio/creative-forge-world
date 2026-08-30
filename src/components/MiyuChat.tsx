@@ -38,17 +38,12 @@ export function MiyuChat() {
   const [voiceWord, setVoiceWord] = useState<MiyuWord | null>(null);
   const [voiceOff, setVoiceOff] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const wordTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Speak one short Japanese word and show it in a bubble
-  const say = (mood: Parameters<typeof speakMood>[0]) => {
-    const w = speakMood(mood);
-    setVoiceWord(w);
-    if (wordTimer.current) clearTimeout(wordTimer.current);
-    wordTimer.current = setTimeout(() => setVoiceWord(null), 2200);
-  };
+  // Subtitle is driven by the clip's own playing/ended events → exact sync.
+  useEffect(() => onMiyuWord(setVoiceWord), []);
 
-  useEffect(() => () => { if (wordTimer.current) clearTimeout(wordTimer.current); }, []);
+  const say = (mood: Parameters<typeof speakMood>[0]) => { speakMood(mood); };
+
 
   // Idle animation: cycle wave → idle every 6s when not talking
   useEffect(() => {
