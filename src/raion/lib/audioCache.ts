@@ -5,6 +5,7 @@
 
 const blobUrls = new Map<string, string>();
 const inFlight = new Map<string, Promise<string>>();
+const controllers = new Map<string, AbortController>();
 
 const MAX_CACHED = 8;
 
@@ -28,6 +29,11 @@ export function clearCachedAudio(streamUrl: string) {
   if (url) URL.revokeObjectURL(url);
   blobUrls.delete(streamUrl);
   inFlight.delete(streamUrl);
+  const ctrl = controllers.get(streamUrl);
+  if (ctrl) {
+    ctrl.abort();
+    controllers.delete(streamUrl);
+  }
 }
 
 /**
