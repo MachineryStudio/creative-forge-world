@@ -531,7 +531,19 @@ function MainLayout() {
                 {isPlaying ? <div className="w-5 h-6 flex gap-1.5 justify-center"><div className="w-2 h-full bg-white rounded-full" /><div className="w-2 h-full bg-white rounded-full" /></div> : <Play size={26} fill="white" className="ml-1" />}
             </button>
           </motion.div>
+          {audioError && (
+            <div className="mt-3 bg-red-50 border border-red-200 rounded-[24px] px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
+              <p className="flex-1 text-[12px] font-bold text-red-700 leading-relaxed">{audioError}</p>
+              <button
+                onClick={handleRetryAudio}
+                className="self-start sm:self-auto px-5 py-2.5 rounded-[16px] bg-red-600 text-white text-[11px] font-black uppercase tracking-widest hover:bg-red-700 active:scale-95 transition-all cursor-pointer"
+              >
+                Retry / 再試行
+              </button>
+            </div>
+          )}
         </div>
+
 
         <AnimatePresence mode="wait">
           <motion.div
