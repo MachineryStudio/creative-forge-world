@@ -38,6 +38,8 @@ import MusicAnalysisView from './components/MusicAnalysisView';
 import AnimeGameMovieGenreAnalysisView from './components/AnimeGameMovieGenreAnalysisView';
 import SongForm from './components/SongForm';
 import { listeningStatus, unlockListening } from '@/lib/listenGate.functions';
+import { loadAudio, prefetchAudio, getCachedAudioUrl, clearCachedAudio } from './lib/audioCache';
+
 
 type View = 'home' | 'search' | 'radio' | 'library' | 'games' | 'settings' | 'admin' | 'workspace' | 'raion_fm' | 'analysis' | 'genre_analysis';
 
