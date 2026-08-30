@@ -54,8 +54,14 @@ export function loadAudio(streamUrl: string): Promise<string> {
   const pending = inFlight.get(streamUrl);
   if (pending) return pending;
 
+  const controller = new AbortController();
+  controllers.set(streamUrl, controller);
+
   const request = (async () => {
-    const res = await fetch(streamUrl, { credentials: 'same-origin' });
+    const res = await fetch(streamUrl, {
+      credentials: 'same-origin',
+      signal: controller.signal,
+    });
     if (!res.ok) {
       if (res.status === 401) throw new Error('LOCKED');
       throw new Error(`Stream failed (${res.status})`);
@@ -69,6 +75,7 @@ export function loadAudio(streamUrl: string): Promise<string> {
   inFlight.set(streamUrl, request);
   request.catch(() => {}).finally(() => {
     if (inFlight.get(streamUrl) === request) inFlight.delete(streamUrl);
+    if (controllers.get(streamUrl) === controller) controllers.delete(streamUrl);
   });
 
   return request;
