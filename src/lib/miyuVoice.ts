@@ -54,23 +54,61 @@ let audio: HTMLAudioElement | null = null;
 let lastId = -1;
 let muted = false;
 
+/** Subtitle subscribers: receive the word when its clip starts, null when it ends. */
+type WordListener = (word: MiyuWord | null) => void;
+const listeners = new Set<WordListener>();
+let current: MiyuWord | null = null;
+
+export function onMiyuWord(fn: WordListener): () => void {
+  listeners.add(fn);
+  fn(current);
+  return () => listeners.delete(fn);
+}
+
+const emit = (word: MiyuWord | null) => {
+  current = word;
+  listeners.forEach((fn) => fn(word));
+};
+
 export const setMiyuMuted = (v: boolean) => {
   muted = v;
-  if (v && audio) audio.pause();
+  if (v && audio) {
+    audio.pause();
+    emit(null);
+  }
 };
 export const isMiyuMuted = () => muted;
 
-/** Plays a single word clip. Returns the word so the UI can show its text. */
+function ensureAudio(): HTMLAudioElement {
+  if (!audio) {
+    audio = new Audio();
+    audio.preload = "auto";
+    // Subtitle is bound to real playback boundaries, not timers.
+    audio.addEventListener("playing", () => emit(pending));
+    audio.addEventListener("ended", () => emit(null));
+    audio.addEventListener("pause", () => {
+      if (audio && audio.ended) emit(null);
+    });
+    audio.addEventListener("error", () => emit(null));
+  }
+  return audio;
+}
+
+let pending: MiyuWord | null = null;
+
+/** Plays a single word clip. The subtitle shows on `playing` and hides on `ended`. */
 export function speakMiyu(word: MiyuWord): MiyuWord {
   if (typeof window === "undefined" || muted) return word;
-  if (!audio) audio = new Audio();
+  const a = ensureAudio();
+  pending = word;
   try {
-    audio.pause();
-    audio.src = word.src;
-    audio.currentTime = 0;
-    void audio.play().catch(() => {});
+    a.pause();
+    emit(null);
+    a.src = word.src;
+    a.currentTime = 0;
+    void a.play().catch(() => emit(null));
   } catch {
-    /* autoplay may be blocked until first interaction */
+    emit(null);
   }
   return word;
 }
