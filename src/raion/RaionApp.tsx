@@ -210,8 +210,8 @@ function MainLayout() {
   useEffect(() => {
     if (!listenUnlocked || songs.length === 0) return;
     const timer = setTimeout(() => {
-      songs.slice(0, 5).forEach((s) => prefetchAudio(s.streamUrl));
-    }, 1200);
+      songs.slice(0, 2).forEach((s) => prefetchAudio(s.streamUrl));
+    }, 2000);
     return () => clearTimeout(timer);
   }, [songs, listenUnlocked]);
 
