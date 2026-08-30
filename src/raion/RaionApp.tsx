@@ -127,6 +127,10 @@ function MainLayout() {
 
 
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const [audioError, setAudioError] = useState<string | null>(null);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [retryToken, setRetryToken] = useState(0);
+  const retryCountRef = React.useRef(0);
 
   // Initialize audio and end-of-track listeners
   useEffect(() => {
@@ -146,22 +150,76 @@ function MainLayout() {
     };
   }, []);
 
-  // Sync audio with current song and play state
+  // Sync audio with current song and play state (cached blob playback)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (currentSong && isPlaying) {
-      if (audio.src !== currentSong.streamUrl) {
-        audio.src = currentSong.streamUrl;
-      }
-      audio.play().catch((err) => {
-        console.warn("Audio play interrupted or stream link is blocked/expired:", err);
-      });
-    } else {
+    if (!currentSong || !isPlaying) {
       audio.pause();
+      return;
     }
-  }, [currentSong, isPlaying]);
+
+    let cancelled = false;
+    const streamUrl = currentSong.streamUrl;
+    const cached = getCachedAudioUrl(streamUrl);
+    if (!cached) setIsBuffering(true);
+    setAudioError(null);
+
+    loadAudio(streamUrl)
+      .then((src) => {
+        if (cancelled) return;
+        setIsBuffering(false);
+        if (audio.src !== src) audio.src = src;
+        return audio.play();
+      })
+      .then(() => {
+        if (!cancelled) retryCountRef.current = 0;
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setIsBuffering(false);
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        if (err instanceof Error && err.message === 'LOCKED') {
+          setAudioError('This track is locked. Enter the listening pass to play it. / 再生にはパスが必要です。');
+          setIsPlaying(false);
+          return;
+        }
+        // The stream was aborted or failed — retry automatically a couple of times.
+        clearCachedAudio(streamUrl);
+        if (retryCountRef.current < 2) {
+          retryCountRef.current += 1;
+          setTimeout(() => {
+            if (!cancelled) setRetryToken((n) => n + 1);
+          }, 600 * retryCountRef.current);
+          return;
+        }
+        retryCountRef.current = 0;
+        setAudioError("Playback stream was interrupted. Tap retry to reconnect. / 再生が中断されました。");
+        setIsPlaying(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentSong, isPlaying, retryToken]);
+
+  // Warm the cache for other tracks so switching starts instantly
+  useEffect(() => {
+    if (!listenUnlocked || songs.length === 0) return;
+    const timer = setTimeout(() => {
+      songs.slice(0, 5).forEach((s) => prefetchAudio(s.streamUrl));
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [songs, listenUnlocked]);
+
+  const handleRetryAudio = () => {
+    if (currentSong) clearCachedAudio(currentSong.streamUrl);
+    retryCountRef.current = 0;
+    setAudioError(null);
+    setIsPlaying(true);
+    setRetryToken((n) => n + 1);
+  };
 
   // Clean up on unmount
   useEffect(() => {
@@ -172,6 +230,7 @@ function MainLayout() {
       }
     };
   }, []);
+
 
   const [activeDbId, setActiveDbId] = useState<string>(dbService.getActiveDatabaseId());
   const [databases, setDatabases] = useState<MusicDatabase[]>(dbService.getDatabases());
