@@ -737,11 +737,11 @@ export function AngelsFateGame() {
         {/* Optional player registration */}
         <div className="mx-auto mt-4 rounded-lg border border-primary/30 bg-card/50 p-4" style={{ maxWidth: WORLD_W }}>
           <p className="text-center text-sm text-primary" lang="ja">
-            日本語ネイティブ・英語で名前とメールを入力するとボーナスがもらえます。ありがとう！
+            名前とメールを入力してデータを保存してください。ありがとう！
           </p>
           <p className="mt-1 text-center text-xs text-muted-foreground">
-            Japanese native &amp; English speakers receive a bonus if you enter your data. Thank you!
-            <span className="block">Optional — you can play without it.</span>
+            Enter your name and email to save your data.
+            <span className="block">This is just optional — you can play without it.</span>
           </p>
 
           {registered ? (
