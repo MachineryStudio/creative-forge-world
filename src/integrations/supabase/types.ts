@@ -110,6 +110,30 @@ export type Database = {
         }
         Relationships: []
       }
+      game_players: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          player_name: string
+          score: number
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          player_name: string
+          score?: number
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          player_name?: string
+          score?: number
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string
