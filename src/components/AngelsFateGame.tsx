@@ -94,7 +94,7 @@ export function AngelsFateGame() {
   const [bossHp, setBossHp] = useState<number | null>(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBoss, setShowBoss] = useState(false);
-  const [subtitle, setSubtitle] = useState<{ en: string; jp: string }>({
+  const [subtitle, setSubtitle] = useState<{ en: string; jp: string } | null>({
     en: "Press START to begin.",
     jp: "スタートを押してください。",
   });
