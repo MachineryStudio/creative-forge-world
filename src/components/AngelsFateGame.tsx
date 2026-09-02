@@ -289,7 +289,7 @@ export function AngelsFateGame() {
         setLevel(2);
         setShowLevelUp(true);
         gameSfx.levelUp();
-        speakAngel("cheer", setSubtitle, speakJa);
+        speakAngel("cheer", setSubtitle);
         setTimeout(() => setShowLevelUp(false), 2600);
       }
 
@@ -343,14 +343,14 @@ export function AngelsFateGame() {
         // clear fireballs on the same lines too
         fireballsRef.current = fireballsRef.current.filter(f => !(Math.abs(f.y - cy) < 70 || Math.abs(f.x - cx) < 70));
         if (killed > 0) addScore(200 * killed + (killed > 1 ? 300 : 0));
-        if (killed > 1) speakAngel("tease", setSubtitle, speakJa);
+        if (killed > 1) speakAngel("tease", setSubtitle);
         if (b) {
           const bcx = b.x + 90, bcy = b.y + 65;
           if (Math.abs(bcy - cy) < 90 || Math.abs(bcx - cx) < 90) {
             b.hp -= 1; b.hurt = 260;
             setBossHp(b.hp);
             popsRef.current.push({ x: bcx, y: bcy, life: 800, text: "-1", color: "oklch(0.85 0.2 200)" });
-            if (b.hp > 0 && Math.random() < 0.4) speakAngel("tease", setSubtitle, speakJa);
+            if (b.hp > 0 && Math.random() < 0.4) speakAngel("tease", setSubtitle);
             if (b.hp <= 0) {
               bossRef.current = null;
               setBossHp(0);
