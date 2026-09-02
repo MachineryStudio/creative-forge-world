@@ -5,6 +5,18 @@ import enemy1 from "@/assets/game-enemy1.webp";
 import enemy2 from "@/assets/game-enemy2.webp";
 import boss from "@/assets/game-boss.png";
 import { supabase } from "@/integrations/supabase/client";
+import { ANGEL_VOICE, angelLine } from "@/lib/angelVoice";
+
+/** Speak an angel voice-bank line and mirror it into the subtitle bar. */
+function speakAngel(
+  mood: keyof typeof ANGEL_VOICE,
+  setSubtitle: (s: { en: string; jp: string }) => void,
+  speakJa: (text: string, opts?: { rate?: number; pitch?: number }) => void,
+) {
+  const line = angelLine(mood);
+  speakJa(line.jp, { pitch: line.pitch, rate: line.rate });
+  setSubtitle({ en: line.en, jp: line.jp });
+}
 
 const WORLD_W = 720;
 const WORLD_H = 240;
