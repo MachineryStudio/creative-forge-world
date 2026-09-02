@@ -718,9 +718,9 @@ export function AngelsFateGame() {
         </div>
 
         {/* Subtitles */}
-        <div className="mt-3 rounded-md border border-border bg-card/40 px-3 py-2 text-center">
-          <div className="text-sm text-foreground">{subtitle.en}</div>
-          <div className="text-xs text-primary" lang="ja">{subtitle.jp}</div>
+        <div className="mt-3 rounded-md border border-border bg-card/40 px-3 py-2 text-center min-h-[3.5rem]">
+          <div className="text-sm text-foreground">{subtitle?.en ?? "…"}</div>
+          <div className="text-xs text-primary" lang="ja">{subtitle?.jp ?? "…"}</div>
         </div>
 
         {/* Optional player registration */}
