@@ -48,7 +48,7 @@ export const ANGEL_CLIPS: AngelClip[] = [
     id: 5,
     src: clip(5),
     jp: "アンドレ、大好き！",
-    en: "Andre, love you!",
+    en: "Andore, love you!",
     duration: 1.56,
   },
 ];
