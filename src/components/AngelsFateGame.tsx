@@ -267,8 +267,11 @@ export function AngelsFateGame() {
       if (won) {
         setVictory(true);
         gameSfx.levelUp();
-        speakJa("勝ったよ！", { pitch: 1.5 });
-        setSubtitle({ en: "The beast falls. Angel survives!", jp: "獣は倒れた。天使は生き延びた！" });
+        speakAngel("bigCheer", setSubtitle, speakJa);
+        setTimeout(() => speakAngel("victory", setSubtitle, speakJa), 1600);
+        if (registeredRef.current) {
+          setTimeout(() => speakAngel("love", setSubtitle, speakJa), 3400);
+        }
       } else {
         gameSfx.death();
         speakJa("もうダメ…", { pitch: 1.2, rate: 0.95 });
@@ -297,8 +300,7 @@ export function AngelsFateGame() {
         setLevel(2);
         setShowLevelUp(true);
         gameSfx.levelUp();
-        speakJa("やったよ！レベルツー！", { pitch: 1.5, rate: 1.1 });
-        setSubtitle({ en: "I did it! Level 2!", jp: "やったよ！レベル2！" });
+        speakAngel("cheer", setSubtitle, speakJa);
         setTimeout(() => setShowLevelUp(false), 2600);
       }
 
@@ -352,12 +354,14 @@ export function AngelsFateGame() {
         // clear fireballs on the same lines too
         fireballsRef.current = fireballsRef.current.filter(f => !(Math.abs(f.y - cy) < 70 || Math.abs(f.x - cx) < 70));
         if (killed > 0) addScore(200 * killed + (killed > 1 ? 300 : 0));
+        if (killed > 1) speakAngel("tease", setSubtitle, speakJa);
         if (b) {
           const bcx = b.x + 90, bcy = b.y + 65;
           if (Math.abs(bcy - cy) < 90 || Math.abs(bcx - cx) < 90) {
             b.hp -= 1; b.hurt = 260;
             setBossHp(b.hp);
             popsRef.current.push({ x: bcx, y: bcy, life: 800, text: "-1", color: "oklch(0.85 0.2 200)" });
+            if (b.hp > 0 && Math.random() < 0.4) speakAngel("tease", setSubtitle, speakJa);
             if (b.hp <= 0) {
               bossRef.current = null;
               setBossHp(0);
