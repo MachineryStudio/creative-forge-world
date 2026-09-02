@@ -5,18 +5,7 @@ import enemy1 from "@/assets/game-enemy1.webp";
 import enemy2 from "@/assets/game-enemy2.webp";
 import boss from "@/assets/game-boss.png";
 import { supabase } from "@/integrations/supabase/client";
-import { ANGEL_VOICE, angelLine } from "@/lib/angelVoice";
-
-/** Speak an angel voice-bank line and mirror it into the subtitle bar. */
-function speakAngel(
-  mood: keyof typeof ANGEL_VOICE,
-  setSubtitle: (s: { en: string; jp: string }) => void,
-  speakJa: (text: string, opts?: { rate?: number; pitch?: number }) => void,
-) {
-  const line = angelLine(mood);
-  speakJa(line.jp, { pitch: line.pitch, rate: line.rate });
-  setSubtitle({ en: line.en, jp: line.jp });
-}
+import { speakAngel } from "@/lib/angelVoice";
 
 const WORLD_W = 720;
 const WORLD_H = 240;
@@ -105,7 +94,7 @@ export function AngelsFateGame() {
   const [bossHp, setBossHp] = useState<number | null>(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBoss, setShowBoss] = useState(false);
-  const [subtitle, setSubtitle] = useState<{ en: string; jp: string }>({
+  const [subtitle, setSubtitle] = useState<{ en: string; jp: string } | null>({
     en: "Press START to begin.",
     jp: "スタートを押してください。",
   });
@@ -261,16 +250,16 @@ export function AngelsFateGame() {
     const e2Img = new Image(); e2Img.src = enemy2;
     const bossImg = new Image(); bossImg.src = boss;
 
-    const endGame = (won: boolean) => {
+    const endGame = async (won: boolean) => {
       setGameOver(true);
       setRunning(false);
       if (won) {
         setVictory(true);
         gameSfx.levelUp();
-        speakAngel("bigCheer", setSubtitle, speakJa);
-        setTimeout(() => speakAngel("victory", setSubtitle, speakJa), 1600);
+        await speakAngel("bigCheer", setSubtitle);
+        await speakAngel("victory", setSubtitle);
         if (registeredRef.current) {
-          setTimeout(() => speakAngel("love", setSubtitle, speakJa), 3400);
+          await speakAngel("love", setSubtitle);
         }
       } else {
         gameSfx.death();
@@ -300,7 +289,7 @@ export function AngelsFateGame() {
         setLevel(2);
         setShowLevelUp(true);
         gameSfx.levelUp();
-        speakAngel("cheer", setSubtitle, speakJa);
+        speakAngel("cheer", setSubtitle);
         setTimeout(() => setShowLevelUp(false), 2600);
       }
 
@@ -354,14 +343,14 @@ export function AngelsFateGame() {
         // clear fireballs on the same lines too
         fireballsRef.current = fireballsRef.current.filter(f => !(Math.abs(f.y - cy) < 70 || Math.abs(f.x - cx) < 70));
         if (killed > 0) addScore(200 * killed + (killed > 1 ? 300 : 0));
-        if (killed > 1) speakAngel("tease", setSubtitle, speakJa);
+        if (killed > 1) speakAngel("tease", setSubtitle);
         if (b) {
           const bcx = b.x + 90, bcy = b.y + 65;
           if (Math.abs(bcy - cy) < 90 || Math.abs(bcx - cx) < 90) {
             b.hp -= 1; b.hurt = 260;
             setBossHp(b.hp);
             popsRef.current.push({ x: bcx, y: bcy, life: 800, text: "-1", color: "oklch(0.85 0.2 200)" });
-            if (b.hp > 0 && Math.random() < 0.4) speakAngel("tease", setSubtitle, speakJa);
+            if (b.hp > 0 && Math.random() < 0.4) speakAngel("tease", setSubtitle);
             if (b.hp <= 0) {
               bossRef.current = null;
               setBossHp(0);
@@ -729,9 +718,9 @@ export function AngelsFateGame() {
         </div>
 
         {/* Subtitles */}
-        <div className="mt-3 rounded-md border border-border bg-card/40 px-3 py-2 text-center">
-          <div className="text-sm text-foreground">{subtitle.en}</div>
-          <div className="text-xs text-primary" lang="ja">{subtitle.jp}</div>
+        <div className="mt-3 rounded-md border border-border bg-card/40 px-3 py-2 text-center min-h-[3.5rem]">
+          <div className="text-sm text-foreground">{subtitle?.en ?? "…"}</div>
+          <div className="text-xs text-primary" lang="ja">{subtitle?.jp ?? "…"}</div>
         </div>
 
         {/* Optional player registration */}
