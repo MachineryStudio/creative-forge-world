@@ -250,16 +250,16 @@ export function AngelsFateGame() {
     const e2Img = new Image(); e2Img.src = enemy2;
     const bossImg = new Image(); bossImg.src = boss;
 
-    const endGame = (won: boolean) => {
+    const endGame = async (won: boolean) => {
       setGameOver(true);
       setRunning(false);
       if (won) {
         setVictory(true);
         gameSfx.levelUp();
-        speakAngel("bigCheer", setSubtitle, speakJa);
-        setTimeout(() => speakAngel("victory", setSubtitle, speakJa), 1600);
+        await speakAngel("bigCheer", setSubtitle);
+        await speakAngel("victory", setSubtitle);
         if (registeredRef.current) {
-          setTimeout(() => speakAngel("love", setSubtitle, speakJa), 3400);
+          await speakAngel("love", setSubtitle);
         }
       } else {
         gameSfx.death();
