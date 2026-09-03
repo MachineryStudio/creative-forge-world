@@ -578,6 +578,32 @@ function MainLayout() {
                    </div>
                 </div>
 
+                {/* KUMORU EP Tracklist — mirrored from the homepage feature */}
+                <div className="bg-white rounded-[40px] p-6 soft-shadow border border-zinc-100 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">Featured Band · 注目バンド</p>
+                      <h3 className="text-2xl font-black italic tracking-tighter uppercase">「クモル」KUMORU</h3>
+                      <p className="text-xs font-bold text-zinc-500 mt-0.5">— FAULT LINE CLOUD ·「曇りの断層」</p>
+                    </div>
+                    <div className="rounded-full bg-cyan-50 border border-cyan-200 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-cyan-700">
+                      5:17 Megamix · ミックス
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <span className="rounded-full bg-sky-500/10 px-3 py-1 text-sky-700">1 · LOVE THAT KEEPS DIVING 「しんついあい」</span>
+                    <span className="rounded-full bg-pink-500/10 px-3 py-1 text-pink-700">2 · 2 SECONDS AWAY 「に・せかんど・あうぇい」</span>
+                    <span className="rounded-full bg-amber-500/10 px-3 py-1 text-amber-700">3 · JUSTICE DAY 「じゃすてぃす・でい」</span>
+                    <span className="rounded-full bg-violet-500/10 px-3 py-1 text-violet-700">4 · MONSTER LOOP 「もんすたー・るーぷ」</span>
+                    <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-700">5 · TWILIGHT GLOOM 「とわいらいと・ぐるーむ」</span>
+                    <span className="rounded-full bg-rose-500/10 px-3 py-1 text-rose-700">6 · LAST TRAIN WOLF 「らすと・とれいん・うるふ」</span>
+                    <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-indigo-700">7 · WANDERING POEM 「ひょうはくし」</span>
+                    <span className="rounded-full bg-fuchsia-500/10 px-3 py-1 text-fuchsia-700">8 · INVERSE YOU 「インヴァース・ユー」 ⏺ pending</span>
+                  </div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-cyan-700">♪ All songs by Andre アンドレ</p>
+                  <p className="text-[10px] font-bold text-amber-700/80">⚠ Songs are in production — final tracks may vary.</p>
+                </div>
+
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
