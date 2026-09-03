@@ -30,9 +30,10 @@ const t = {
     mixBadge: "5:17 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending seven KUMORU tracks — <em>Love That Keeps Diving 「しんついあい」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
-        <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em>,{" "}
-        <em>Last Train Wolf 「終電ウルフ」</em> and <em>Wandering Poem 「ヒョウハクシ」</em> — into a single fault-line cloudburst.
+        A short preview blending seven KUMORU tracks — <em>LOVE THAT KEEPS DIVING 「しんついあい」</em>, <em>2 SECONDS AWAY 「に・せかんど・あうぇい」</em>,{" "}
+        <em>JUSTICE DAY 「じゃすてぃす・でい」</em>, <em>MONSTER LOOP 「もんすたー・るーぷ」</em>, <em>TWILIGHT GLOOM 「とわいらいと・ぐるーむ」</em>,{" "}
+        <em>LAST TRAIN WOLF 「らすと・とれいん・うるふ」</em> and <em>WANDERING POEM 「ひょうはくし」</em> — into a single fault-line cloudburst.{" "}
+        A new song, <em>INVERSE YOU 「インヴァース・ユー」</em>, is pending recording.
       </>
     ),
     renameNote: (
@@ -58,6 +59,7 @@ const t = {
       </>
     ),
     disclaimer: "Songs are in production — final tracks may vary.",
+    byNote: "All songs by Andre アンドレ",
     notes: "Band Notes · ニュース",
     switchLabel: "JP",
   },
@@ -67,8 +69,8 @@ const t = {
     mixBadge: "5:17 メガミックス · Megamix",
     intro: (
       <>
-        クモルの7曲 —<em>「しんついあい」Love That Keeps Diving</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
-        — をひとつの断層雷雨にまとめた短いプレビュー。
+        クモルの7曲 —<em>LOVE THAT KEEPS DIVING 「しんついあい」</em>、<em>2 SECONDS AWAY 「に・せかんど・あうぇい」</em>、<em>JUSTICE DAY 「じゃすてぃす・でい」</em>、<em>MONSTER LOOP 「もんすたー・るーぷ」</em>、<em>TWILIGHT GLOOM 「とわいらいと・ぐるーむ」</em>、<em>LAST TRAIN WOLF 「らすと・とれいん・うるふ」</em>、<em>WANDERING POEM 「ひょうはくし」</em>{" "}
+        — をひとつの断層雷雨にまとめた短いプレビュー。新曲 INVERSE YOU 「インヴァース・ユー」はレコーディング待ち。
       </>
     ),
     renameNote: (
@@ -94,6 +96,7 @@ const t = {
       </>
     ),
     disclaimer: "楽曲は制作中です。最終版は変更となる場合があります。",
+    byNote: "全曲 アンドレ作 · All songs by Andre",
     notes: "ニュース · Band Notes",
     switchLabel: "EN",
   },
@@ -156,14 +159,18 @@ export function KumoruFeature() {
             style={{ colorScheme: "dark" }}
           />
           <div className="mt-2 flex flex-wrap gap-2 text-[10px] font-display uppercase tracking-widest text-muted-foreground">
-            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Love That Keeps Diving 「しんついあい」</span>
-            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Seconds Away 「2秒先」</span>
-            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · JUSTICE DAY 「ジャスティス・デイ」</span>
-            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
-            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · Twilight gloom 「夕闇」</span>
-            <span className="rounded bg-rose-500/15 px-2 py-0.5 text-rose-300">6 · Last Train Wolf 「終電ウルフ」</span>
-            <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-indigo-300">7 · Wandering Poem 「ヒョウハクシ」</span>
+            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · LOVE THAT KEEPS DIVING 「しんついあい」</span>
+            <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 SECONDS AWAY 「に・せかんど・あうぇい」</span>
+            <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · JUSTICE DAY 「じゃすてぃす・でい」</span>
+            <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · MONSTER LOOP 「もんすたー・るーぷ」</span>
+            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-emerald-300">5 · TWILIGHT GLOOM 「とわいらいと・ぐるーむ」</span>
+            <span className="rounded bg-rose-500/15 px-2 py-0.5 text-rose-300">6 · LAST TRAIN WOLF 「らすと・とれいん・うるふ」</span>
+            <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-indigo-300">7 · WANDERING POEM 「ひょうはくし」</span>
+            <span className="rounded bg-fuchsia-500/15 px-2 py-0.5 text-fuchsia-300">8 · INVERSE YOU 「インヴァース・ユー」 ⏺ pending</span>
           </div>
+          <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-sky-200/80">
+            ♪ {L.byNote}
+          </p>
           <p className="mt-2 font-display text-[10px] uppercase tracking-widest text-amber-300/80">
             ⚠ {L.disclaimer}
           </p>
