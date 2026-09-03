@@ -43,7 +43,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-invisible',
-    songName: { en: 'Descending Love', ja: '落下する恋 「Descending Love」', fr: 'Descending Love', es: 'Descending Love', zh: '落下する恋', ko: '낙하하는 사랑', it: 'Descending Love', ru: 'Descending Love' },
+    songName: { en: 'Love That Keeps Diving', ja: 'しんついあい 「Love That Keeps Diving」', fr: 'Love That Keeps Diving', es: 'Love That Keeps Diving', zh: 'しんついあい', ko: 'Love That Keeps Diving', it: 'Love That Keeps Diving', ru: 'Love That Keeps Diving' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
