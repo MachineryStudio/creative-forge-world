@@ -67,8 +67,13 @@ const t = {
     mixBadge: "5:17 メガミックス · Megamix",
     intro: (
       <>
-        クモルの7曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
+        クモルの7曲 —<em>「しんついあい」Love That Keeps Diving</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
+      </>
+    ),
+    renameNote: (
+      <>
+        <span className="text-amber-300">✦</span> このきょくのもとのたいとるは『落下する恋』でしたが、おーすとらりあのかしゅがすでにおなじたいとるをしようしていたため、かいめいされました。
       </>
     ),
     lighthouse: (
