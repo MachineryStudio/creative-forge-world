@@ -217,6 +217,34 @@ const SEED_SONGS: Song[] = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     isActive: true
+  },
+  {
+    id: 'suno-inverse-you',
+    songName: { en: 'INVERSE YOU 「インヴァース・ユー」', ja: 'INVERSE YOU 「インヴァース・ユー」', fr: 'INVERSE YOU 「インヴァース・ユー」', es: 'INVERSE YOU 「インヴァース・ユー」', zh: 'INVERSE YOU 「インヴァース・ユー」', ko: 'INVERSE YOU 「インヴァース・ユー」', it: 'INVERSE YOU 「インヴァース・ユー」', ru: 'INVERSE YOU 「インヴァース・ユー」' },
+    singerName: { 
+      en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      fr: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      es: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      zh: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      ko: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      it: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
+      ru: 'アンドレ (曇りの断層 / Cloudy Fault Line)' 
+    },
+    streamUrl: '/api/audio/suno-inverse-you',
+    artistOfficialUrl: 'https://suno.com/song/94207216-99ab-48b2-be63-c504379cc6a6?sh=AyHw3E16bPnEcvaO',
+    albumArtUrl: '/images/album_cover_kumoru.jpg',
+    albumName: { en: '曇りの断層 「Cloudy Fault Line」', ja: '曇りの断層 「Cloudy Fault Line」' },
+    releaseDate: '2027-01-01',
+    duration: 0,
+    genres: ['pop', 'visual-kei'],
+    tags: ['cloudy-fault-line', 'andree', 'inverse-you', 'pending'],
+    playCount: 0,
+    skipCount: 0,
+    avgListenDuration: 0,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    isActive: true
   }
 ];
 
