@@ -798,10 +798,10 @@ export default function RaionRadioView({ songs, onPlaySong, isAdmin = false }: R
         </div>
       )}
 
-      {/* TAB CONTENT 3: MELODIES & SONG TONE LAB (FOR DESCENDING LOVE & METALS) */}
+      {/* TAB CONTENT 3: MELODIES & SONG TONE LAB (FOR LOVE THAT KEEPS DIVING & METALS) */}
       {activeTab === 'melodies' && (
         <div className="space-y-6">
-          
+
           {/* Song selection alert */}
           <div className="bg-white p-8 rounded-[40px] soft-shadow border border-zinc-100 space-y-5 animate-fade-in text-zinc-950">
             <div>
@@ -809,7 +809,7 @@ export default function RaionRadioView({ songs, onPlaySong, isAdmin = false }: R
                 TRACK ANATOMY LAB
               </span>
               <h3 className="text-2xl font-black italic uppercase tracking-tighter text-[#293556] mt-2.5">
-                🎸 SONG SPEC SHEET: "DESCENDING LOVE" (落下する恋)
+                🎸 SONG SPEC SHEET: "LOVE THAT KEEPS DIVING" (しんついあい)
               </h3>
               <p className="text-zinc-500 text-xs font-semibold leading-relaxed mt-1">
                 A thorough physical gear, amp, and chord structure blueprint answering how to construct, record, and play the song.
