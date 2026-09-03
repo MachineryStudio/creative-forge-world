@@ -15,7 +15,7 @@ export const BAND_ARTWORKS = [
 const SEED_SONGS: Song[] = [
   {
     id: 'suno-justine',
-    songName: { en: 'JUSTICE DAY', ja: 'じゃすてぃす・でい 「JUSTICE DAY」', fr: 'JUSTICE DAY', es: 'JUSTICE DAY', zh: 'じゃすてぃす・でい', ko: '저스티스 데이', it: 'JUSTICE DAY', ru: 'JUSTICE DAY' },
+    songName: { en: 'JUSTICE DAY 「じゃすてぃす・でい」', ja: 'JUSTICE DAY 「じゃすてぃす・でい」', fr: 'JUSTICE DAY 「じゃすてぃす・でい」', es: 'JUSTICE DAY 「じゃすてぃす・でい」', zh: 'JUSTICE DAY 「じゃすてぃす・でい」', ko: 'JUSTICE DAY 「じゃすてぃす・でい」', it: 'JUSTICE DAY 「じゃすてぃす・でい」', ru: 'JUSTICE DAY 「じゃすてぃす・でい」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
@@ -43,7 +43,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-invisible',
-    songName: { en: 'LOVE THAT KEEPS DIVING', ja: 'しんついあい 「LOVE THAT KEEPS DIVING」', fr: 'LOVE THAT KEEPS DIVING', es: 'LOVE THAT KEEPS DIVING', zh: 'しんついあい', ko: 'LOVE THAT KEEPS DIVING', it: 'LOVE THAT KEEPS DIVING', ru: 'LOVE THAT KEEPS DIVING' },
+    songName: { en: 'LOVE THAT KEEPS DIVING 「しんついあい」', ja: 'LOVE THAT KEEPS DIVING 「しんついあい」', fr: 'LOVE THAT KEEPS DIVING 「しんついあい」', es: 'LOVE THAT KEEPS DIVING 「しんついあい」', zh: 'LOVE THAT KEEPS DIVING 「しんついあい」', ko: 'LOVE THAT KEEPS DIVING 「しんついあい」', it: 'LOVE THAT KEEPS DIVING 「しんついあい」', ru: 'LOVE THAT KEEPS DIVING 「しんついあい」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
@@ -71,7 +71,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-monster',
-    songName: { en: 'MONSTER LOOP', ja: 'もんすたー・るーぷ 「MONSTER LOOP」', fr: 'MONSTER LOOP', es: 'MONSTER LOOP', zh: 'もんすたー・るーぷ', ko: '몬스터 루프', it: 'MONSTER LOOP', ru: 'MONSTER LOOP' },
+    songName: { en: 'MONSTER LOOP 「もんすたー・るーぷ」', ja: 'MONSTER LOOP 「もんすたー・るーぷ」', fr: 'MONSTER LOOP 「もんすたー・るーぷ」', es: 'MONSTER LOOP 「もんすたー・るーぷ」', zh: 'MONSTER LOOP 「もんすたー・るーぷ」', ko: 'MONSTER LOOP 「もんすたー・るーぷ」', it: 'MONSTER LOOP 「もんすたー・るーぷ」', ru: 'MONSTER LOOP 「もんすたー・るーぷ」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
@@ -99,7 +99,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-two-seconds-left',
-    songName: { en: '2 SECONDS AWAY', ja: 'に・せかんど・あうぇい 「2 SECONDS AWAY」', fr: '2 SECONDS AWAY', es: '2 SECONDS AWAY', zh: 'に・せかんど・あうぇい', ko: '2초 앞', it: '2 SECONDS AWAY', ru: '2 SECONDS AWAY' },
+    songName: { en: '2 SECONDS AWAY 「に・せかんど・あうぇい」', ja: '2 SECONDS AWAY 「に・せかんど・あうぇい」', fr: '2 SECONDS AWAY 「に・せかんど・あうぇい」', es: '2 SECONDS AWAY 「に・せかんど・あうぇい」', zh: '2 SECONDS AWAY 「に・せかんど・あうぇい」', ko: '2 SECONDS AWAY 「に・せかんど・あうぇい」', it: '2 SECONDS AWAY 「に・せかんど・あうぇい」', ru: '2 SECONDS AWAY 「に・せかんど・あうぇい」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
@@ -164,7 +164,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-twilight-gloom',
-    songName: { en: 'TWILIGHT GLOOM', ja: 'とわいらいと・ぐるーむ 「TWILIGHT GLOOM」', fr: 'TWILIGHT GLOOM', es: 'TWILIGHT GLOOM', zh: 'とわいらいと・ぐるーむ', ko: '황혼', it: 'TWILIGHT GLOOM', ru: 'TWILIGHT GLOOM' },
+    songName: { en: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', ja: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', fr: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', es: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', zh: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', ko: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', it: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」', ru: 'TWILIGHT GLOOM 「とわいらいと・ぐるーむ」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
@@ -192,7 +192,7 @@ const SEED_SONGS: Song[] = [
   },
   {
     id: 'suno-last-train-wolf',
-    songName: { en: 'LAST TRAIN WOLF', ja: 'らすと・とれいん・うるふ 「LAST TRAIN WOLF」', fr: 'LAST TRAIN WOLF', es: 'LAST TRAIN WOLF', zh: 'らすと・とれいん・うるふ', ko: '막차 늑代', it: 'LAST TRAIN WOLF', ru: 'LAST TRAIN WOLF' },
+    songName: { en: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', ja: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', fr: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', es: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', zh: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', ko: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', it: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」', ru: 'LAST TRAIN WOLF 「らすと・とれいん・うるふ」' },
     singerName: { 
       en: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
       ja: 'アンドレ (曇りの断層 / Cloudy Fault Line)', 
