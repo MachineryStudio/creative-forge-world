@@ -30,9 +30,14 @@ const t = {
     mixBadge: "5:17 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending seven KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
+        A short preview blending seven KUMORU tracks — <em>Love That Keeps Diving 「しんついあい」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
         <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em>,{" "}
         <em>Last Train Wolf 「終電ウルフ」</em> and <em>Wandering Poem 「ヒョウハクシ」</em> — into a single fault-line cloudburst.
+      </>
+    ),
+    renameNote: (
+      <>
+        <span className="text-amber-300">✦</span> This song was originally called <em>Descending Love</em> 「落下する恋」 but some Australian singer already took it. So I renamed it.
       </>
     ),
     lighthouse: (
