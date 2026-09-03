@@ -176,7 +176,7 @@ export function KumoruFeature() {
           </p>
         </div>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((m) => (
             <div key={m.name} className="rounded-xl border border-border bg-card/40 p-3">
               <div className={`mb-2 inline-block rounded bg-gradient-to-r ${m.color} px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-white`}>
