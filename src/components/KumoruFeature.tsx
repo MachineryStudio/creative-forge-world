@@ -140,6 +140,9 @@ export function KumoruFeature() {
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           {L.intro}
         </p>
+        <p className="mt-2 max-w-2xl text-xs italic leading-relaxed text-amber-200/80">
+          {L.renameNote}
+        </p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sky-200/80">
           {L.lighthouse}
         </p>
