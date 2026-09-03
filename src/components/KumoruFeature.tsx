@@ -156,7 +156,7 @@ export function KumoruFeature() {
             style={{ colorScheme: "dark" }}
           />
           <div className="mt-2 flex flex-wrap gap-2 text-[10px] font-display uppercase tracking-widest text-muted-foreground">
-            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Descending Love 「落下する恋」</span>
+            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Love That Keeps Diving 「しんついあい」</span>
             <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Seconds Away 「2秒先」</span>
             <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · JUSTICE DAY 「ジャスティス・デイ」</span>
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
