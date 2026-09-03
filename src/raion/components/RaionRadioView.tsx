@@ -53,7 +53,7 @@ export default function RaionRadioView({ songs, onPlaySong, isAdmin = false }: R
 
   const defaultIntroText = `Midnight static clearing out... You are listening to RAION 雷音 ${band}, broadcasting live on frequency ${band === 'FM' ? `${frequency.toFixed(1)} Megahertz` : `${Math.round(frequency)} Kilohertz`}, here in the glowing heart of Tokyo. I am your host, ${djName}, coming to you at exactly 2:00 AM under a shroud of neon mist. Our tagline tonight as always: ${stationTagline}. Sit back, sink in, and let normal reality dissolve.`;
   
-  const defaultFeaturedText = `Let's dive directly into tonight's cosmic centerpiece. From our select database registries, we are spinning the legendary classic, "${featuredSong?.songName?.en || 'Descending Love'}" by ${featuredSong?.singerName?.en || 'アンドレ (曇りの断層)'}. This track is a masterclass in visual-kei melancholia, blending majestic synths with a driving heartbeat of soaring minor key chord progressions. We are skipping the heavy lyrical analysis to let the sheer raw melody take your mind. Listen...`;
+  const defaultFeaturedText = `Let's dive directly into tonight's cosmic centerpiece. From our select database registries, we are spinning the legendary classic, "${featuredSong?.songName?.en || 'Love That Keeps Diving'}" by ${featuredSong?.singerName?.en || 'アンドレ (曇りの断層)'}. This track is a masterclass in visual-kei melancholia, blending majestic synths with a driving heartbeat of soaring minor key chord progressions. We are skipping the heavy lyrical analysis to let the sheer raw melody take your mind. Listen...`;
 
   const defaultInterludeText = `That ethereal atmosphere, that dense retro guitar drive... absolutely sublime. It's why this sound is breaking borders. For our listeners in North America, this evokes the cyberpunk noir of midnight highways. For our massive crowd in South America, it is pure visual stadium energy. It is universal. No translations required when the melody is this pure.`;
 
@@ -798,10 +798,10 @@ export default function RaionRadioView({ songs, onPlaySong, isAdmin = false }: R
         </div>
       )}
 
-      {/* TAB CONTENT 3: MELODIES & SONG TONE LAB (FOR DESCENDING LOVE & METALS) */}
+      {/* TAB CONTENT 3: MELODIES & SONG TONE LAB (FOR LOVE THAT KEEPS DIVING & METALS) */}
       {activeTab === 'melodies' && (
         <div className="space-y-6">
-          
+
           {/* Song selection alert */}
           <div className="bg-white p-8 rounded-[40px] soft-shadow border border-zinc-100 space-y-5 animate-fade-in text-zinc-950">
             <div>
@@ -809,7 +809,7 @@ export default function RaionRadioView({ songs, onPlaySong, isAdmin = false }: R
                 TRACK ANATOMY LAB
               </span>
               <h3 className="text-2xl font-black italic uppercase tracking-tighter text-[#293556] mt-2.5">
-                🎸 SONG SPEC SHEET: "DESCENDING LOVE" (落下する恋)
+                🎸 SONG SPEC SHEET: "LOVE THAT KEEPS DIVING" (しんついあい)
               </h3>
               <p className="text-zinc-500 text-xs font-semibold leading-relaxed mt-1">
                 A thorough physical gear, amp, and chord structure blueprint answering how to construct, record, and play the song.

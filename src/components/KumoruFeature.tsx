@@ -30,9 +30,14 @@ const t = {
     mixBadge: "5:17 Megamix · ミックス",
     intro: (
       <>
-        A short preview blending seven KUMORU tracks — <em>Descending Love 「落下する恋」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
+        A short preview blending seven KUMORU tracks — <em>Love That Keeps Diving 「しんついあい」</em>, <em>2 Seconds Away 「2秒先」</em>,{" "}
         <em>JUSTICE DAY 「ジャスティス・デイ」</em>, <em>Monster Loop 「モンスター・ループ」</em>, <em>Twilight gloom 「夕闇」</em>,{" "}
         <em>Last Train Wolf 「終電ウルフ」</em> and <em>Wandering Poem 「ヒョウハクシ」</em> — into a single fault-line cloudburst.
+      </>
+    ),
+    renameNote: (
+      <>
+        <span className="text-amber-300">✦</span> This song was originally called <em>Descending Love</em> 「落下する恋」 but some Australian singer already took it. So I renamed it.
       </>
     ),
     lighthouse: (
@@ -62,8 +67,13 @@ const t = {
     mixBadge: "5:17 メガミックス · Megamix",
     intro: (
       <>
-        クモルの7曲 —<em>「落下する恋」Descending Love</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
+        クモルの7曲 —<em>「しんついあい」Love That Keeps Diving</em>、<em>「2秒先」2 Seconds Away</em>、<em>「ジャスティス・デイ」JUSTICE DAY</em>、<em>「モンスター・ループ」Monster Loop</em>、<em>「夕闇」Twilight gloom</em>、<em>「終電ウルフ」Last Train Wolf</em>、<em>「ヒョウハクシ」Wandering Poem</em>{" "}
         — をひとつの断層雷雨にまとめた短いプレビュー。
+      </>
+    ),
+    renameNote: (
+      <>
+        <span className="text-amber-300">✦</span> このきょくのもとのたいとるは『落下する恋』でしたが、おーすとらりあのかしゅがすでにおなじたいとるをしようしていたため、かいめいされました。
       </>
     ),
     lighthouse: (
@@ -130,6 +140,9 @@ export function KumoruFeature() {
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           {L.intro}
         </p>
+        <p className="mt-2 max-w-2xl text-xs italic leading-relaxed text-amber-200/80">
+          {L.renameNote}
+        </p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sky-200/80">
           {L.lighthouse}
         </p>
@@ -143,7 +156,7 @@ export function KumoruFeature() {
             style={{ colorScheme: "dark" }}
           />
           <div className="mt-2 flex flex-wrap gap-2 text-[10px] font-display uppercase tracking-widest text-muted-foreground">
-            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Descending Love 「落下する恋」</span>
+            <span className="rounded bg-sky-500/15 px-2 py-0.5 text-sky-300">1 · Love That Keeps Diving 「しんついあい」</span>
             <span className="rounded bg-pink-500/15 px-2 py-0.5 text-pink-300">2 · 2 Seconds Away 「2秒先」</span>
             <span className="rounded bg-amber-500/15 px-2 py-0.5 text-amber-300">3 · JUSTICE DAY 「ジャスティス・デイ」</span>
             <span className="rounded bg-violet-500/15 px-2 py-0.5 text-violet-300">4 · Monster Loop 「モンスター・ループ」</span>
