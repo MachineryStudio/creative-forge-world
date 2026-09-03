@@ -4,6 +4,7 @@ import kumoruMix from "@/assets/KUMORU.mp3.asset.json";
 type Lang = "EN" | "JP";
 
 const members = [
+  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", roleJp: "ボーカル / ギター", color: "from-pink-500 to-black" },
   { name: "MARO", jp: "真人", role: "Bass Guitar", roleJp: "ベースギター", color: "from-blue-600 to-black" },
   { name: "REN", jp: "蓮", role: "Lead Guitar", roleJp: "リードギター", color: "from-yellow-500 to-black" },
   { name: "YASU", jp: "安須", role: "German F.", roleJp: "German F.", color: "from-purple-600 to-black" },
@@ -175,7 +176,7 @@ export function KumoruFeature() {
           </p>
         </div>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((m) => (
             <div key={m.name} className="rounded-xl border border-border bg-card/40 p-3">
               <div className={`mb-2 inline-block rounded bg-gradient-to-r ${m.color} px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-white`}>
