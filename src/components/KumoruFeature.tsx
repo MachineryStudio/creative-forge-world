@@ -4,6 +4,7 @@ import kumoruMix from "@/assets/KUMORU.mp3.asset.json";
 type Lang = "EN" | "JP";
 
 const members = [
+  { name: "ANDREE", jp: "アンドレ", role: "Vocal / Guitar", roleJp: "ボーカル / ギター", color: "from-pink-500 to-black" },
   { name: "MARO", jp: "真人", role: "Bass Guitar", roleJp: "ベースギター", color: "from-blue-600 to-black" },
   { name: "REN", jp: "蓮", role: "Lead Guitar", roleJp: "リードギター", color: "from-yellow-500 to-black" },
   { name: "YASU", jp: "安須", role: "German F.", roleJp: "German F.", color: "from-purple-600 to-black" },
